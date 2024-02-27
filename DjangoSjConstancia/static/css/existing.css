@@ -1,0 +1,143 @@
+#family, #date, .main__icon-description {
+    display: none;
+}
+
+.main {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-rows: 1fr max-content;
+}
+
+.main__certificate {
+    display: flex;
+    background-color: #fff;
+    border-radius: 10px;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+}
+
+.main__certificate-info {
+    padding: 5px;
+    margin-left: 5px;
+}
+
+.main__b {
+    font-weight: 600;
+    font-size: 1.05em;
+}
+
+.main__certificate-buttons-container {
+    display: flex;
+    height: 100%;
+}
+
+.main__certificate-button {
+    flex-grow: 1;
+    height: 100%;
+    color: #fff;
+}
+
+.edit {
+    background-color: var(--main-blue);
+}
+
+.print {
+    background-color: var(--main-green);
+}
+
+/* Small devices (phones, 320px and down) */
+@media only screen and (max-width: 479px) {
+    .main__certificates-container {
+        display: grid;
+        grid-auto-rows: max-content;
+        grid-gap: 10px;
+    }
+    
+    .main__certificate:hover #family, .main__certificate:hover #date {
+        display: block;
+    }
+
+    .main__certificate-buttons-container {
+        width: 100px;
+    }
+
+    .main__button {
+        width: 100%;
+    }
+}
+
+/* Medium devices (portrait tablets and large phones, 480px and up) */
+@media only screen and (min-width: 480px) and (max-width: 1023px) {
+    .main__certificates-container {
+        display: grid;
+        grid-auto-rows: max-content;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 10px;
+    }
+
+    .main__certificate-buttons-container {
+        width: 100px;
+    }
+
+    .main__certificate:hover {
+        grid-row: span 2;
+    }
+    
+    .main__certificate:hover #family, .main__certificate:hover #date {
+        display: block;
+    }
+
+    .main__button {
+        width: 100%;
+        padding: 20px;
+    }    
+}
+
+
+/* large devices (large laptops and desktops, 1024px and up) */
+@media only screen and (min-width: 1024px) {
+    #family, #date, .main__icon-description {
+        display: inline;
+    }
+
+    .main {
+        align-self: center;
+        width: 1024px;
+    }
+
+    .main__certificates-container {
+        display: grid;
+        grid-auto-rows: max-content;
+        grid-gap: 10px;
+    }
+
+    .main__certificate-buttons-container {
+        width: 200px;
+    }
+
+    .main__certificate-button {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    #edit:hover {
+        cursor: pointer;
+        background: radial-gradient(var(--gradient-light-blue));
+    }
+
+    #print:hover {
+        cursor: pointer;
+        background: radial-gradient(var(--gradient-light-green));
+    }
+
+    .main__nav-container {
+        align-items: end;
+        margin-left: auto;
+    }
+
+    .main__button {
+        min-width: 300px;
+    }
+}

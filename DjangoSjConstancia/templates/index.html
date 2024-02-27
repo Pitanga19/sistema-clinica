@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Constancia de internación{% endblock %}
+
+{% block style %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+{% endblock %}
+
+{% block content %}
+<article class="main__button-container">
+    <a class="main__button" id="new" href = "{% url 'new' %}">Nueva</a>
+</article>
+<article class="main__button-container">
+    <a class="main__button" id="existing" href = "{% url 'existing' %}">Existentes</a>
+</article>
+<nav class="main__nav-container">
+    <button class="main__button" id="exit">Salir</button>
+</nav>
+{% endblock %}
+
+{% block script %}
+<!-- <script src="{% static 'js/index.js' %}"></script> -->
+{% endblock %}

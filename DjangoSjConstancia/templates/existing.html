@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Constancias Existentes{% endblock %}
+
+{% block style %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/existing.css' %}">
+{% endblock %}
+
+{% block content %}
+<article class="main__certificates-container">
+    {{ contenido | safe }}
+    <input type="text" class="invisible" id="constancia-id">
+</article>
+<nav class="main__nav-container">
+    <a class="main__button" id="return" href="{% url 'index' %}">Volver</a>
+</nav>
+{% endblock %}
+
+{% block script %}
+<script>
+    const newUrl = "{% url 'new' %}";
+</script>
+<script src="{% static 'js/existing.js' %}"></script>
+{% endblock %}

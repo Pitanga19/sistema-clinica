@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+<title>Membrete</title>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/membrete.css' %}">
+</head>
+<body>
+    <div class="a4">
+        <header>
+            <div class="header__img-container">
+                <img src="{% static 'img/logo.png' %}" alt="Logo San Jorge" class="header__img">
+            </div>
+            <div class="header__title-container">
+                <h1 class="header__h1">Clínica San Jorge</h1>
+                <h2 class="header__h2">Salud Mental - Rehabilitación</h2>
+            </div>
+        </header>
+        
+        <main>
+            {{ contenido | safe }}
+        </main>
+        
+        <footer>
+            <hr class="footer__hr">
+            <div class="footer__text-container">
+                <h3 class="footer__h3">Av. Eva Perón 1536, (B1824IBR) - Lanús, Bs.As. Tel. 5069-2370 (Líneas Rot.) e-mail: internacion@csanjorge.com.ar</h3>
+            </div>
+        </footer>        
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'js/membrete.js' %}"></script>
+</html>

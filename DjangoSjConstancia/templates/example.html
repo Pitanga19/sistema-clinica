@@ -1,0 +1,48 @@
+<!-- llamando a la plantilla a utilizar -->
+{% extends 'example_base.html' %}
+
+<!-- llamando al bloque title para personalizarlo -->
+{% block title %} Página Ejemplo {% endblock %}
+
+<!-- llamando al bloque content para personalizarlo -->
+{% block content %} <!-- A PARTIR DE ACÁ EL CONTENIDO -->
+
+
+
+<!-- llamando a la barra de navegación en el lugar donde iría -->
+<!-- {% include 'nav/bar_top.html' %} -->
+
+<!-- creando un elemento llamando a las claves del diccionario dado en el contexto -->
+<p>Hola {{nombre_persona}}, la fecha y hora actual es {{momento_actual}}</p>
+<div>Los michis:</div>
+<p>
+    <ul>
+        <!-- creando un if que evalíua si la lista tiene contenido -->
+        {% if michis %}
+
+            <!-- creando un bucle for para la lista con contenido que queremos iterar -->
+            {% for michi in michis %}
+            
+                <!-- creando el contenido para la iteración -->
+                <li>{{michi.title}}</li>
+
+            <!-- cerrando el bucle for -->
+            {% endfor %}
+        
+        <!-- creando el else en caso de que la lista esté vacía -->
+        {% else %}
+
+            <!-- creando el contenido -->
+            <p>La lista de michis está vacía</p>
+        
+        <!-- cerrando el condicional -->
+        {% endif %}
+    </ul>
+</p>
+
+{% load static %}
+<img src="{% static 'img/boceto.png' %}" alt="My image">
+
+
+<!-- cerrando el bloque content -->
+{% endblock %}

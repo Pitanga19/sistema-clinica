@@ -1,0 +1,150 @@
+/* Small devices (phones, 320px and down) */
+li:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.main__form {
+    display: grid;
+    grid-template-rows: 1fr max-content;
+    grid-gap: 10px;
+}
+
+.main__form-container {
+    display: grid;
+    align-content: start;
+    grid-gap: 10px;
+    color: #fff;
+}
+
+.main__form-partition {
+    border-radius: 10px;
+    padding: 10px;
+    background: var(--main-blue);
+}
+
+.main__h3 {
+    font-weight: 600;
+}
+
+.main__label {
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.main__input {
+    border-bottom: 2px solid #fff;
+    width: 100%;
+    margin: .25em 0 .75em;
+    padding: 5px 10px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.main__input:focus, .selected {
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #fff;
+    background: linear-gradient(#fff0, #fffa);
+}
+
+:disabled, .unselected {
+    border-bottom: 2px solid var(--dark-blue);
+    color: var(--dark-blue)
+}
+
+::placeholder {
+    color: var(--dark-blue);
+}
+
+input[type="date"]::-webkit-datetime-edit-text {
+    color: var(--dark-blue);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(100%);
+}
+
+.main__options {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+}
+
+#p-exit-button:hover, .selection:hover {
+    background: radial-gradient(var(--gradient-light-blue));
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 479px) {
+    .main__div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #p-exit-button:hover, .selection:hover {
+        border: 2px solid #fff;
+    }
+    
+    .main__nav-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 10px;
+    }
+}
+
+/* Medium devices (portrait tablets and large phones, 480px and up) */
+@media only screen and (min-width: 480px) and (max-width: 1023px) {
+    .main__form-container {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: max-content max-content;
+    }
+
+    #main__patient {
+        grid-row: span 2;
+    }
+    
+    .main__nav-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 10px;
+    }
+}
+
+
+/* large devices (large laptops and desktops, 1024px and up) */
+@media only screen and (min-width: 1024px) {
+
+    .main {
+        align-self: center;
+        min-width: 1024px;
+    }
+    
+    .main__form-container {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: max-content;
+    }
+    
+    #main__patient {
+        grid-row: span 2;
+    }
+    
+    #p-exit-button:focus, .selection:focus {
+        background: radial-gradient(var(--gradient-light-blue));
+        cursor: pointer;
+        border: 2px solid #fff;
+    }
+    
+    .main__nav-container {
+        margin-left: auto;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 10px;
+    }
+        
+    .main__button {
+        min-width: 300px;
+    }
+    }

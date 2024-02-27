@@ -1,0 +1,29 @@
+<!-- creando la plantilla a utilizar en las demás páginas -->
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+
+<!-- creando la etiqueta title que se podrá modificar en cada herencia -->
+<title>{% block title %}{% endblock %}</title>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<link rel='stylesheet' type='text/css' href='css/style.css'>
+</head>
+<body>
+    <header>
+        <h1>Nombre de la marca</h1>
+
+        <!-- llamando a la barra de navegación -->
+        {% include 'nav/bar_top.html' %}
+    </header>
+
+    <main>
+        <!-- creando el contenido que se podrá modificar en cada herencia -->
+        {% block content %} {% endblock %}
+    </main>
+
+    <footer>
+        <h3>Pie de página</h3>
+    </footer>
+</body>
+</html>

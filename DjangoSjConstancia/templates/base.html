@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    {% block style %}{% endblock %}
+</head>
+<body>
+    <header class="header">
+        <div class="header__img-container">
+            <img src="{% static 'img/logo.png' %}" alt="Logo San Jorge" class="header__img">
+        </div>
+        <div class="header__title-container">
+            <h1 class="header__h1">Clínica San Jorge</h1>
+            <h2 class="header__h2">Constancia de Internación</h2>
+        </div>
+    </header>
+    <main class="main">
+    {% block content %}{% endblock %}
+    </main>
+    <footer class="footer">
+        <div class="footer__copy-container">
+            <span class="footer__span">&copy; Clínica San Jorge</span>
+        </div>
+        <div class="footer__contact-container">
+            <ul class="footer__ul">
+                <li class="footer__li"><b>Teléfono:</b> 5069 2370 (Conmutador)</li>
+                <li class="footer__li"><b>E-mail:</b> internacion@csanjorge.com.ar</li>
+                <li class="footer__li"><b>Dirección:</b> Eva Perón 1536, Lanús</li>
+            </ul>
+        </div>
+    </footer>
+    <script src="https://kit.fontawesome.com/5e8f91fa31.js" crossorigin="anonymous"></script>
+    {% block script %}{% endblock %}
+</body>
+</html>

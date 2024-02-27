@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    border: none;
+    list-style-type: none;
+    background: none;
+}
+
+.a4 {
+    width: 21cm; /* Ancho de una página A4 */
+    height: 29.7cm; /* Alto de una página A4 */
+    display: flex;
+    flex-direction: column;
+    padding: .5cm 1cm;
+}
+
+@page {
+    size: A4; /* Tamaño de la página A4 */
+    margin: 0; /* Sin márgenes en la impresión */
+}
+
+@media print {
+    .a4 {
+        margin: 0;
+        box-shadow: none;
+        border: initial;
+    }
+}
+
+header, footer {
+    color: #999;
+}
+
+header {
+    display: flex;
+    align-items: center;
+}
+
+.header__h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 900;
+    font-size: 3em;
+}
+
+.header__h2 {
+    font-weight: 600;
+    font-size: 1.3em;
+    padding-left: 3px;
+}
+
+
+main {
+    flex-grow: 1;
+}
+
+.contenido__fecha-presentacion {
+    text-align: right;
+}
+
+.contenido__p {
+    text-align: justify;
+}
+
+.contenido__b {
+    font-weight: 600;
+}
+
+.footer__hr {
+    height: 20px;
+    width: 200px;
+}
+
+.footer__h3 {
+    font-size: .9em;
+    text-align: center;
+}
