@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from DjangoSjConstancia.views import saludo, example, index, new, existing, submit, membrete
+from DjangoSjConstancia.views import saludo, example, index, new, new_submit, membrete
 
 
 urlpatterns = [
@@ -25,9 +25,6 @@ urlpatterns = [
     path('example/', example),
     path('index/', index, name='index'),
     path('new/', new, name='new'),
-    
-    path('submit/', submit, name='submit'),
-    path('membrete/', membrete, name='membrete'),
-    
-    path('existing/', existing, name='existing')
+    path('new_submit/', new_submit, name='new_submit'),
+    path('membrete/', membrete, name='membrete')
 ]

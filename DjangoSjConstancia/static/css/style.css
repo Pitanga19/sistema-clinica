@@ -47,12 +47,6 @@ body {
     flex-direction: column;
 }
 
-.main__link, .main__link:visited {
-    color: #fff;
-    font-weight: 600;
-    text-decoration: none;
-}
-
 /* Header */
 .header {
     display: flex;
@@ -67,7 +61,7 @@ body {
 
 }
 
-.header__img-container {
+.header__img-contenedor {
     margin-right: 10px;
     max-width: 50px;
     max-height: 50px;
@@ -93,7 +87,9 @@ body {
     margin: 80px 10px 10px;
 }
 
-.main__button {
+/* Nav */
+
+.main__boton, .main__nav-boton {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -108,25 +104,31 @@ body {
     letter-spacing: 3px;
 }
 
-.main__button:hover {
+.main__boton:hover, .main__nav-boton:hover {
     background: radial-gradient(var(--gradient-light-blue));
     cursor: pointer;
 }
 
-#exit, #return {
+.main__link, .main__link:visited {
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+#salir, #volver {
     background: var(--main-red);
 }
 
-#exit:hover, #return:hover {
+#salir:hover, #volver:hover {
     background: radial-gradient(var(--gradient-light-red));
     cursor: pointer;
 }
 
-#confirm {
+#imprimir {
     background: var(--main-green);
 }
 
-#confirm:hover {
+#imprimir:hover {
     background: radial-gradient(var(--gradient-light-green));
     cursor: pointer;
 }
@@ -151,7 +153,7 @@ body {
         margin: 80px 0 10px;
     }
 
-    .main__button {
+    .main__boton, .main__nav-boton {
         padding: 10px;
     }
 }

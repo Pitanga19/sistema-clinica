@@ -8,14 +8,11 @@
 {% endblock %}
 
 {% block content %}
-<article class="main__button-container">
-    <a class="main__button" id="new" href = "{% url 'new' %}">Nueva</a>
+<article class="main__boton-contenedor">
+    <a class="main__boton" id="constancias" href = "{% url 'new' %}">Constancias</a>
 </article>
-<article class="main__button-container">
-    <a class="main__button" id="existing" href = "{% url 'existing' %}">Existentes</a>
-</article>
-<nav class="main__nav-container">
-    <button class="main__button" id="exit">Salir</button>
+<nav class="main__nav-contenedor">
+    <button class="main__boton" id="salir">Salir</button>
 </nav>
 {% endblock %}
 

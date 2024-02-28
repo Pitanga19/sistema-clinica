@@ -1,58 +1,97 @@
-const form = document.getElementById('form-new');
+const constanciaFormulario = document.getElementById('constancia_formulario');
+const formularioContenedor = document.querySelector('.form__bloque-contenedor');
 
-const inputSearchPatient = document.getElementById('patient-search');
-const patientList = Array.from(document.getElementById('patient-list').getElementsByTagName('li'));
-const buttonOpenNewPatient = document.getElementById('open-new-patient')
+const pacienteBloque = document.getElementById('paciente_bloque');
 
-const inputNewPatient = document.querySelectorAll('.new-patient');
-const inputPName = document.getElementById('p-name');
-const inputPLast = document.getElementById('p-last');
-const inputPDni = document.getElementById('p-dni');
-const inputPGenre = document.getElementById('p-genre');
-const buttonPFemale = document.getElementById('p-genre-female');
-const buttonPMale = document.getElementById('p-genre-male');
-const inputPAdmission = document.getElementById('p-admission');
-const inputPExit = document.getElementById('p-exit');
-const booleanAdmitted = document.getElementById('p-boolean-admitted');
-const buttonToggleAdmitted = document.getElementById('p-toggle-admitted');
-const inputPAge = document.getElementById('p-age');
-const buttonPAdult = document.getElementById('p-age-adult');
-const buttonPMinor = document.getElementById('p-age-minor');
+const pacienteElegir = document.querySelector('.paciente_elegir');
 
-const mainFamiliar = document.getElementById('main__familiar');
-const inputSearchRelationFamiliar = document.getElementById('relation-familiar-search');
-const familiarList = Array.from(document.getElementById('relation-familiar-list').getElementsByTagName('li'));
-const buttonSelectExistingFamiliar = document.getElementById('select-existing-familiar');
-const buttonOpenNewFamiliar = document.getElementById('open-new-familiar');
+const pacienteBuscarInput = document.getElementById('paciente_buscar-input');
+const pacienteElegirNuevo = document.getElementById('paciente_elegir-nuevo')
+const pacienteBuscarLista = document.getElementById('paciente_buscar-lista')
+const patienteBuscarArray = Array.from(pacienteBuscarLista.getElementsByTagName('li'));
 
-const inputNewFamiliar = document.querySelectorAll('.new-familiar');
-const inputFName = document.getElementById('f-name');
-const inputFLast = document.getElementById('f-last');
-const inputFDni = document.getElementById('f-dni');
-const inputFGenre = document.getElementById('f-genre');
-const buttonFFemale = document.getElementById('f-genre-female');
-const buttonFMale = document.getElementById('f-genre-male');
-const inputFRelation = document.getElementById('f-relation');
-const inputDDate = document.getElementById('d-date');
+const pacienteModificarArray = document.querySelectorAll('.paciente_modificar');
 
-const errorPName = document.getElementById('error-p-name');
-const errorPLast = document.getElementById('error-p-last');
-const errorPDni = document.getElementById('error-p-dni');
-const errorPGenre = document.getElementById('error-p-genre');
-const errorPAdmission = document.getElementById('error-p-admission');
-const errorPExit = document.getElementById('error-p-exit');
-const errorPAge = document.getElementById('error-p-age');
-const errorFName = document.getElementById('error-f-name');
-const errorFLast = document.getElementById('error-f-last');
-const errorFDni = document.getElementById('error-f-dni');
-const errorFGenre = document.getElementById('error-f-genre');
-const errorFRelation = document.getElementById('error-f-relation');
+const pacienteNombreLabel = document.getElementById('paciente_nombre-label')
+const pacienteNombreError = document.getElementById('paciente_nombre-error')
+const pacienteNombre = document.getElementById('paciente_nombre');
 
-const mainDate = document.getElementById('main__date');
-const errorDDAte= document.getElementById('error-d-date');
+const pacienteApellidoLabel = document.getElementById('paciente_apellido-label')
+const pacienteApellidoError = document.getElementById('paciente_apellido-error')
+const pacienteApellido = document.getElementById('paciente_apellido');
 
-const buttonReturn = document.getElementById('return');
-const buttonConfirm = document.getElementById('confirm');
+const pacienteDniLabel = document.getElementById('paciente_dni-label')
+const pacienteDniError = document.getElementById('paciente_dni-error')
+const pacienteDni = document.getElementById('paciente_dni');
+
+const pacienteGeneroLabel = document.getElementById('paciente_genero-label')
+const pacienteGeneroError = document.getElementById('paciente_genero-error')
+const pacienteGeneroFemenino = document.getElementById('paciente_genero-femenino');
+const pacienteGeneroMasculino = document.getElementById('paciente_genero-masculino');
+const pacienteGenero = document.getElementById('paciente_genero');
+
+const pacienteInternacionLabel = document.getElementById('paciente_internacion-label')
+const pacienteInternacionError = document.getElementById('paciente_internacion-error')
+const pacienteInternacion = document.getElementById('paciente_internacion');
+
+const pacienteExternacionLabel = document.getElementById('paciente_externacion-label')
+const pacienteExternacionError = document.getElementById('paciente_externacion-error')
+const pacienteExternacion = document.getElementById('paciente_externacion');
+const pacienteBooleanEstaInternado = document.getElementById('paciente_booleano_esta_internado');
+const pacienteAlternarEstaInternado = document.getElementById('paciente_alternar_esta_internado');
+
+const pacienteTipoEdadLabel = document.getElementById('paciente_tipo_edad-label')
+const pacienteTipoEdadError = document.getElementById('paciente_tipo_edad-error')
+const pacienteTipoEdadMenor= document.getElementById('paciente_tipo_edad-menor');
+const pacienteTipoEdadAdulto = document.getElementById('paciente_tipo_edad-adulto');
+const pacienteTipoEdad = document.getElementById('paciente_tipo_edad');
+
+const familiarBloque = document.getElementById('familiar_bloque');
+
+const familiarElegir = document.querySelector('.familiar_elegir');
+
+const familiarElegirRelacionado = document.getElementById('familiar_elegir-relacionado')
+const familiarElegirAgregar = document.getElementById('familiar_elegir-agregar')
+const familiarRelacionadoLista = document.getElementById('familiar_relacionado-lista')
+const familiarRelacionadoArray = Array.from(pacienteBuscarLista.getElementsByTagName('li'));
+
+const familiarModificar = document.querySelector('.familiar_modificar');
+
+const familiarBuscarInput = document.getElementById('familiar_buscar-input');
+const familiarElegirNuevo = document.getElementById('familiar_elegir-nuevo')
+const familiarBuscarLista = document.getElementById('familiar_buscar-lista')
+const familiarBuscarArray = Array.from(pacienteBuscarLista.getElementsByTagName('li'));
+
+const familiarModificarArray = document.querySelectorAll('.familiar_modificar');
+
+const familiarNombreLabel = document.getElementById('familiar_nombre-label')
+const familiarNombreError = document.getElementById('familiar_nombre-error')
+const familiarNombre = document.getElementById('familiar_nombre');
+
+const familiarApellidoLabel = document.getElementById('familiar_apellido-label')
+const familiarApellidoError = document.getElementById('familiar_apellido-error')
+const familiarApellido = document.getElementById('familiar_apellido');
+
+const familiarDniLabel = document.getElementById('familiar_dni-label')
+const familiarDniError = document.getElementById('familiar_dni-error')
+const familiarDni = document.getElementById('familiar_dni');
+
+const familiarGeneroLabel = document.getElementById('familiar_genero-label')
+const familiarGeneroError = document.getElementById('familiar_genero-error')
+const familiarGeneroFemenino = document.getElementById('familiar_genero-femenino');
+const familiarGeneroMasculino = document.getElementById('familiar_genero-masculino');
+const familiarGenero = document.getElementById('familiar_genero');
+
+const presentacionBloque = document.getElementById('presentacion_bloque');
+
+const presentacionLabel = document.getElementById('presentacion-label')
+const presentacionError = document.getElementById('presentacion-error')
+const presentacion = document.getElementById('presentacion');
+
+const navegadorContenedor = document.querySelector('.main__nav-contenedor');
+const volver = document.getElementById('volver');
+const confirmar = document.getElementById('confirmar');
+const imprimir = document.getElementById('imprimir');
 
 
 let pIsAdmitted = false;
@@ -62,100 +101,100 @@ const isMale = 'masculino';
 const isMinor = 'menor';
 const isAdult = 'adulto';
 
+class Elemento {
+    constructor(elementoHtml){
+        this.elementoHtml = elementoHtml
+    }
 
-function hideNewPatient(){
-    buttonOpenNewPatient.classList.remove('selected');
-    inputNewPatient.forEach(elemento => {
-        elemento.classList.add('invisible');
-    });
-}
-
-function showNewPatient(){
-    buttonOpenNewPatient.classList.add('selected');
-    inputNewPatient.forEach(elemento => {
-        elemento.classList.remove('invisible');
-    });
-    inputSearchPatient.value = ''
-    inputPName.value = '';
-    inputPLast.value = '';
-    inputPDni.value = '';
-    inputPGenre.value = '';
-    buttonPFemale.classList.remove('selected');
-    buttonPFemale.classList.remove('unselected');
-    buttonPMale.classList.remove('selected');
-    buttonPMale.classList.remove('unselected');
-    inputPAdmission.value = '';
-    inputPExit.value = '';
-    booleanAdmitted.value = '';
-    buttonToggleAdmitted.classList.remove('selected');
-    inputPAge.value = '';
-    buttonPAdult.classList.remove('selected');
-    buttonPAdult.classList.remove('unselected');
-    buttonPMinor.classList.remove('selected');
-    buttonPMinor.classList.remove('unselected');
-    familiarList.forEach(familiar => {
-        familiar.style.display = 'none';
-    });
-}
-
-function hideMainFamiliar(){
-    mainFamiliar.classList.add('invisible');
-}
-
-function showMainFamiliar(){
-    mainFamiliar.classList.remove('invisible');
-}
-
-function hideNewFamiliar(){
-    buttonOpenNewFamiliar.classList.remove('selected');
-    inputNewFamiliar.forEach(elemento => {
-        elemento.classList.add('invisible');
-    });
-}
-
-function showNewFamiliar(){
-    buttonOpenNewFamiliar.classList.add('selected');
-    inputNewFamiliar.forEach(elemento => {
-        elemento.classList.remove('invisible');
-    });
-}
-
-function resetFamiliar(){
-    inputFName.value = '';
-    inputFLast.value = '';
-    inputFDni.value = '';
-    buttonFFemale.classList.remove('selected');
-    buttonFFemale.classList.remove('unselected');
-    buttonFMale.classList.remove('selected');
-    buttonFMale.classList.remove('unselected');
-    inputFRelation.value = '';
-}
+    agregarClase(clase) {
+        this.elementoHtml.classList.add(clase);
+    }
     
-function hideMainDate(){
-    mainDate.classList.add('invisible');
+    removerClase(clase) {
+        this.elementoHtml.classList.remove(clase);
+    }
+    
+    ocultar(){
+        this.agregarClase('invisible')
+    }
+
+    mostrar(){
+        this.removerClase('invisible')
+    }
+
+    establecerValorAtributo(atributo, valor) {
+        this.elementoHtml.setAttribute(atributo, valor);
+    }
+
+    obtenerValorAtributo(atributo) {
+        return this.elementoHtml.getAttribute(atributo);
+    }
+
+    removerAtributo(atributo) {
+        this.elementoHtml.removeAttribute(atributo);
+    }
 }
 
-function showMainDate(){
-    mainDate.classList.remove('invisible');
+class Input extends Elemento {
+    constructor(elementoHtml){
+        super(elementoHtml)
+        this.valor = this.obtenerValor()
+    }
+
+    obtenerValor(){
+        return this.elementoHtml.value
+    }
+
+    actualizarValor(nuevoValor) {
+        this.elementoHtml.value = nuevoValor;
+    }
 }
 
-hideNewPatient();
-hideMainFamiliar();
-hideNewFamiliar();
+class Button extends Elemento {
+    constructor(elementoHtml){
+        super(elementoHtml)
+    }
 
-buttonOpenNewPatient.addEventListener('click', () => {
-    showNewPatient();
-})
+    ejecutarMetodoOtraInstancia(instanciaOtraClase, metodo) {
+        instanciaOtraClase[metodo]();
+    }
 
-buttonSelectExistingFamiliar.addEventListener('click', () => {
-    hideNewFamiliar();
-})
+    redireccionar(url) {
+        window.location.href = url;
+    }
 
-buttonOpenNewFamiliar.addEventListener('click', () => {
-    resetFamiliar();
-    showNewFamiliar();
-})
+    nuevaPestania(url) {
+        window.open(url, '_blank');
+    }
+}
 
+class Lista extends Elemento {
+    constructor(elementoHtml) {
+        super(elementoHtml);
+        this.elementos = Array.from(elementoHtml.children);
+    }
+
+    ocultarTodos() {
+        this.elementos.forEach(elemento => {
+            elemento.ocultar();
+        });
+    }
+
+    mostrarTodos() {
+        this.elementos.forEach(elemento => {
+            elemento.mostrar();
+        });
+    }
+
+    filtrarPorTexto(texto) {
+        return this.elementos.filter(elemento => {
+            const nombre = elemento.getAttribute('data-nombre').toLowerCase();
+            const apellido = elemento.getAttribute('data-apellido').toLowerCase();
+            const dni = elemento.getAttribute('data-dni').toLowerCase();
+            return nombre.includes(texto) || apellido.includes(texto) || dni.includes(texto);
+        });
+    }
+}
 
 // Espera a que el contenido del documento HTML esté completamente cargado
 document.addEventListener("DOMContentLoaded", () => {
@@ -171,9 +210,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Agregar un evento de escucha al campo de búsqueda de pacientes
-    inputSearchPatient.addEventListener('input', function() {
+    pacienteBuscarInput.addEventListener('input', function() {
         // Obtener el texto de búsqueda y convertirlo a minúsculas
-        const searchText = inputSearchPatient.value.toLowerCase();
+        const searchText = pacienteBuscarInput.value.toLowerCase();
 
         // Verificar si la longitud del texto de búsqueda es menor a 3 caracteres
         if (searchText.length < 3) {
@@ -224,7 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Actualizar los campos de entrada con los datos del paciente seleccionado
             inputPName.value = nombre;
             inputPLast.value = apellido;
-            inputPDni.value = dni;
+            pacienteDni.value = dni;
             
             // Seleccionar el género del paciente
             if (genero == isFemale) {
@@ -234,24 +273,24 @@ document.addEventListener("DOMContentLoaded", () => {
             };
             
             // Actualizar la fecha de internación del paciente
-            inputPAdmission.value = internacion;
+            pacienteInternacion.value = internacion;
             
             // Controlar la fecha de salida del paciente
             if (externacion === null || externacion === "null") {
-                buttonToggleAdmitted.classList.add('selected');
-                inputPExit.disabled = true;
-                inputPExit.value = '';
+                pacienteAlternarEstaInternado.classList.add('selected');
+                pacienteExternacion.disabled = true;
+                pacienteExternacion.value = '';
             } else {
-                buttonToggleAdmitted.classList.remove('selected');
-                inputPExit.disabled = false;
-                inputPExit.value = externacion;
+                pacienteAlternarEstaInternado.classList.remove('selected');
+                pacienteExternacion.disabled = false;
+                pacienteExternacion.value = externacion;
             };
             
             // Seleccionar la edad del paciente
             if (edad == isMinor) {
-                buttonPMinor.click();
+                pacienteTipoEdadMenor.click();
             } else if (edad == isAdult) {
-                buttonPAdult.click();
+                pacienteTipoEdadAdulto.click();
             };
 
             // Resetear valores de familiares
@@ -271,15 +310,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     });
-
-    // Mostrar bloque de familiar solo si el paciente tiene un dni de al menos 7 dígitos
-    if (inputPDni.value.length >= 1) {
-        console.log(inputPDni.value.length);
-        showMainFamiliar();
-    } else {
-        hideMainFamiliar();
-        resetFamiliar();
-    }
 
     // Agregar un evento de escucha al hacer clic en un familiar
     familiarList.forEach(familiar => {
@@ -316,37 +346,37 @@ document.addEventListener("DOMContentLoaded", () => {
 buttonReturn.addEventListener('click', (e) => {window.location.href = "{% url 'index' %}";});
 
 // Evitar que el botón de cambiar admisión obtenga el enfoque
-buttonToggleAdmitted.addEventListener('focus', () => {
-    buttonToggleAdmitted.blur();
+pacienteAlternarEstaInternado.addEventListener('focus', () => {
+    pacienteAlternarEstaInternado.blur();
 });
 
 // Función para cambiar el estado de admisión del paciente
 function toggleBooleanAdmited() {
-    let booleanValue = booleanAdmitted.value;
+    let booleanValue = pacienteBooleanEstaInternado.value;
     // Cambiar el valor booleano
     booleanValue = booleanValue === "true" ? "false" : "true";
-    booleanAdmitted.value = booleanValue;
+    pacienteBooleanEstaInternado.value = booleanValue;
     pIsAdmitted = booleanValue;
 
     // Actualizar la apariencia según el nuevo estado de admisión
     if (booleanValue === "true") {
-        buttonToggleAdmitted.classList.add('selected');
-        inputPExit.disabled = true;
+        pacienteAlternarEstaInternado.classList.add('selected');
+        pacienteExternacion.disabled = true;
     } else {
-        buttonToggleAdmitted.classList.remove('selected');
-        inputPExit.disabled = false;
+        pacienteAlternarEstaInternado.classList.remove('selected');
+        pacienteExternacion.disabled = false;
     }
 }
 
 
-buttonToggleAdmitted.addEventListener('click', toggleBooleanAdmited);
+pacienteAlternarEstaInternado.addEventListener('click', toggleBooleanAdmited);
 
 buttonPFemale.addEventListener('click', () => {
     buttonPFemale.classList.add('selected');
     buttonPFemale.classList.remove('unselected');
     buttonPMale.classList.add('unselected');
     buttonPMale.classList.remove('selected');
-    inputPGenre.value = isFemale;
+    pacienteGenero.value = isFemale;
 });
 
 buttonPMale.addEventListener('click', () => {
@@ -354,7 +384,7 @@ buttonPMale.addEventListener('click', () => {
     buttonPMale.classList.remove('unselected');
     buttonPFemale.classList.add('unselected');
     buttonPFemale.classList.remove('selected');
-    inputPGenre.value = isMale;
+    pacienteGenero.value = isMale;
 });
 
 buttonFFemale.addEventListener('click', () => {
@@ -373,20 +403,20 @@ buttonFMale.addEventListener('click', () => {
     inputFGenre.value = isMale;
 });
 
-buttonPMinor.addEventListener('click', () => {
-    buttonPMinor.classList.add('selected');
-    buttonPMinor.classList.remove('unselected');
-    buttonPAdult.classList.add('unselected');
-    buttonPAdult.classList.remove('selected');
-    inputPAge.value = isMinor;
+pacienteTipoEdadMenor.addEventListener('click', () => {
+    pacienteTipoEdadMenor.classList.add('selected');
+    pacienteTipoEdadMenor.classList.remove('unselected');
+    pacienteTipoEdadAdulto.classList.add('unselected');
+    pacienteTipoEdadAdulto.classList.remove('selected');
+    pacienteTipoEdad.value = isMinor;
 });
 
-buttonPAdult.addEventListener('click', () => {
-    buttonPAdult.classList.add('selected');
-    buttonPAdult.classList.remove('unselected');
-    buttonPMinor.classList.add('unselected');
-    buttonPMinor.classList.remove('selected');
-    inputPAge.value = isAdult;
+pacienteTipoEdadAdulto.addEventListener('click', () => {
+    pacienteTipoEdadAdulto.classList.add('selected');
+    pacienteTipoEdadAdulto.classList.remove('unselected');
+    pacienteTipoEdadMenor.classList.add('unselected');
+    pacienteTipoEdadMenor.classList.remove('selected');
+    pacienteTipoEdad.value = isAdult;
 });
 
 function validateWord(word, errorHtml) {
@@ -433,10 +463,10 @@ function validateGenre(genre, errorHtml) {
 }
 
 function checkAdmitted() {
-    if (inputPExit.disabled) {
+    if (pacienteExternacion.disabled) {
         return true;
     } else {
-        return inputPExit.value;
+        return pacienteExternacion.value;
     }
 }
 
@@ -457,7 +487,7 @@ function validateDate(date, errorHtml) {
 }
 
 function validateExit(pExit) {
-    if (inputPExit.disabled) {
+    if (pacienteExternacion.disabled) {
         let valid = true;
         errorPExit.innerHTML = ''
         return valid;
@@ -509,11 +539,11 @@ buttonConfirm.addEventListener('click', (e) => {
     e.preventDefault();
     let pName = inputPName.value;
     let pLast = inputPLast.value;
-    let pDni = inputPDni.value;
+    let pDni = pacienteDni.value;
     let pGenre = inputFGenre.value;
-    let pAdmission = inputPAdmission.value;
+    let pAdmission = pacienteInternacion.value;
     let pExit = checkAdmitted();
-    let pAge = inputPAge.value;
+    let pAge = pacienteTipoEdad.value;
     let fName = inputFName.value;
     let fLast = inputFLast.value;
     let fDni = inputFDni.value;
@@ -521,7 +551,7 @@ buttonConfirm.addEventListener('click', (e) => {
     let fRelation = inputFRelation.value;
     let dDate = inputDDate.value;
     if (validateForm(pName, pLast, pDni, pGenre, pAdmission, pExit, pAge, fName, fLast, fDni, fGenre, fRelation, dDate)) {
-        form.submit();
+        constanciaFormulario.submit();
     }
 });
 console.log('valor en la línea 527: ', inputPName.value)

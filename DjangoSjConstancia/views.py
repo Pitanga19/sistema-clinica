@@ -5,7 +5,6 @@ from django.http import JsonResponse
 from gestionConstancias.models import Paciente, Familiar, RelacionPacienteFamiliar, Constancia
 from gestionConstancias.utils.new import *
 from gestionConstancias.utils.new_submit import *
-from gestionConstancias.utils.existing import *
 
 import datetime
 
@@ -73,7 +72,7 @@ def index(request):
 
 
 def new(request, id_constancia_recibida=None):
-# la vista no está recibiendo el parámetro id_constancia_recibida
+# la vista new no está recibiendo el parámetro id_constancia_recibida
     pacientes_objects = Paciente.objects.all()
     pacientes_html = ListarPacientes(pacientes_objects).obtener_html()
         
@@ -91,7 +90,7 @@ def new(request, id_constancia_recibida=None):
     return render(request, 'new.html', {'pacientes_html': pacientes_html, 'relacion_familiares_html': relacion_familiares_html, 'valores_constancia':valores_constancia})
 
 
-def submit(request):
+def new_submit(request):
     if request.method == 'POST':
         # Obtén los datos del formulario
         p_nombre = request.POST.get('p-name')
@@ -137,20 +136,3 @@ def submit(request):
 
 def membrete(request):
     return render (request, 'membrete.html')
-
-
-def existing(request):
-    # Obtener todas las instancias de Constancia
-    constancias = Constancia.objects.all()
-
-    # Variable para almacenar el HTML generado
-    html_constancias = ''
-
-    # Iterar sobre cada instancia de Constancia
-    for constancia in constancias:
-        # Crear una instancia de ConstanciaExistente
-        constancia_existente = ConstanciaExistente(constancia)
-
-        # Generar el HTML y agregarlo a la variable html_constancias
-        html_constancias += constancia_existente.html_code()
-    return render(request, 'existing.html', {'contenido': html_constancias})

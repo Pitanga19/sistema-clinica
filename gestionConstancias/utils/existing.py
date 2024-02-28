@@ -18,3 +18,19 @@ class ConstanciaExistente:
     <button class="main__certificate-button print" id="print-{self.paciente.nombre}-{self.paciente.apellido}-{self.familiar.nombre}-{self.familiar.apellido}-{self.presentacion}"><i class="fa-solid fa-print"></i><p class="main__icon-description">Imprimir</p></button>
     </div>
     </div>''';
+    
+    # def existing(request):
+    # # Obtener todas las instancias de Constancia
+    # constancias = Constancia.objects.all()
+
+    # # Variable para almacenar el HTML generado
+    # html_constancias = ''
+
+    # # Iterar sobre cada instancia de Constancia
+    # for constancia in constancias:
+    #     # Crear una instancia de ConstanciaExistente
+    #     constancia_existente = ConstanciaExistente(constancia)
+
+    #     # Generar el HTML y agregarlo a la variable html_constancias
+    #     html_constancias += constancia_existente.html_code()
+    # return render(request, 'existing.html', {'contenido': html_constancias})

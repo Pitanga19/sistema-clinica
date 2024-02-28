@@ -8,115 +8,133 @@
 {% endblock %}
 
 {% block content %}
-<form class="main__form" id="form-new" action="{% url 'submit' %}" method="POST" autocomplete="off">
+<form class="form" id="constancia_formulario" action="{% url 'new_submit' %}" method="POST" autocomplete="off">
     {% csrf_token %}
 
-    <div class="main__form-container">
-        <div class="main__form-partition" id="main__patient">
-            <h3 class="main__h3">Paciente</h3>
-            <div class="main__options">
-                <input type="text" class="main__input" id="patient-search" placeholder="Buscar por DNI, nombre o apellido...">
-                <input type="button" class="main__input selection" id="open-new-patient"  value="Nuevo">
+    <div class="form__bloque-contenedor">
+        <div class="form__bloque" id="paciente_bloque">
+            <h3 class="form__h3">Paciente</h3>
+            <div class="form__div paciente_elegir">
+                <div class="form__opciones">
+                    <input type="text" class="form__input" id="paciente_buscar-input" placeholder="Buscar por DNI, nombre o apellido...">
+                    <input type="button" class="form__input eleccion" id="paciente_elegir-nuevo"  value="Nuevo">
+                </div>
+                <ul id="paciente_buscar-lista">
+                    {{ pacientes_html | safe }}
+                </ul>
             </div>
-            <ul id="patient-list">
-                {{ pacientes_html | safe }}
-            </ul>
         
-            <div class="main__div new-patient">
-                <label for="p-name" class="main__label" id="label-p-name">Nombre<b class="error" id="error-p-name"></b></label>
-                <input type="text" class="main__input" id="p-name" name="p-name" placeholder="Lionel Andrés" value="{{ valores_constancia.1 }}">
+            <div class="form__div paciente_modificar">
+                <label for="paciente_nombre" class="form__label" id="paciente_nombre-label">Nombre<b class="error" id="paciente_nombre-error"></b></label>
+                <input type="text" class="form__input" id="paciente_nombre" name="paciente_nombre" placeholder="Lionel Andrés" value="{{ valores_constancia.1 }}">
             </div>
-            <div class="main__div new-patient">
-                <label for="p-last" class="main__label" id="label-p-last">Apellido<b class="error" id="error-p-last"></b></label>
-                <input type="text" class="main__input" id="p-last" name="p-last" placeholder="Messi" value="{{ valores_constancia.2 }}">
+            <div class="form__div paciente_modificar">
+                <label for="paciente_apellido" class="form__label" id="paciente_apellido-label">Apellido<b class="error" id="paciente_apellido-error"></b></label>
+                <input type="text" class="form__input" id="paciente_apellido" name="paciente_apellido" placeholder="Messi" value="{{ valores_constancia.2 }}">
             </div>
-            <div class="main__div new-patient">
-                <label for="p-dni" class="main__label" id="label-p-dni">D.N.I.<b class="error" id="error-p-dni"></b></label>
-                <input type="text" class="main__input" id="p-dni" name="p-dni" placeholder="12345678" value="{{ valores_constancia.0 }}">
+            <div class="form__div paciente_modificar">
+                <label for="paciente_dni" class="form__label" id="paciente_dni-label">D.N.I.<b class="error" id="paciente_dni-error"></b></label>
+                <input type="text" class="form__input" id="paciente_dni" name="paciente_dni" placeholder="12345678" value="{{ valores_constancia.0 }}">
             </div>
-            <div class="main__div new-patient">
-                <label for="p-genre" class="main__label" id="label-p-genre">Género<b class="error" id="error-p-genre"></b></label>
-                <div class="main__options">
-                    <input type="button" class="main__input selection" id="p-genre-female"  value="Femenino">
-                    <input type="button" class="main__input selection" id="p-genre-male" value="Masculino">
-                    <input type="text" class="invisible" id="p-genre" name="p-genre" value="{{ valores_constancia.3 }}">
+            <div class="form__div paciente_modificar">
+                <label for="paciente_genero" class="form__label" id="paciente_genero-label">Género<b class="error" id="paciente_genero-error"></b></label>
+                <div class="form__opciones">
+                    <input type="button" class="form__input eleccion" id="paciente_genero-femenino"  value="Femenino">
+                    <input type="button" class="form__input eleccion" id="paciente_genero-masculino" value="Masculino">
+                    <input type="hidden" id="paciente_genero" name="paciente_genero" value="{{ valores_constancia.3 }}">
                 </div>
             </div>
-            <div class="main__div new-patient">    
-                <label for="p-admission" class="main__label" id="label-p-admission">Internación<b class="error" id="error-p-admission"></b></label>
-                <input type="date" class="main__input" id="p-admission" name="p-admission">
+            <div class="form__div paciente_modificar">    
+                <label for="paciente_internacion" class="form__label" id="paciente_internacion-label">Internación<b class="error" id="paciente_internacion-error"></b></label>
+                <input type="date" class="form__input" id="paciente_internacion" name="paciente_internacion">
             </div>
-            <div class="main__div new-patient">
-                <label for="p-exit" class="main__label" id="label-p-exit">Externación<b class="error" id="error-p-exit"></b></label>
-                <div class="main__options">
-                    <input type="date" class="main__input" id="p-exit" name="p-exit">
-                    <input type="hidden" id="p-boolean-admitted" name="booleanValue" value="false">
-                    <input type="button" class="main__input selection" id="p-toggle-admitted" name="p-toggle-admitted" value="Internado">
+            <div class="form__div paciente_modificar">
+                <label for="paciente_externacion" class="form__label" id="paciente_externacion-label">Externación<b class="error" id="paciente_externacion-error"></b></label>
+                <div class="form__opciones">
+                    <input type="date" class="form__input" id="paciente_externacion" name="paciente_externacion">
+                    <input type="hidden" id="paciente_booleano_esta_internado" name="paciente_booleano_esta_internado" value="false">
+                    <input type="button" class="form__input eleccion" id="paciente_alternar_esta_internado" name="paciente_alternar_esta_internado" value="Internado">
                 </div>
             </div>
-            <div class="main__div new-patient">
-                <label for="p-age" class="main__label" id="label-p-age">Edad<b class="error" id="error-p-age"></b></label>
-                <div class="main__options">
-                    <input type="button" class="main__input selection" id="p-age-minor" value="Menor">
-                    <input type="button" class="main__input selection" id="p-age-adult" value="Adulto">
-                    <input type="text" class="invisible" id="p-age" name="p-age" value="{{ valores_constancia.6 }}">
+            <div class="form__div paciente_modificar">
+                <label for="paciente_tipo_edad" class="form__label" id="paciente_tipo_edad-label">Edad<b class="error" id="paciente_tipo_edad-error"></b></label>
+                <div class="form__opciones">
+                    <input type="button" class="form__input eleccion" id="paciente_tipo_edad-menor" value="Menor">
+                    <input type="button" class="form__input eleccion" id="paciente_tipo_edad-adulto" value="Adulto">
+                    <input type="hidden" id="paciente_tipo_edad" name="paciente_tipo_edad" value="{{ valores_constancia.6 }}">
                 </div>
             </div>
         </div>
         
-        <div class="main__form-partition" id="main__familiar">
+        <div class="form__bloque" id="familiar_bloque">
             <h3 class="main__h3">Familiar</h3>
+
+            <div class="form__div familiar_elegir">
+                <div class="form__opciones">
+                    <input type="button" class="form__input eleccion" id="familiar_elegir-relacionado"  value="Relaciones">
+                    <input type="button" class="form__input eleccion" id="familiar_elegir-agregar"  value="Agregar">
+                </div>
+                <ul id="familiar_relacionado-lista">
+                    {{ relacion_familiares_html | safe }}
+                </ul>
+            </div>
+
+            <div class="form__div familiar_agregar">
+                <div class="form__opciones">
+                    <input type="text" class="form__input" id="familiar_buscar-input" placeholder="Buscar por DNI, nombre o apellido...">
+                    <input type="button" class="form__input eleccion" id="familiar_elegir-nuevo"  value="Nuevo">
+                </div>
+                <ul id="familiar_buscar-lista">
+                    {{ relacion_familiares_html | safe }}
+                </ul>
+            </div>
         
-            <div class="main__options">
-                <input type="button" class="main__input selection" id="select-existing-familiar"  value="Existente">
-                <input type="button" class="main__input selection" id="open-new-familiar"  value="Nuevo">
+            <div class="form__div familiar_modificar">
+                <label for="familiar_nombre" class="form__label" id="familiar_nombre-label">Nombre<b class="error" id="familiar_nombre-error"></b></label>
+                <input type="text" class="form__input" id="familiar_nombre" name="familiar_nombre" placeholder="Diego Armando" value="{{ valores_constancia.8 }}">
             </div>
-            <ul id="relation-familiar-list">
-                {{ relacion_familiares_html | safe }}
-            </ul>
-        
-            <div class="main__div new-familiar">
-                <label for="f-name" class="main__label" id="label-f-name">Nombre<b class="error" id="error-f-name"></b></label>
-                <input type="text" class="main__input" id="f-name" name="f-name" placeholder="Diego Armando" value="{{ valores_constancia.8 }}">
+            <div class="form__div familiar_modificar">
+                <label for="familiar_apellido" class="form__label" id="familiar_apellido-label">Apellido<b class="error" id="familiar_apellido-error"></b></label>
+                <input type="text" class="form__input" id="familiar_apellido" name="familiar_apellido" placeholder="Maradona" value="{{ valores_constancia.9 }}">
             </div>
-            <div class="main__div new-familiar">
-                <label for="f-last" class="main__label" id="label-f-last">Apellido<b class="error" id="error-f-last"></b></label>
-                <input type="text" class="main__input" id="f-last" name="f-last" placeholder="Maradona" value="{{ valores_constancia.9 }}">
+            <div class="form__div familiar_modificar">
+                <label for="familiar_dni" class="form__label" id="familiar_dni-label">D.N.I.<b class="error" id="familiar_dni-error"></b></label>
+                <input type="text" class="form__input" id="familiar_dni" name="familiar_dni" placeholder="12345678" value="{{ valores_constancia.7 }}">
             </div>
-            <div class="main__div new-familiar">
-                <label for="f-dni" class="main__label" id="label-f-dni">D.N.I.<b class="error" id="error-f-dni"></b></label>
-                <input type="text" class="main__input" id="f-dni" name="f-dni" placeholder="12345678" value="{{ valores_constancia.7 }}">
-            </div>
-            <div class="main__div new-familiar">
-                <label for="f-genre" class="main__label" id="label-f-genre">Género<b class="error" id="error-f-genre"></b></label>
-                <div class="main__options">
-                    <input type="button" class="main__input selection" id="f-genre-female" value="Femenino">
-                    <input type="button" class="main__input selection" id="f-genre-male" value="Masculino">
-                    <input type="text" class="invisible" id="f-genre" name="f-genre" value="{{ valores_constancia.10 }}">
+            <div class="form__div familiar_modificar">
+                <label for="familiar_genero" class="form__label" id="familiar_genero-label">Género<b class="error" id="familiar_genero-error"></b></label>
+                <div class="form__opciones">
+                    <input type="button" class="form__input eleccion" id="familiar_genero-femenino" value="Femenino">
+                    <input type="button" class="form__input eleccion" id="familiar_genero-masculino" value="Masculino">
+                    <input type="hidden" id="familiar_genero" name="familiar_genero" value="{{ valores_constancia.10 }}">
                 </div>
             </div>
-            <div class="main__div new-familiar">
-                <label for="f-relation" class="main__label" id="label-f-relation">El paciente es su<b class="error" id="error-f-relation"></b></label>
-                <input type="text" class="main__input" id="f-relation" name="f-relation" placeholder="hijo / nieta / etc" value="{{ valores_constancia.11 }}">
+            <div class="form__div familiar_modificar">
+                <label for="relacion_paciente_familiar" class="form__label" id="relacion_paciente_familiar-label">El paciente es su<b class="error" id="relacion_paciente_familiar-error"></b></label>
+                <input type="text" class="form__input" id="relacion_paciente_familiar" name="relacion_paciente_familiar" placeholder="hijo / nieta / etc" value="{{ valores_constancia.11 }}">
             </div>
         </div>
         
-        <div class="main__form-partition" id="main__date">
+        <div class="form__bloque" id="presentacion_bloque">
             <h3 class="main__h3">Fecha de presentación</h3>
-            <div class="main__div">
-                <label for="d-date" class="main__label" id="label-d-date"><b class="error" id="error-d-date"></b></label>
-                <input type="date" class="main__input" id="d-date" name="d-date" value="{{ valores_constancia.12 }}">
+            <div class="form__div">
+                <label for="presentacion" class="form__label" id="presentacion-label"><b class="error" id="presentacion-error"></b></label>
+                <input type="date" class="form__input" id="presentacion" name="presentacion" value="{{ valores_constancia.12 }}">
             </div>
         </div>    
     </div>
     
-    <nav class="main__nav-container">
-        <a class="main__button" id="return" href = "{% url 'index' %}">Volver</a>
-        <input type="submit" class="main__button" id="confirm" value="Imprimir">
+    <nav class="main__nav-contenedor">
+        <input type="button" class="main__nav-boton" id="imprimir" value="Imprimir">
+        <input type="submit" class="main__nav-boton" id="confirmar" value="Confirmar">
+        <a class="main__nav-boton" id="volver" href = "{% url 'index' %}">Volver</a>
     </nav>
 </form>
 {% endblock %}
 
 {% block script %}
+<script>
+    const indexUrl = "{% url 'index' %}";
+</script>
 <script src="{% static 'js/new.js' %}"></script>
 {% endblock %}

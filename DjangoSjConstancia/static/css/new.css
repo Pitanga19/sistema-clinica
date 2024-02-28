@@ -4,36 +4,43 @@ li:hover {
     text-decoration: underline;
 }
 
-.main__form {
+.form {
     display: grid;
     grid-template-rows: 1fr max-content;
     grid-gap: 10px;
 }
 
-.main__form-container {
+.form__bloque-contenedor {
     display: grid;
     align-content: start;
     grid-gap: 10px;
     color: #fff;
 }
 
-.main__form-partition {
+.form__bloque {
     border-radius: 10px;
     padding: 10px;
     background: var(--main-blue);
 }
 
-.main__h3 {
+.form__h3 {
     font-weight: 600;
 }
 
-.main__label {
+.form__label {
     text-transform: uppercase;
     font-size: 10px;
     font-weight: 600;
 }
 
-.main__input {
+.form__opciones {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+}
+
+.form__input {
     border-bottom: 2px solid #fff;
     width: 100%;
     margin: .25em 0 .75em;
@@ -42,14 +49,14 @@ li:hover {
     font-weight: 600;
 }
 
-.main__input:focus, .selected {
+.form__input:focus, .seleccionado {
     outline: none;
     border: none;
     border-bottom: 2px solid #fff;
     background: linear-gradient(#fff0, #fffa);
 }
 
-:disabled, .unselected {
+:disabled, .descartado {
     border-bottom: 2px solid var(--dark-blue);
     color: var(--dark-blue)
 }
@@ -66,49 +73,44 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(100%);
 }
 
-.main__options {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 10px;
-}
 
-#p-exit-button:hover, .selection:hover {
+#paciente_alternar_esta_internado:hover, .eleccion:hover {
     background: radial-gradient(var(--gradient-light-blue));
     cursor: pointer;
 }
 
 @media only screen and (max-width: 479px) {
-    .main__div {
+    .form__div {
         display: flex;
         flex-direction: column;
     }
 
-    #p-exit-button:hover, .selection:hover {
+    #paciente_alternar_esta_internado:hover, .eleccion:hover {
         border: 2px solid #fff;
     }
     
-    .main__nav-container {
+    .main__nav-contenedor {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: minmax(min-content, max-content);
+        grid-auto-flow: column-reverse;
         grid-gap: 10px;
     }
 }
 
 /* Medium devices (portrait tablets and large phones, 480px and up) */
 @media only screen and (min-width: 480px) and (max-width: 1023px) {
-    .main__form-container {
+    .form__bloque-contenedor {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: max-content max-content;
     }
 
-    #main__patient {
+    #paciente_bloque {
         grid-row: span 2;
     }
     
-    .main__nav-container {
+    .main__nav-contenedor {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: minmax(min-content, max-content);
         grid-gap: 10px;
     }
 }
@@ -122,22 +124,22 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         min-width: 1024px;
     }
     
-    .main__form-container {
+    .form__bloque-contenedor {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: max-content;
     }
     
-    #main__patient {
+    #paciente_bloque {
         grid-row: span 2;
     }
     
-    #p-exit-button:focus, .selection:focus {
+    #paciente_alternar_esta_internado:focus, .eleccion:focus {
         background: radial-gradient(var(--gradient-light-blue));
         cursor: pointer;
         border: 2px solid #fff;
     }
     
-    .main__nav-container {
+    .main__nav-contenedor {
         margin-left: auto;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
