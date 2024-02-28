@@ -24,19 +24,19 @@
                 </ul>
             </div>
         
-            <div class="form__div paciente_modificar">
+            <div class="form__div paciente_modificar invisible">
                 <label for="paciente_dni" class="form__label" id="paciente_dni-label">D.N.I.<b class="error" id="paciente_dni-error"></b></label>
                 <input type="text" class="form__input" id="paciente_dni" name="paciente_dni" placeholder="12345678" value="{{ valores_constancia.0 }}">
             </div>
-            <div class="form__div paciente_modificar">
+            <div class="form__div paciente_modificar invisible">
                 <label for="paciente_nombre" class="form__label" id="paciente_nombre-label">Nombre<b class="error" id="paciente_nombre-error"></b></label>
                 <input type="text" class="form__input" id="paciente_nombre" name="paciente_nombre" placeholder="Lionel Andrés" value="{{ valores_constancia.1 }}">
             </div>
-            <div class="form__div paciente_modificar">
+            <div class="form__div paciente_modificar invisible">
                 <label for="paciente_apellido" class="form__label" id="paciente_apellido-label">Apellido<b class="error" id="paciente_apellido-error"></b></label>
                 <input type="text" class="form__input" id="paciente_apellido" name="paciente_apellido" placeholder="Messi" value="{{ valores_constancia.2 }}">
             </div>
-            <div class="form__div paciente_modificar">
+            <div class="form__div paciente_modificar invisible">
                 <label for="paciente_genero" class="form__label" id="paciente_genero-label">Género<b class="error" id="paciente_genero-error"></b></label>
                 <div class="form__opciones">
                     <input type="button" class="form__input eleccion" id="paciente_genero-femenino"  value="Femenino">
@@ -44,11 +44,11 @@
                     <input type="hidden" id="paciente_genero" name="paciente_genero" value="{{ valores_constancia.3 }}">
                 </div>
             </div>
-            <div class="form__div paciente_modificar">    
+            <div class="form__div paciente_modificar invisible">    
                 <label for="paciente_internacion" class="form__label" id="paciente_internacion-label">Internación<b class="error" id="paciente_internacion-error"></b></label>
                 <input type="date" class="form__input" id="paciente_internacion" name="paciente_internacion">
             </div>
-            <div class="form__div paciente_modificar">
+            <div class="form__div paciente_modificar invisible">
                 <label for="paciente_externacion" class="form__label" id="paciente_externacion-label">Externación<b class="error" id="paciente_externacion-error"></b></label>
                 <div class="form__opciones">
                     <input type="date" class="form__input" id="paciente_externacion" name="paciente_externacion">
@@ -56,7 +56,7 @@
                     <input type="button" class="form__input eleccion" id="paciente_alternar_esta_internado" name="paciente_alternar_esta_internado" value="Internado">
                 </div>
             </div>
-            <div class="form__div paciente_modificar">
+            <div class="form__div paciente_modificar invisible">
                 <label for="paciente_tipo_edad" class="form__label" id="paciente_tipo_edad-label">Edad<b class="error" id="paciente_tipo_edad-error"></b></label>
                 <div class="form__opciones">
                     <input type="button" class="form__input eleccion" id="paciente_tipo_edad-menor" value="Menor">
@@ -66,7 +66,7 @@
             </div>
         </div>
         
-        <div class="form__bloque" id="familiar_bloque">
+        <div class="form__bloque invisible" id="familiar_bloque">
             <h3 class="main__h3">Familiar</h3>
 
             <div class="form__div familiar_elegir">
@@ -79,7 +79,7 @@
                 </ul>
             </div>
 
-            <div class="form__div familiar_agregar">
+            <div class="form__div familiar_agregar invisible">
                 <div class="form__opciones">
                     <input type="text" class="form__input" id="familiar_buscar-input" placeholder="Buscar por DNI, nombre o apellido...">
                     <input type="button" class="form__input eleccion" id="familiar_elegir-nuevo"  value="Nuevo">
@@ -89,19 +89,19 @@
                 </ul>
             </div>
         
-            <div class="form__div familiar_modificar">
+            <div class="form__div familiar_modificar invisible">
                 <label for="familiar_dni" class="form__label" id="familiar_dni-label">D.N.I.<b class="error" id="familiar_dni-error"></b></label>
                 <input type="text" class="form__input" id="familiar_dni" name="familiar_dni" placeholder="12345678" value="{{ valores_constancia.7 }}">
             </div>
-            <div class="form__div familiar_modificar">
+            <div class="form__div familiar_modificar invisible">
                 <label for="familiar_nombre" class="form__label" id="familiar_nombre-label">Nombre<b class="error" id="familiar_nombre-error"></b></label>
                 <input type="text" class="form__input" id="familiar_nombre" name="familiar_nombre" placeholder="Diego Armando" value="{{ valores_constancia.8 }}">
             </div>
-            <div class="form__div familiar_modificar">
+            <div class="form__div familiar_modificar invisible">
                 <label for="familiar_apellido" class="form__label" id="familiar_apellido-label">Apellido<b class="error" id="familiar_apellido-error"></b></label>
                 <input type="text" class="form__input" id="familiar_apellido" name="familiar_apellido" placeholder="Maradona" value="{{ valores_constancia.9 }}">
             </div>
-            <div class="form__div familiar_modificar">
+            <div class="form__div familiar_modificar invisible">
                 <label for="familiar_genero" class="form__label" id="familiar_genero-label">Género<b class="error" id="familiar_genero-error"></b></label>
                 <div class="form__opciones">
                     <input type="button" class="form__input eleccion" id="familiar_genero-femenino" value="Femenino">
@@ -109,13 +109,13 @@
                     <input type="hidden" id="familiar_genero" name="familiar_genero" value="{{ valores_constancia.10 }}">
                 </div>
             </div>
-            <div class="form__div familiar_modificar">
+            <div class="form__div familiar_modificar invisible">
                 <label for="relacion_paciente_familiar" class="form__label" id="relacion_paciente_familiar-label">El paciente es su<b class="error" id="relacion_paciente_familiar-error"></b></label>
                 <input type="text" class="form__input" id="relacion_paciente_familiar" name="relacion_paciente_familiar" placeholder="hijo / nieta / etc" value="{{ valores_constancia.11 }}">
             </div>
         </div>
         
-        <div class="form__bloque" id="presentacion_bloque">
+        <div class="form__bloque invisible" id="presentacion_bloque">
             <h3 class="main__h3">Fecha de presentación</h3>
             <div class="form__div">
                 <label for="presentacion" class="form__label" id="presentacion-label"><b class="error" id="presentacion-error"></b></label>
