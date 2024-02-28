@@ -1,0 +1,16 @@
+# Ignorar archivos generados automáticamente
+*.pyc
+*.pyo
+*.pyd
+
+# Ignorar archivos de configuración local
+local_settings.py
+
+# Ignorar directorios generados automáticamente
+__pycache__
+media
+staticfiles
+
+# Ignorar archivos de dependencias (puedes personalizar esto según las bibliotecas que uses)
+venv/
+*.env
