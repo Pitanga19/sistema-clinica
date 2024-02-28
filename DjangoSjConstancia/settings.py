@@ -57,7 +57,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # indicando el directorio donde se buscarán las plantillas
-        'DIRS': ['C:/Users/Maci/Desktop/DjangoSjConstancia/DjangoSjConstancia/templates/'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,7 +122,7 @@ STATIC_URL = 'static/'
 
 # AGREGADO POR CHAT GPT PARA INTENTAR LEER ARCHIVOS ESTÁTICOS
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'DjangoSjConstancia/static'),
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 # Default primary key field type

@@ -60,11 +60,22 @@ class Boton extends Elemento {
         window.open(url, '_blank');
     }
 
-    elegir(botonSeleccionado, botonDescartado) {
-        botonSeleccionado.classList.add('seleccionado');
-        botonSeleccionado.classList.remove('descartado');
-        botonDescartado.classList.add('descartado');
-        botonDescartado.classList.remove('seleccionado');
+    seleccionar(botonDescartado) {
+        this.html.classList.add('seleccionado');
+        this.html.classList.remove('descartado');
+    
+        if (botonDescartado instanceof Boton) {
+            botonDescartado.descartar();
+        }
+    }
+    
+    descartar(botonSeleccionado) {
+        this.html.classList.add('descartado');
+        this.html.classList.remove('seleccionado');
+    
+        if (botonSeleccionado instanceof Boton) {
+            botonSeleccionado.seleccionar();
+        }
     }
 
     ejecutarMetodoOtraInstancia(instanciaOtraClase, metodo) {
@@ -75,32 +86,43 @@ class Boton extends Elemento {
 class Lista extends Elemento {
     constructor(elementoHtml) {
         super(elementoHtml);
-        this.elementos = Array.from(elementoHtml.children);
+        this.elementosHtml = Array.from(elementoHtml.children);
+        this.elementos = this.elementosItemLista()
+    }
+
+    elementosItemLista() {
+        let elementos = []
+        this.elementosHtml.forEach(elemento => {
+            let itemLista = new ItemLista(elemento);
+            elementos.push(itemLista)
+        });
+        return elementos
     }
 
     ocultarTodos() {
         this.elementos.forEach(elemento => {
-            let elementoOcultar = new Elemento(elemento);
-            elementoOcultar.ocultar();
+            elemento.ocultar();
         });
     }
 
     mostrarTodos() {
         this.elementos.forEach(elemento => {
-            let elementoMostrar = new Elemento(elemento);
-            elementoMostrar.mostrar();
-        });
-    }
-
-    filtrarPorTexto(texto) {
-        return this.elementos.filter(elemento => {
-            const nombre = elemento.getAttribute('data-nombre').toLowerCase();
-            const apellido = elemento.getAttribute('data-apellido').toLowerCase();
-            const dni = elemento.getAttribute('data-dni').toLowerCase();
-            return nombre.includes(texto) || apellido.includes(texto) || dni.includes(texto);
+            elemento.mostrar();
         });
     }
 }
+
+class ItemLista extends Elemento {
+    constructor(elementoHtml) {
+        super(elementoHtml);
+        this.data = this.obtenerData();
+    }
+
+    obtenerData() {
+        
+    }
+}
+
 
 const constanciaFormulario = new Elemento(document.getElementById('constancia_formulario'));
 const formularioContenedor = new Elemento(document.querySelector('.form__bloque-contenedor'));
@@ -112,9 +134,13 @@ const pacienteElegir = new Elemento(document.querySelector('.paciente_elegir'));
 const pacienteBuscarInput = new Input(document.getElementById('paciente_buscar-input'));
 const pacienteElegirNuevo = new Boton(document.getElementById('paciente_elegir-nuevo'));
 const pacienteBuscarLista = new Lista(document.getElementById('paciente_buscar-lista'));
-const pacienteBuscarArray = Array.from(pacienteBuscarLista.html.getElementsByTagName('li'));
+const pacienteBuscarItemLista = pacienteBuscarLista.elementos;
 
 const pacienteModificarArray = document.querySelectorAll('.paciente_modificar');
+
+const pacienteDniLabel = new Elemento(document.getElementById('paciente_dni-label'));
+const pacienteDniError = new Elemento(document.getElementById('paciente_dni-error'));
+const pacienteDni = new Input(document.getElementById('paciente_dni'));
 
 const pacienteNombreLabel = new Elemento(document.getElementById('paciente_nombre-label'));
 const pacienteNombreError = new Elemento(document.getElementById('paciente_nombre-error'));
@@ -123,10 +149,6 @@ const pacienteNombre = new Input(document.getElementById('paciente_nombre'));
 const pacienteApellidoLabel = new Elemento(document.getElementById('paciente_apellido-label'));
 const pacienteApellidoError = new Elemento(document.getElementById('paciente_apellido-error'));
 const pacienteApellido = new Input(document.getElementById('paciente_apellido'));
-
-const pacienteDniLabel = new Elemento(document.getElementById('paciente_dni-label'));
-const pacienteDniError = new Elemento(document.getElementById('paciente_dni-error'));
-const pacienteDni = new Input(document.getElementById('paciente_dni'));
 
 const pacienteGeneroLabel = new Elemento(document.getElementById('paciente_genero-label'));
 const pacienteGeneroError = new Elemento(document.getElementById('paciente_genero-error'));
@@ -168,6 +190,10 @@ const familiarBuscarArray = Array.from(familiarBuscarLista.html.getElementsByTag
 
 const familiarModificarArray = document.querySelectorAll('.familiar_modificar');
 
+const familiarDniLabel = new Elemento(document.getElementById('familiar_dni-label'));
+const familiarDniError = new Elemento(document.getElementById('familiar_dni-error'));
+const familiarDni = new Input(document.getElementById('familiar_dni'));
+
 const familiarNombreLabel = new Elemento(document.getElementById('familiar_nombre-label'));
 const familiarNombreError = new Elemento(document.getElementById('familiar_nombre-error'));
 const familiarNombre = new Input(document.getElementById('familiar_nombre'));
@@ -175,10 +201,6 @@ const familiarNombre = new Input(document.getElementById('familiar_nombre'));
 const familiarApellidoLabel = new Elemento(document.getElementById('familiar_apellido-label'));
 const familiarApellidoError = new Elemento(document.getElementById('familiar_apellido-error'));
 const familiarApellido = new Input(document.getElementById('familiar_apellido'));
-
-const familiarDniLabel = new Elemento(document.getElementById('familiar_dni-label'));
-const familiarDniError = new Elemento(document.getElementById('familiar_dni-error'));
-const familiarDni = new Input(document.getElementById('familiar_dni'));
 
 const familiarGeneroLabel = new Elemento(document.getElementById('familiar_genero-label'));
 const familiarGeneroError = new Elemento(document.getElementById('familiar_genero-error'));
@@ -207,8 +229,10 @@ const esMenor = 'menor';
 const esAdulto = 'adulto';
 
 
-// 1.- ELEGIR paciente
-pacienteBuscarLista.ocultarTodos();
+// 1.- ELEGIR paciente - FUNCIONES
+
+
+
 
 //  a.1- BUSCAR
 pacienteBuscarInput.html.addEventListener('input', function() {
@@ -220,11 +244,11 @@ pacienteBuscarInput.html.addEventListener('input', function() {
         pacienteBuscarLista.ocultarTodos();
     } else {
         // Itera sobre los elementos de la lista
-        pacienteBuscarLista.elementos.forEach(elemento => {
+        pacienteBuscarItemLista.forEach(elemento => {
             // Obtiene los atributos relevantes para la búsqueda
-            let nombre = elemento.getAttribute('data-nombre').toLowerCase();
-            let apellido = elemento.getAttribute('data-apellido').toLowerCase();
-            let dni = elemento.getAttribute('data-dni').toLowerCase();
+            let nombre = elemento.obtenerValorAtributo('data-nombre').toLowerCase();
+            let apellido = elemento.obtenerValorAtributo('data-apellido').toLowerCase();
+            let dni = elemento.obtenerValorAtributo('data-dni').toLowerCase();
 
             // Verifica si todas las palabras buscadas coinciden con algún atributo
             let todasLasPalabrasCoinciden = listaCadenasBuscadas.every(palabra => {
@@ -232,20 +256,19 @@ pacienteBuscarInput.html.addEventListener('input', function() {
             });
 
             // Muestra u oculta el elemento según si todas las palabras coinciden
-            let pacienteInstancia = new Elemento(elemento);
             if (todasLasPalabrasCoinciden) {
-                pacienteInstancia.mostrar();
+                elemento.mostrar();
             } else {
-                pacienteInstancia.ocultar();
+                elemento.ocultar();
             }
         });
     }
 });
 
 //  a.2.- OBTENER VALORES
-pacienteBuscarArray.forEach(elemento => {
+pacienteBuscarItemLista.forEach(elemento => {
     // Agrega un evento de escucha al elemento
-    elemento.addEventListener('click', function() {
+    elemento.html.addEventListener('click', function() {
         // Pasando los valores a los campos
         pacienteNombre.actualizarValor(elemento.getAttribute('data-nombre'));        
         pacienteApellido.actualizarValor(elemento.getAttribute('data-apellido'));

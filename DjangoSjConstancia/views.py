@@ -8,63 +8,6 @@ from gestionConstancias.utils.new_submit import *
 
 import datetime
 
-def saludo(request):
-    return HttpResponse('Hola mundo con Django :D')
-
-def example(request):
-
-    # importando template y context para poder crear el objeto a enviar al servidor
-    # from django.template import Template, Context
-
-    # importando el método loader.get_template para manipular las plantillas de manera óptima (ver settings.py > TEMPLATES)
-    # from django.template.loader import get_template
-
-    # creando las varibles a colocar dentro del diccionario de contexto
-    momento_actual = datetime.datetime.now()
-    michis = ['Tito','Faye Faye','Bartolomeo','Black and White','Musulini','Bairon']
-    
-    # creando el diccionario de contexto
-    diccionario = {
-        'nombre_persona': 'Maci Macuin',
-        'momento_actual': momento_actual,
-        'michis': michis
-    }
-    
-    
-    # creando el RENDER de la página SIN TEMPLATE.LOADER
-    
-    # obteniendo el archivo.html indicando su ruta completa
-    # example_html = open('C:/Users/Maci/Desktop/DjangoSjConstancia/DjangoSjConstancia/templates/example.html')
-    
-    # creando la plantilla con el documento obtenido
-    # plt = Template(example_html.read())
-    
-    # cerrando el archivo.html para que no gaste recursos
-    # example_html.close()
-    
-    # creando el contexto que recibe como parámetro un diccionario con las variables creadas
-    # ctx = Context(diccionario)
-    
-    # renderizando la página para enviar al servidor
-    # example = plt.render(ctx)
-    
-    
-    # creando el RENDER de la página CON TEMPLATE.LOADER, SIN SHORTCUTS.RENDER
-    
-    # creando la plantilla directamente llamando al nombre del archivo
-    # plt = get_template('example.html')
-    
-    # renderizando la página directamente con el diccionario como contexto
-    # render = plt.render(diccionario)
-    
-    # retornando el render
-    # return HttpResponse(render)
-    
-    
-    # creando el RENDER de la página CON SHORTCUTS.RENDER
-    # retornando el render
-    return render(request, 'example.html', diccionario)
-
 
 def index(request):
     # retornando el render con dos parámetros ya que no tiene contexto

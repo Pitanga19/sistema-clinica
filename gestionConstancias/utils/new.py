@@ -6,13 +6,13 @@ class ListarPacientes:
         pacientes_html = ""
         for paciente in self.lista_pacientes_objects:
             externacion = paciente.externacion.strftime('%Y-%m-%d') if paciente.externacion else "null"
-            pacientes_html += f"""
-            <li data-dni="{paciente.dni}" data-nombre="{paciente.nombre}" data-apellido="{paciente.apellido}" 
+            pacientes_html += f'''
+            <li class="invisible" data-dni="{paciente.dni}" data-nombre="{paciente.nombre}" data-apellido="{paciente.apellido}" 
                 data-genero="{paciente.genero}" data-internacion="{paciente.internacion}" 
                 data-externacion="{externacion}" data-edad="{paciente.edad}">
                 {paciente.nombre} {paciente.apellido} ({paciente.dni})
             </li>
-            """
+            '''
         return pacientes_html
 
 class ListarRelacionesFamiliares:
@@ -25,12 +25,12 @@ class ListarRelacionesFamiliares:
             dni_paciente_relacionado = relacion.paciente.dni
             familiar = relacion.familiar
             relacion = relacion.relacion
-            relaciones_familiares_html += f"""
-            <li f-data-dni="{familiar.dni}" f-data-nombre="{familiar.nombre}" f-data-apellido="{familiar.apellido}" 
-                f-data-genero="{familiar.genero}" f-data-relacion="{relacion}" f-data-paciente-relacionado="{dni_paciente_relacionado}">
+            relaciones_familiares_html += f'''
+            <li class="invisible" data-dni="{familiar.dni}" data-nombre="{familiar.nombre}" data-apellido="{familiar.apellido}" 
+                data-genero="{familiar.genero}" data-relacion="{relacion}" data-paciente-relacionado="{dni_paciente_relacionado}">
                 {familiar.nombre} {familiar.apellido} ({familiar.dni})
             </li>
-            """
+            '''
         return relaciones_familiares_html
 
 class FiltrarConstancias:
