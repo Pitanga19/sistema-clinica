@@ -191,12 +191,13 @@ const familiarElegirAgregar = new Boton(document.getElementById('familiar_elegir
 const familiarRelacionadoLista = new Lista(document.getElementById('familiar_relacionado-lista'));
 const familiarRelacionadoItemLista = familiarRelacionadoLista.elementosItemListaArray;
 
-const familiarModificar = new Elemento(document.querySelector('.familiar_modificar'));
+const familiarAgregar = new Elemento(document.querySelector('.familiar_agregar'));
+const familiarAgregarBuscarInput = new Input(document.getElementById('familiar_agregar_buscar-input'));
+const familiarAgregarNuevo = new Boton(document.getElementById('familiar_agregar_nuevo'));
+const familiarAgregarBuscarLista = new Lista(document.getElementById('familiar_agregar_buscar-lista'));
+const familiarAgregarBuscarItemLista =familiarAgregarBuscarLista.elementosItemListaArray;
 
-const familiarBuscarInput = new Input(document.getElementById('familiar_buscar-input'));
-const familiarElegirNuevo = new Boton(document.getElementById('familiar_elegir-nuevo'));
-const familiarBuscarLista = new Lista(document.getElementById('familiar_buscar-lista'));
-const familiarBuscarItemLista = Array.from(familiarBuscarLista.html.getElementsByTagName('li'));
+const familiarModificar = new Elemento(document.querySelector('.familiar_modificar'));
 
 const familiarModificarArray = new ElementosArray(document.querySelectorAll('.familiar_modificar'));
 
@@ -240,6 +241,66 @@ const esAdulto = 'adulto';
 
 
 // 1.- ELEGIR PACIENTE
+function filtrarListaPersonas(personaItemLista, listaCadenasBuscadas){
+    // Itera sobre los elementos de la lista
+    personaItemLista.forEach(elemento => {
+        // Obtiene los atributos relevantes para la búsqueda
+        let dni = elemento.obtenerValorAtributo('data-dni').toLowerCase();
+        let nombre = elemento.obtenerValorAtributo('data-nombre').toLowerCase();
+        let apellido = elemento.obtenerValorAtributo('data-apellido').toLowerCase();
+
+        // Verifica si todas las cadenas buscadas coinciden con algún atributo
+        let todasLasPalabrasCoinciden = listaCadenasBuscadas.every(cadena => {
+            return dni.includes(cadena) || nombre.includes(cadena) || apellido.includes(cadena);
+        });
+
+        // Muestra u oculta el elemento según si todas las cadenas coinciden
+        if (todasLasPalabrasCoinciden) {
+            elemento.mostrar();
+        } else {
+            elemento.ocultar();
+        }
+    });
+}
+
+function desplegarCampos(camposDesplegarArray){
+    camposDesplegarArray.iterar('mostrar');
+}
+
+function desplegarBloqueFamiliar(){
+    desplegarFamiliaresRelacionados()
+    familiarBloque.mostrar();
+    familiarRelacionadoLista.mostrar();
+}
+
+function desplegarFamiliaresRelacionados(){
+    familiarAgregar.ocultar()
+    familiarRelacionadoLista.mostrar();
+    let dniPacienteBuscado = pacienteDni.obtenerValor();
+
+    familiarRelacionadoItemLista.forEach(familiar => {
+        let dniPacienteRelacion = familiar.obtenerValorAtributo('data-dni-paciente-relacionado');
+        if (dniPacienteRelacion.includes(dniPacienteBuscado)) {
+            familiar.mostrar();
+        } else {
+            familiar.ocultar();
+        }
+    });
+}
+
+function desplegarFamiliaresAgregar(){
+    familiarRelacionadoLista.ocultar();
+    familiarAgregar.mostrar()
+}
+
+function desplegarFamiliaresAgregar(){
+    familiarRelacionadoLista.ocultar();
+    familiarAgregar.mostrar()
+}
+
+function desplegarBloquePresentacion(){
+    presentacionBloque.mostrar();
+}
 
 //  a.1- BUSCAR
 pacienteBuscarInput.html.addEventListener('input', function() {
@@ -250,25 +311,7 @@ pacienteBuscarInput.html.addEventListener('input', function() {
     if (cadenaBuscada.length < 3) {
         pacienteBuscarLista.ocultarTodos();
     } else {
-        // Itera sobre los elementos de la lista
-        pacienteBuscarItemLista.forEach(elemento => {
-            // Obtiene los atributos relevantes para la búsqueda
-            let nombre = elemento.obtenerValorAtributo('data-nombre').toLowerCase();
-            let apellido = elemento.obtenerValorAtributo('data-apellido').toLowerCase();
-            let dni = elemento.obtenerValorAtributo('data-dni').toLowerCase();
-
-            // Verifica si todas las palabras buscadas coinciden con algún atributo
-            let todasLasPalabrasCoinciden = listaCadenasBuscadas.every(palabra => {
-                return nombre.includes(palabra) || apellido.includes(palabra) || dni.includes(palabra);
-            });
-
-            // Muestra u oculta el elemento según si todas las palabras coinciden
-            if (todasLasPalabrasCoinciden) {
-                elemento.mostrar();
-            } else {
-                elemento.ocultar();
-            }
-        });
+        filtrarListaPersonas(pacienteBuscarItemLista, listaCadenasBuscadas);
     }
 });
 
@@ -285,38 +328,137 @@ pacienteBuscarItemLista.forEach(elemento => {
         pacienteExternacion.actualizarValor(elemento.obtenerValorAtributo('data-externacion'));
         pacienteTipoEdad.actualizarValor(elemento.obtenerValorAtributo('data-tipo-edad'));
 
-        // abrir campos para poder modificar al paciente
-        pacienteModificarArray.iterar('mostrar');
+        // Mostrar campos para poder modificar al paciente
+        desplegarCampos(pacienteModificarArray)
 
-        // abrir bloque familiar para continuar
-        familiarBloque.mostrar();
+        // Abrir bloque familiar para continuar
+        desplegarBloqueFamiliar();
     });
 });
 
 //  b.- NUEVO
 pacienteElegirNuevo.html.addEventListener('click', function() {
-    pacienteBuscarItemLista.forEach(elemento => {
-        pacienteDni.actualizarValor('');
-        pacienteNombre.actualizarValor('');
-        pacienteApellido.actualizarValor('');
-        pacienteGenero.actualizarValor('');
-        pacienteInternacion.actualizarValor('');
-        pacienteExternacion.actualizarValor(elemento.obtenerValorAtributo('data-externacion'));
-        pacienteTipoEdad.actualizarValor('');
-        pacienteModificarArray.iterar('mostrar');
-        familiarBloque.ocultar();
-    });
+    pacienteDni.actualizarValor('');
+    pacienteNombre.actualizarValor('');
+    pacienteApellido.actualizarValor('');
+    pacienteGenero.actualizarValor('');
+    pacienteInternacion.actualizarValor('');
+    pacienteExternacion.actualizarValor('');
+    pacienteTipoEdad.actualizarValor('');
+
+    desplegarCampos(pacienteModificarArray)
+    familiarBloque.ocultar();
 });
 
-// abrir bloque familiar una vez dado un DNI de paciente
+
+// ELEGIR FAMILIAR
+// Abrir bloque familiar una vez dado un DNI de paciente
 pacienteDni.html.addEventListener('input', function() {
     if (this.value.length > 6) {
-        familiarBloque.mostrar();
+        desplegarBloqueFamiliar();
     }
 })
 
 
-// ELEGIR FAMILIAR
+//  a.- RELACIONADOS
+familiarElegirRelacionado.html.addEventListener('click', function() {
+    desplegarFamiliaresAgregar()
+})
+
+familiarRelacionadoItemLista.forEach(elemento => {
+    // Agrega un evento de escucha al elemento
+    elemento.html.addEventListener('click', function() {
+        // Pasando los valores a los campos
+        familiarDni.actualizarValor(elemento.obtenerValorAtributo('data-dni'));
+        familiarNombre.actualizarValor(elemento.obtenerValorAtributo('data-nombre'));        
+        familiarApellido.actualizarValor(elemento.obtenerValorAtributo('data-apellido'));
+        familiarGenero.actualizarValor(elemento.obtenerValorAtributo('data-genero'));
+        relacion.actualizarValor(elemento.obtenerValorAtributo('data-relacion'));
+
+        // Mostrar campos para poder modificar al familiar
+        desplegarCampos(familiarModificarArray);
+        desplegarBloquePresentacion();
+    });
+});
+
+familiarElegirRelacionado.html.addEventListener('click', function() {
+    desplegarFamiliaresRelacionados();
+});
+
+//  b.1.I.- AGREGAR DE EXISTENTES
+familiarElegirAgregar.html.addEventListener('click', function() {
+    desplegarFamiliaresAgregar();
+});
+
+familiarAgregarBuscarInput.html.addEventListener('input', function() {
+    let cadenaBuscada = familiarAgregarBuscarInput.obtenerValor().toLowerCase();
+    let listaCadenasBuscadas = cadenaBuscada.split(' ');
+    
+    if (cadenaBuscada.length < 3) {
+        familiarAgregarBuscarLista.ocultarTodos();
+    } else {
+        filtrarListaPersonas(familiarAgregarBuscarItemLista, listaCadenasBuscadas);
+    }
+});
+
+//  b.1.II.- OBTENER VALORES
+familiarAgregarBuscarItemLista.forEach(elemento => {
+    // Agrega un evento de escucha al elemento
+    elemento.html.addEventListener('click', function() {
+        // Pasando los valores a los campos
+        familiarDni.actualizarValor(elemento.obtenerValorAtributo('data-dni'));
+        familiarNombre.actualizarValor(elemento.obtenerValorAtributo('data-nombre'));        
+        familiarApellido.actualizarValor(elemento.obtenerValorAtributo('data-apellido'));
+        familiarGenero.actualizarValor(elemento.obtenerValorAtributo('data-genero'));
+
+        // Mostrar campos para poder modificar al familiar
+        desplegarCampos(familiarModificarArray);
+        desplegarBloquePresentacion();
+    });
+});
+
+
+//  b.2.- AGREGAR NUEVO
+familiarAgregarNuevo.html.addEventListener('click', function() {
+    familiarDni.actualizarValor('');
+    familiarNombre.actualizarValor('');
+    familiarApellido.actualizarValor('');
+    relacion.actualizarValor('');
+
+    desplegarCampos(familiarModificarArray);
+});
+
+
+// ELEGIR PRESENTACION
+// Abrir bloque presentacion una vez dado un DNI de familiar
+familiarDni.html.addEventListener('input', function() {
+    if (this.value.length > 6) {
+        desplegarBloquePresentacion();
+    }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Redireccionar al hacer clic en el botón "Volver"
 volver.html.addEventListener('click', (e) => {window.location.href = "{% url 'index' %}";});

@@ -75,17 +75,17 @@
                     <input type="button" class="form__input eleccion" id="familiar_elegir-agregar"  value="Agregar">
                 </div>
                 <ul id="familiar_relacionado-lista">
-                    {{ relacion_familiares_html | safe }}
+                    {{ relaciones_familiares_html | safe }}
                 </ul>
             </div>
 
             <div class="form__div familiar_agregar invisible">
                 <div class="form__opciones">
-                    <input type="text" class="form__input" id="familiar_buscar-input" placeholder="Buscar por DNI, nombre o apellido...">
-                    <input type="button" class="form__input eleccion" id="familiar_elegir-nuevo"  value="Nuevo">
+                    <input type="text" class="form__input" id="familiar_agregar_buscar-input" placeholder="Buscar por DNI, nombre o apellido...">
+                    <input type="button" class="form__input eleccion" id="familiar_agregar_nuevo"  value="Nuevo">
                 </div>
-                <ul id="familiar_buscar-lista">
-                    {{ relacion_familiares_html | safe }}
+                <ul id="familiar_agregar_buscar-lista">
+                    {{ familiares_html | safe }}
                 </ul>
             </div>
         

@@ -19,8 +19,11 @@ def new(request, id_constancia_recibida=None):
     pacientes_objects = Paciente.objects.all()
     pacientes_html = ListarPacientes(pacientes_objects).obtener_html()
         
+    familiares_objects = Familiar.objects.all()
+    familiares_html = ListarFamiliares(familiares_objects).obtener_html()
+        
     relaciones_objects = RelacionPacienteFamiliar.objects.all()
-    relacion_familiares_html = ListarRelacionesFamiliares(relaciones_objects).obtener_html()
+    relaciones_familiares_html = ListarRelacionesFamiliares(relaciones_objects).obtener_html()
     
     constancias_objects = Constancia.objects.all()
     id_constancia_buscada = id_constancia_recibida
@@ -30,7 +33,7 @@ def new(request, id_constancia_recibida=None):
     else:
         valores_constancia = FiltrarConstancias(constancias_objects, id_constancia_buscada).obtener_valores()
     
-    return render(request, 'new.html', {'pacientes_html': pacientes_html, 'relacion_familiares_html': relacion_familiares_html, 'valores_constancia':valores_constancia})
+    return render(request, 'new.html', {'pacientes_html': pacientes_html, 'familiares_html':familiares_html, 'relaciones_familiares_html': relaciones_familiares_html, 'valores_constancia':valores_constancia})
 
 
 def new_submit(request):
