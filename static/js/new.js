@@ -78,36 +78,30 @@ class Boton extends Elemento {
         }
     }
 
-    ejecutarMetodoOtraInstancia(instanciaOtraClase, metodo) {
+    ejecutarMetodoEnOtraInstancia(instanciaOtraClase, metodo) {
         instanciaOtraClase[metodo]();
     }
 }
 
-class Lista extends Elemento {
-    constructor(elementoHtml) {
-        super(elementoHtml);
-        this.elementosHtml = Array.from(elementoHtml.children);
-        this.elementos = this.elementosItemLista()
+class ElementosArray {
+    constructor(elementosHtmlArray) {
+        this.elementosHtmlArray = Array.from(elementosHtmlArray);
+        this.elementosInstanciadosArray = this.generarInstanciasElemento();
     }
 
-    elementosItemLista() {
-        let elementos = []
-        this.elementosHtml.forEach(elemento => {
-            let itemLista = new ItemLista(elemento);
-            elementos.push(itemLista)
-        });
-        return elementos
-    }
+    generarInstanciasElemento() {
+        return (this.elementosHtmlArray.map(elementoHtml => new Elemento(elementoHtml)));
+    }    
 
-    ocultarTodos() {
-        this.elementos.forEach(elemento => {
-            elemento.ocultar();
-        });
-    }
+    generarInstanciasItemLista() {
+        return this.elementosHtmlArray.map(elementoHtml => new ItemLista(elementoHtml));
+    }    
 
-    mostrarTodos() {
-        this.elementos.forEach(elemento => {
-            elemento.mostrar();
+    iterar(nombreMetodo, ...args) {
+        this.elementosInstanciadosArray.forEach(elemento => {
+            if (typeof elemento[nombreMetodo] === 'function') {
+                elemento[nombreMetodo](...args);
+            }
         });
     }
 }
@@ -123,20 +117,36 @@ class ItemLista extends Elemento {
     }
 }
 
+class Lista extends Elemento {
+    constructor(elementoHtml) {
+        super(elementoHtml);
+        this.elementosArray = new ElementosArray(Array.from(elementoHtml.children));
+        this.elementosItemListaArray = this.elementosArray.generarInstanciasItemLista();
+    }
+
+    ocultarTodos() {
+        this.elementosArray.iterar('ocultar');
+    }
+
+    mostrarTodos() {
+        this.elementosArray.iterar('mostrar');
+    }
+}
+
 
 const constanciaFormulario = new Elemento(document.getElementById('constancia_formulario'));
 const formularioContenedor = new Elemento(document.querySelector('.form__bloque-contenedor'));
 
 const pacienteBloque = new Elemento(document.getElementById('paciente_bloque'));
 
-const pacienteElegir = new Elemento(document.querySelector('.paciente_elegir'));
+const pacienteElegir = new ElementosArray(document.querySelector('.paciente_elegir'));
 
 const pacienteBuscarInput = new Input(document.getElementById('paciente_buscar-input'));
 const pacienteElegirNuevo = new Boton(document.getElementById('paciente_elegir-nuevo'));
 const pacienteBuscarLista = new Lista(document.getElementById('paciente_buscar-lista'));
-const pacienteBuscarItemLista = pacienteBuscarLista.elementos;
+const pacienteBuscarItemLista = pacienteBuscarLista.elementosItemListaArray;
 
-const pacienteModificarArray = document.querySelectorAll('.paciente_modificar');
+const pacienteModificarArray = new ElementosArray(Array.from(document.querySelectorAll('.paciente_modificar')));
 
 const pacienteDniLabel = new Elemento(document.getElementById('paciente_dni-label'));
 const pacienteDniError = new Elemento(document.getElementById('paciente_dni-error'));
@@ -179,16 +189,16 @@ const familiarElegir = new Elemento(document.querySelector('.familiar_elegir'));
 const familiarElegirRelacionado = new Boton(document.getElementById('familiar_elegir-relacionado'));
 const familiarElegirAgregar = new Boton(document.getElementById('familiar_elegir-agregar'));
 const familiarRelacionadoLista = new Lista(document.getElementById('familiar_relacionado-lista'));
-const familiarRelacionadoArray = Array.from(familiarRelacionadoLista.html.getElementsByTagName('li'));
+const familiarRelacionadoItemLista = familiarRelacionadoLista.elementosItemListaArray;
 
 const familiarModificar = new Elemento(document.querySelector('.familiar_modificar'));
 
 const familiarBuscarInput = new Input(document.getElementById('familiar_buscar-input'));
 const familiarElegirNuevo = new Boton(document.getElementById('familiar_elegir-nuevo'));
 const familiarBuscarLista = new Lista(document.getElementById('familiar_buscar-lista'));
-const familiarBuscarArray = Array.from(familiarBuscarLista.html.getElementsByTagName('li'));
+const familiarBuscarItemLista = Array.from(familiarBuscarLista.html.getElementsByTagName('li'));
 
-const familiarModificarArray = document.querySelectorAll('.familiar_modificar');
+const familiarModificarArray = new ElementosArray(document.querySelectorAll('.familiar_modificar'));
 
 const familiarDniLabel = new Elemento(document.getElementById('familiar_dni-label'));
 const familiarDniError = new Elemento(document.getElementById('familiar_dni-error'));
@@ -229,10 +239,7 @@ const esMenor = 'menor';
 const esAdulto = 'adulto';
 
 
-// 1.- ELEGIR paciente - FUNCIONES
-
-
-
+// 1.- ELEGIR PACIENTE
 
 //  a.1- BUSCAR
 pacienteBuscarInput.html.addEventListener('input', function() {
@@ -270,17 +277,46 @@ pacienteBuscarItemLista.forEach(elemento => {
     // Agrega un evento de escucha al elemento
     elemento.html.addEventListener('click', function() {
         // Pasando los valores a los campos
-        pacienteNombre.actualizarValor(elemento.getAttribute('data-nombre'));        
-        pacienteApellido.actualizarValor(elemento.getAttribute('data-apellido'));
-        pacienteDni.actualizarValor(elemento.getAttribute('data-dni'));
-        pacienteGenero.actualizarValor(elemento.getAttribute('data-genero'));
-        pacienteInternacion.actualizarValor(elemento.getAttribute('data-internacion'));
-        pacienteExternacion.actualizarValor(elemento.getAttribute('data-externacion'));
-        pacienteTipoEdad.actualizarValor(elemento.getAttribute('data-tipo-edad'));
+        pacienteDni.actualizarValor(elemento.obtenerValorAtributo('data-dni'));
+        pacienteNombre.actualizarValor(elemento.obtenerValorAtributo('data-nombre'));        
+        pacienteApellido.actualizarValor(elemento.obtenerValorAtributo('data-apellido'));
+        pacienteGenero.actualizarValor(elemento.obtenerValorAtributo('data-genero'));
+        pacienteInternacion.actualizarValor(elemento.obtenerValorAtributo('data-internacion'));
+        pacienteExternacion.actualizarValor(elemento.obtenerValorAtributo('data-externacion'));
+        pacienteTipoEdad.actualizarValor(elemento.obtenerValorAtributo('data-tipo-edad'));
+
+        // abrir campos para poder modificar al paciente
+        pacienteModificarArray.iterar('mostrar');
+
+        // abrir bloque familiar para continuar
+        familiarBloque.mostrar();
     });
 });
 
+//  b.- NUEVO
+pacienteElegirNuevo.html.addEventListener('click', function() {
+    pacienteBuscarItemLista.forEach(elemento => {
+        pacienteDni.actualizarValor('');
+        pacienteNombre.actualizarValor('');
+        pacienteApellido.actualizarValor('');
+        pacienteGenero.actualizarValor('');
+        pacienteInternacion.actualizarValor('');
+        pacienteExternacion.actualizarValor(elemento.obtenerValorAtributo('data-externacion'));
+        pacienteTipoEdad.actualizarValor('');
+        pacienteModificarArray.iterar('mostrar');
+        familiarBloque.ocultar();
+    });
+});
 
+// abrir bloque familiar una vez dado un DNI de paciente
+pacienteDni.html.addEventListener('input', function() {
+    if (this.value.length > 6) {
+        familiarBloque.mostrar();
+    }
+})
+
+
+// ELEGIR FAMILIAR
 
 // Redireccionar al hacer clic en el botón "Volver"
 volver.html.addEventListener('click', (e) => {window.location.href = "{% url 'index' %}";});
