@@ -4,6 +4,7 @@ ES_MENOR = 'menor'
 ES_ADULTO = 'adulto'
 MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
 
+
 class ModFecha:
     def __init__(self, fecha):
         self.fecha = str(fecha)
@@ -60,6 +61,7 @@ class ClasePaciente(Persona):
             self.terminacion = 'o'           
         elif self.genero == ES_FEMENINO:
             self.terminacion = 'a'
+
 
 class ClaseFamiliar(Persona):
     def __init__(self, nombre, apellido, dni, genero):
@@ -169,7 +171,7 @@ class PacienteBBDD(PersonaBBDD):
 
 class FamiliarBBDD(PersonaBBDD):
     def __init__(self, personas_objects, dni, nombre, apellido, genero):
-        PersonaBBDD.__init__(self, personas_objects, nombre, apellido, dni, genero)
+        PersonaBBDD.__init__(self, personas_objects, dni, nombre, apellido, genero)
     
     def obtener(self):
         # Crea instancias de los modelos y guarda los datos en la base de datos

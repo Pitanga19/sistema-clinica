@@ -39,19 +39,19 @@ def new(request, id_constancia_recibida=None):
 def new_submit(request):
     if request.method == 'POST':
         # Obtén los datos del formulario
-        p_nombre = request.POST.get('p-name')
-        p_apellido = request.POST.get('p-last')
-        p_dni = request.POST.get('p-dni')
-        p_genero = request.POST.get('p-genre')
-        p_internacion = request.POST.get('p-admission')
-        p_externacion = request.POST.get('p-exit')
-        p_edad = request.POST.get('p-age')
-        f_nombre = request.POST.get('f-name')
-        f_apellido = request.POST.get('f-last')
-        f_dni = request.POST.get('f-dni')
-        f_genero = request.POST.get('f-genre')
-        p_f_relacion = request.POST.get('f-relation')
-        c_presentacion = request.POST.get('d-date')
+        p_dni = request.POST.get('paciente_dni')
+        p_nombre = request.POST.get('paciente_nombre')
+        p_apellido = request.POST.get('paciente_apellido')
+        p_genero = request.POST.get('paciente_genero')
+        p_internacion = request.POST.get('paciente_internacion')
+        p_externacion = request.POST.get('paciente_externacion')
+        p_edad = request.POST.get('paciente_tipo_edad')
+        f_dni = request.POST.get('familiar_dni')
+        f_nombre = request.POST.get('familiar_nombre')
+        f_apellido = request.POST.get('familiar_apellido')
+        f_genero = request.POST.get('familiar_genero')
+        p_f_relacion = request.POST.get('relacion_paciente_familiar')
+        c_presentacion = request.POST.get('presentacion')
         
         pacientes_objects = Paciente.objects
         paciente = PacienteBBDD(pacientes_objects, p_dni, p_nombre, p_apellido, p_genero, p_internacion, p_externacion, p_edad).obtener()

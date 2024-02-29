@@ -309,8 +309,6 @@ function resetearOpcionesPaciente() {
 }
 
 function resetearOpcionesFamiliar() {
-    // familiarElegirRelacionado.resetear();
-    // familiarElegirAgregar.resetear();
     familiarGeneroFemenino.resetear();
     familiarGeneroMasculino.resetear();
 }
@@ -518,6 +516,7 @@ familiarAgregarBuscarItemLista.forEach(elemento => {
         familiarNombre.actualizarValor(elemento.obtenerValorAtributo('data-nombre'));        
         familiarApellido.actualizarValor(elemento.obtenerValorAtributo('data-apellido'));
         familiarGenero.actualizarValor(elemento.obtenerValorAtributo('data-genero'));
+        seleccionarBotonGenero(familiarGenero, familiarGeneroFemenino, familiarGeneroMasculino);
 
         // Mostrar campos para poder modificar al familiar
         desplegarCampos(familiarModificarArray);
