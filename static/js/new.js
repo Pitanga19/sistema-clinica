@@ -437,109 +437,66 @@ familiarDni.html.addEventListener('input', function() {
     }
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Redireccionar al hacer clic en el botón "Volver"
 volver.html.addEventListener('click', (e) => {window.location.href = "{% url 'index' %}";});
 
-function validarPalabra(palabra, errorHtml) {
-    let error;
-    let esValido = false;
-    if (palabra === '') {
-        error = ' ¡Incompleto!'
-    } else if (/[^a-zA-ZñÑ\s]/.test(palabra)) {
-        error = ' ¡Inválido!' 
-    } else {
-        error = '';
-        esValido = true
-    };
-    errorHtml.innerHTML = error;
-    return esValido;
-};
 
-function validarDni(dni, errorHtml) {
-    let error;
-    let esValido = false;
-    if (dni === '') {
-        error = ' ¡Incompleto!'
-    } else if (/^(?:\D*(\d{1,6}|\d{9,})\D*|\s*)$|\D/.test(dni)) {
-        error = ' ¡Inválido!' 
-    } else {
-        error = '';
-        esValido = true
-    };
-    errorHtml.innerHTML = error;
-    return esValido;
-}
 
-function validarGenero(genero, errorHtml) {
-    let error;
+
+
+// LOGICA PARA FORMATO DE INPUTS
+
+
+
+
+
+
+
+
+
+
+// LOGICA PARA VALIDACIÓN FRONT DEL FORMULARIO
+const exregDni = /^[1-9]\d{6,7}$/;
+const exregPalabras = /^[a-zA-ZñÑ]+(?:\s[a-zA-ZñÑ]+)*$/;
+const exregFecha = /^(19[6-9]\d|20\d\d)-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+
+function validarConExreg(cadena, exreg, errorHtml) {
+    let errorDetectado = '';
     let esValido = false;
-    if (genero === esFemenino || genero === esMasculino) {
-        error = '';
-        esValido = true
+
+    if (cadena === '') {
+        errorDetectado = ' ¡Incompleto!';
+    } else if (!exreg.test(cadena)) {
+        errorDetectado = ' ¡Inválido!';
     } else {
-        error = ' ¡Sin selección!'
+        esValido = true;
     }
-    errorHtml.innerHTML = error;
+
+    errorHtml.innerHTML = errorDetectado;
     return esValido;
 }
 
-function validarFecha(fecha, errorHtml) {
-    let error;
-    let esValido = false;
-    year = parseInt(fecha.split('-')[0]);
-    if (fecha === '') {
-        error = ' ¡Incompleto!'
-    } else if (!/^\d{4}-\d{2}-\d{2}$/.test(fecha) || year < 1959) {
-        error = ' ¡Inválido!' 
-    } else {
-        error = '';
-        esValido = true
-    };
-    errorHtml.innerHTML = error;
-    return esValido;
-}
 
-function esValidoarForm(pacienteNombre, pacienteApellido, pacienteDni, pacienteGenero, pacienteInternacion, pacienteExternacion, pacienteEdad, familiarNombre, familiarApellido, familiarDni, familiarGenero, relacion, presentacion) {
-    let esValidoPacienteNombre = validarPalabra(pacienteNombre.obtenerValor(), pacienteNombreError.html);
-    let esValidoPacienteApellido = validarPalabra(pacienteApellido.obtenerValor(), pacienteApellidoError.html);
-    let esValidoPacienteDni = validarDni(pacienteDni.obtenerValor(), pacienteDniError.html);
-    let esValidoPacienteGenero = validarGenero(pacienteGenero.obtenerValor(), pacienteGeneroError.html);
-    let esValidoPacienteInternacion = validarFecha(pacienteInternacion.obtenerValor(), pacienteInternacionError.html);
+
+
+function validarForm() {
+    let esValidoPacienteDni = validarConExreg(pacienteDni.obtenerValor(), exregDni, pacienteDniError.html);
+    let esValidoPacienteNombre = validarConExreg(pacienteNombre.obtenerValor(), exregPalabras, pacienteNombreError.html);
+    let esValidoPacienteApellido = validarConExreg(pacienteApellido.obtenerValor(), exregPalabras, pacienteApellidoError.html);
+    //let esValidoPacienteGenero = validarGenero(pacienteGenero.obtenerValor(), pacienteGeneroError.html);
+    let esValidoPacienteInternacion = validarConExreg(pacienteInternacion.obtenerValor(), exregFecha, pacienteInternacionError.html);
     //let esValidoPacienteExternacion = esValidoarExit(pacienteExternacion);
     //let esValidoPacienteEdad = esValidoarAge(pacienteEdad, errorPacienteEdad);
-    let esValidoFamiliarNombre = validarPalabra(familiarNombre.obtenerValor(), familiarNombreError.html);
-    let esValidoFamiliarApellido = validarPalabra(familiarApellido.obtenerValor(), familiarApellidoError.html);
-    let esValidoFamiliarDni = validarDni(familiarDni.obtenerValor(), familiarDniError.html);
-    let esValidoFamiliarGenero = validarGenero(familiarGenero.obtenerValor(), familiarGeneroError.html);
-    let esValidoRelacion = validarPalabra(relacion.obtenerValor(), relacionError.html);
-    let esValidoPresentacion = validarFecha(presentacion.obtenerValor(), presentacionError.html);
+    let esValidoFamiliarDni = validarConExreg(familiarDni.obtenerValor(), exregDni, familiarDniError.html);
+    let esValidoFamiliarNombre = validarConExreg(familiarNombre.obtenerValor(), exregPalabras, familiarNombreError.html);
+    let esValidoFamiliarApellido = validarConExreg(familiarApellido.obtenerValor(), exregPalabras, familiarApellidoError.html);
+    //let esValidoFamiliarGenero = validarGenero(familiarGenero.obtenerValor(), familiarGeneroError.html);
+    let esValidoRelacion = validarConExreg(relacion.obtenerValor(), exregPalabras, relacionError.html);
+    let esValidoPresentacion = validarConExreg(presentacion.obtenerValor(), exregFecha, presentacionError.html);
     if (
-        esValidoPacienteNombre && esValidoPacienteApellido && esValidoPacienteDni && esValidoPacienteGenero &&
-        esValidoPacienteInternacion && /*esValidoPacienteExternacion && esValidoPacienteEdad && */
-        esValidoFamiliarNombre && esValidoFamiliarApellido && esValidoFamiliarDni &&  esValidoFamiliarGenero &&
+        esValidoPacienteNombre && esValidoPacienteApellido && esValidoPacienteDni && /*esValidoPacienteGenero &&*/
+        esValidoPacienteInternacion && /*esValidoPacienteExternacion && esValidoPacienteEdad &&*/
+        esValidoFamiliarNombre && esValidoFamiliarApellido && esValidoFamiliarDni &&  /*esValidoFamiliarGenero &&*/
         esValidoRelacion && esValidoPresentacion
     ) {
         return true;
@@ -549,20 +506,8 @@ function esValidoarForm(pacienteNombre, pacienteApellido, pacienteDni, pacienteG
 
 confirmar.html.addEventListener('click', (e) => {
     e.preventDefault();
-    let pacienteNombre = inputPacienteNombre.value;
-    let pacienteApellido = inputPacienteApellido.value;
-    let pacienteDni = pacienteDni.value;
-    let pacienteGenero = inputFamiliarGenero.value;
-    let pacienteInternacion = pacienteInternacion.value;
-    let pacienteExternacion = checkAdmitted();
-    let pacienteEdad = pacienteTipoEdad.value;
-    let familiarNombre = inputFamiliarNombre.value;
-    let familiarApellido = inputFamiliarApellido.value;
-    let familiarDni = inputFamiliarDni.value;
-    let familiarGenero = inputFamiliarGenero.value;
-    let relacion = inputRelacion.value;
-    let presentacion = inputPresentacion.value;
-    if (esValidoarForm(pacienteNombre, pacienteApellido, pacienteDni, pacienteGenero, pacienteInternacion, pacienteExternacion, pacienteEdad, familiarNombre, familiarApellido, familiarDni, familiarGenero, relacion, presentacion)) {
-        constanciaFormulario.submit();
+    if (validarForm()) {
+        console.log('formulario valido');
+        //constanciaFormulario.submit();
     }
 });
