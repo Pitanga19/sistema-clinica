@@ -52,8 +52,8 @@
                 <label for="paciente_externacion" class="form__label" id="paciente_externacion-label">Externación<b class="error" id="paciente_externacion-error"></b></label>
                 <div class="form__opciones">
                     <input type="date" class="form__input" id="paciente_externacion" name="paciente_externacion">
-                    <input type="hidden" id="paciente_booleano_esta_internado" name="paciente_booleano_esta_internado" value="false">
-                    <input type="button" class="form__input eleccion" id="paciente_alternar_esta_internado" name="paciente_alternar_esta_internado" value="Internado">
+                    <input type="hidden" id="paciente_esta_internado-boolean" name="paciente_esta_internado-boolean" value="false">
+                    <input type="button" class="form__input eleccion" id="paciente_esta_internado-alternar" name="paciente_esta_internado-alternar" value="Internado">
                 </div>
             </div>
             <div class="form__div paciente_modificar invisible">
@@ -127,7 +127,7 @@
     <nav class="main__nav-contenedor">
         <input type="button" class="main__nav-boton" id="imprimir" value="Imprimir">
         <input type="submit" class="main__nav-boton" id="confirmar" value="Confirmar">
-        <a class="main__nav-boton" id="volver" href = "{% url 'index' %}">Volver</a>
+        <input type="button" class="main__nav-boton" id="volver" value="Volver">
     </nav>
 </form>
 {% endblock %}

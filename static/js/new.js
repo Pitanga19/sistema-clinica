@@ -7,8 +7,10 @@ class Elemento {
         this.html.classList.add(clase);
     }
     
-    removerClase(clase) {
-        this.html.classList.remove(clase);
+    removerClases(...clases) {
+        for (let clase of clases) {
+            this.html.classList.remove(clase);
+        }
     }
     
     ocultar(){
@@ -16,7 +18,7 @@ class Elemento {
     }
 
     mostrar(){
-        this.removerClase('invisible');
+        this.removerClases('invisible');
     }
 
     establecerValorAtributo(atributo, valor) {
@@ -76,6 +78,11 @@ class Boton extends Elemento {
         if (botonSeleccionado instanceof Boton) {
             botonSeleccionado.seleccionar();
         }
+    }
+
+    resetear() {
+        this.html.classList.remove('seleccionado');
+        this.html.classList.remove('descartado');
     }
 
     ejecutarMetodoEnOtraInstancia(instanciaOtraClase, metodo) {
@@ -173,13 +180,13 @@ const pacienteInternacion = new Input(document.getElementById('paciente_internac
 const pacienteExternacionLabel = new Elemento(document.getElementById('paciente_externacion-label'));
 const pacienteExternacionError = new Elemento(document.getElementById('paciente_externacion-error'));
 const pacienteExternacion = new Input(document.getElementById('paciente_externacion'));
-const pacienteBooleanEstaInternado = new Elemento(document.getElementById('paciente_booleano_esta_internado'));
-const pacienteAlternarEstaInternado = new Boton(document.getElementById('paciente_alternar_esta_internado'));
+const pacienteEstaInternadoBoolean = new Elemento(document.getElementById('paciente_esta_internado-boolean'));
+const pacienteEstaInternadoAlternar = new Boton(document.getElementById('paciente_esta_internado-alternar'));
 
 const pacienteTipoEdadLabel = new Elemento(document.getElementById('paciente_tipo_edad-label'));
 const pacienteTipoEdadError = new Elemento(document.getElementById('paciente_tipo_edad-error'));
-const pacienteTipoEdadMenor= new Elemento(document.getElementById('paciente_tipo_edad-menor'));
-const pacienteTipoEdadAdulto = new Elemento(document.getElementById('paciente_tipo_edad-adulto'));
+const pacienteTipoEdadMenor = new Boton(document.getElementById('paciente_tipo_edad-menor'));
+const pacienteTipoEdadAdulto = new Boton(document.getElementById('paciente_tipo_edad-adulto'));
 const pacienteTipoEdad = new Input(document.getElementById('paciente_tipo_edad'));
 
 const familiarBloque = new Elemento(document.getElementById('familiar_bloque'));
@@ -238,9 +245,9 @@ const esFemenino = 'femenino';
 const esMasculino = 'masculino';
 const esMenor = 'menor';
 const esAdulto = 'adulto';
+let estaInternado = false;
 
 
-// 1.- ELEGIR PACIENTE
 function filtrarListaPersonas(personaItemLista, listaCadenasBuscadas){
     // Itera sobre los elementos de la lista
     personaItemLista.forEach(elemento => {
@@ -267,8 +274,54 @@ function desplegarCampos(camposDesplegarArray){
     camposDesplegarArray.iterar('mostrar');
 }
 
+function seleccionarBotonGenero(personaGenero, botonFemenino, botonMasculino) {
+    if (personaGenero.obtenerValor() === esFemenino) {
+        botonFemenino.html.click();
+    } else {
+        botonMasculino.html.click();
+    }
+}
+
+function seleccionarBotonTipoEdad(personaTipoEdad, botonMenor, botonAdulto) {
+    if (personaTipoEdad.obtenerValor() === esMenor) {
+        botonMenor.html.click();
+    } else {
+        botonAdulto.html.click();
+    }
+}
+
+function seleccionarBotonExternacion(pacienteExternacion, botonEstaInternadoAlternar) {
+    if (pacienteExternacion.obtenerValor() === '') {
+        estaInternado = false;
+    } else {
+        estaInternado = true;
+    }
+    botonEstaInternadoAlternar.html.click();
+}
+
+function resetearOpcionesPaciente() {
+    pacienteGeneroFemenino.resetear();
+    pacienteGeneroMasculino.resetear();
+    pacienteExternacion.html.disabled = false;
+    pacienteEstaInternadoAlternar.removerClases('seleccionado', 'descartado');
+    pacienteTipoEdadMenor.resetear();
+    pacienteTipoEdadAdulto.resetear();
+}
+
+function resetearOpcionesFamiliar() {
+    // familiarElegirRelacionado.resetear();
+    // familiarElegirAgregar.resetear();
+    familiarGeneroFemenino.resetear();
+    familiarGeneroMasculino.resetear();
+}
+
+function resetearTodos() {
+    resetearOpcionesPaciente();
+    resetearOpcionesFamiliar();
+}
+
 function desplegarBloqueFamiliar(){
-    desplegarFamiliaresRelacionados()
+    familiarElegirRelacionado.html.click()
     familiarBloque.mostrar();
     familiarRelacionadoLista.mostrar();
 }
@@ -302,6 +355,57 @@ function desplegarBloquePresentacion(){
     presentacionBloque.mostrar();
 }
 
+
+// LOGICA PARA OPCIONES
+
+pacienteGeneroFemenino.html.addEventListener('click', function() {
+    pacienteGenero.actualizarValor(esFemenino);
+    pacienteGeneroFemenino.seleccionar(pacienteGeneroMasculino);
+});
+
+pacienteGeneroMasculino.html.addEventListener('click', function() {
+    pacienteGenero.actualizarValor(esMasculino);
+    pacienteGeneroMasculino.seleccionar(pacienteGeneroFemenino);
+});
+
+pacienteEstaInternadoAlternar.html.addEventListener('click', function() {
+    estaInternado = !estaInternado;
+    if (estaInternado) {
+        pacienteEstaInternadoAlternar.seleccionar();
+        pacienteExternacion.actualizarValor(null);
+        pacienteExternacion.html.disabled = true;
+    } else {
+        pacienteEstaInternadoAlternar.descartar();
+        pacienteExternacion.html.disabled = false;
+    }
+});
+
+pacienteTipoEdadMenor.html.addEventListener('click', function() {
+    pacienteTipoEdadMenor.seleccionar(pacienteTipoEdadAdulto);
+    pacienteTipoEdad.actualizarValor(esMenor);
+})
+
+pacienteTipoEdadAdulto.html.addEventListener('click', function() {
+    pacienteTipoEdadAdulto.seleccionar(pacienteTipoEdadMenor);
+    pacienteTipoEdad.actualizarValor(esAdulto);
+})
+
+familiarGeneroFemenino.html.addEventListener('click', function() {
+    familiarGenero.actualizarValor(esFemenino);
+    familiarGeneroFemenino.seleccionar(familiarGeneroMasculino);
+});
+
+familiarGeneroMasculino.html.addEventListener('click', function() {
+    familiarGenero.actualizarValor(esMasculino);
+    familiarGeneroMasculino.seleccionar(familiarGeneroFemenino);
+});
+
+
+
+
+
+// 1.- ELEGIR PACIENTE
+
 //  a.1- BUSCAR
 pacienteBuscarInput.html.addEventListener('input', function() {
 
@@ -324,9 +428,12 @@ pacienteBuscarItemLista.forEach(elemento => {
         pacienteNombre.actualizarValor(elemento.obtenerValorAtributo('data-nombre'));        
         pacienteApellido.actualizarValor(elemento.obtenerValorAtributo('data-apellido'));
         pacienteGenero.actualizarValor(elemento.obtenerValorAtributo('data-genero'));
+        seleccionarBotonGenero(pacienteGenero, pacienteGeneroFemenino, pacienteGeneroMasculino);
         pacienteInternacion.actualizarValor(elemento.obtenerValorAtributo('data-internacion'));
         pacienteExternacion.actualizarValor(elemento.obtenerValorAtributo('data-externacion'));
+        seleccionarBotonExternacion(pacienteExternacion, pacienteEstaInternadoAlternar);
         pacienteTipoEdad.actualizarValor(elemento.obtenerValorAtributo('data-tipo-edad'));
+        seleccionarBotonTipoEdad(pacienteTipoEdad, pacienteTipoEdadMenor, pacienteTipoEdadAdulto);
 
         // Mostrar campos para poder modificar al paciente
         desplegarCampos(pacienteModificarArray)
@@ -345,13 +452,13 @@ pacienteElegirNuevo.html.addEventListener('click', function() {
     pacienteInternacion.actualizarValor('');
     pacienteExternacion.actualizarValor('');
     pacienteTipoEdad.actualizarValor('');
+    resetearOpcionesPaciente();
 
-    desplegarCampos(pacienteModificarArray)
+    desplegarCampos(pacienteModificarArray);
     familiarBloque.ocultar();
+    presentacionBloque.ocultar();
 });
 
-
-// ELEGIR FAMILIAR
 // Abrir bloque familiar una vez dado un DNI de paciente
 pacienteDni.html.addEventListener('input', function() {
     if (this.value.length > 6) {
@@ -360,20 +467,24 @@ pacienteDni.html.addEventListener('input', function() {
 })
 
 
+// ELEGIR FAMILIAR
+
 //  a.- RELACIONADOS
 familiarElegirRelacionado.html.addEventListener('click', function() {
-    desplegarFamiliaresAgregar()
-})
+    familiarElegirRelacionado.seleccionar(familiarElegirAgregar);
+    desplegarFamiliaresRelacionados();
+});
 
-familiarRelacionadoItemLista.forEach(elemento => {
+familiarRelacionadoItemLista.forEach(familiar => {
     // Agrega un evento de escucha al elemento
-    elemento.html.addEventListener('click', function() {
+    familiar.html.addEventListener('click', function() {
         // Pasando los valores a los campos
-        familiarDni.actualizarValor(elemento.obtenerValorAtributo('data-dni'));
-        familiarNombre.actualizarValor(elemento.obtenerValorAtributo('data-nombre'));        
-        familiarApellido.actualizarValor(elemento.obtenerValorAtributo('data-apellido'));
-        familiarGenero.actualizarValor(elemento.obtenerValorAtributo('data-genero'));
-        relacion.actualizarValor(elemento.obtenerValorAtributo('data-relacion'));
+        familiarDni.actualizarValor(familiar.obtenerValorAtributo('data-dni'));
+        familiarNombre.actualizarValor(familiar.obtenerValorAtributo('data-nombre'));        
+        familiarApellido.actualizarValor(familiar.obtenerValorAtributo('data-apellido'));
+        familiarGenero.actualizarValor(familiar.obtenerValorAtributo('data-genero'));
+        seleccionarBotonGenero(familiarGenero, familiarGeneroFemenino, familiarGeneroMasculino);
+        relacion.actualizarValor(familiar.obtenerValorAtributo('data-relacion'));
 
         // Mostrar campos para poder modificar al familiar
         desplegarCampos(familiarModificarArray);
@@ -381,12 +492,9 @@ familiarRelacionadoItemLista.forEach(elemento => {
     });
 });
 
-familiarElegirRelacionado.html.addEventListener('click', function() {
-    desplegarFamiliaresRelacionados();
-});
-
 //  b.1.I.- AGREGAR DE EXISTENTES
 familiarElegirAgregar.html.addEventListener('click', function() {
+    familiarElegirAgregar.seleccionar(familiarElegirRelacionado);
     desplegarFamiliaresAgregar();
 });
 
@@ -424,6 +532,7 @@ familiarAgregarNuevo.html.addEventListener('click', function() {
     familiarNombre.actualizarValor('');
     familiarApellido.actualizarValor('');
     relacion.actualizarValor('');
+    resetearOpcionesFamiliar();
 
     desplegarCampos(familiarModificarArray);
 });
@@ -437,16 +546,19 @@ familiarDni.html.addEventListener('input', function() {
     }
 })
 
-// Redireccionar al hacer clic en el botón "Volver"
-volver.html.addEventListener('click', (e) => {window.location.href = "{% url 'index' %}";});
+
+// NAVEGACIÓN - VOLVER
+volver.html.addEventListener('click', (e) => {window.location.href = indexUrl;});
 
 
-
-
-
-// LOGICA PARA FORMATO DE INPUTS
-
-
+// NAVEGACION - CONFIRMAR
+confirmar.html.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (validarForm()) {
+        console.log('formulario valido');
+        constanciaFormulario.html.submit();
+    }
+});
 
 
 
@@ -460,9 +572,11 @@ const exregDni = /^[1-9]\d{6,7}$/;
 const exregPalabras = /^[a-zA-ZñÑ]+(?:\s[a-zA-ZñÑ]+)*$/;
 const exregFecha = /^(19[6-9]\d|20\d\d)-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 
-function validarConExreg(cadena, exreg, errorHtml) {
+
+function validarConExreg(objeto, exreg, errorHtml) {
     let errorDetectado = '';
     let esValido = false;
+    let cadena = objeto.obtenerValor()
 
     if (cadena === '') {
         errorDetectado = ' ¡Incompleto!';
@@ -472,42 +586,74 @@ function validarConExreg(cadena, exreg, errorHtml) {
         esValido = true;
     }
 
-    errorHtml.innerHTML = errorDetectado;
+    errorHtml.html.innerHTML = errorDetectado;
+    return esValido;
+}
+
+
+function validarEleccion(botonOpcion1, botonOpcion2, errorHtml) {
+    let errorDetectado = '';
+    let esValido = false;
+    if (!(botonOpcion1.html.classList.contains('seleccionado') || botonOpcion2.html.classList.contains('seleccionado'))) {
+        errorDetectado = ' ¡Sin selección!';
+    } else {
+        esValido = true;
+    }
+    errorHtml.html.innerHTML = errorDetectado;
+    return esValido;
+}
+
+
+function validarUsoAlternar(botonAlternar) {
+    botonAlternar.html.classList.contains('')
+}
+
+function validarExternacion(errorHtml) {
+    let errorDetectado = '';
+    let esValido = estaInternado;
+
+    console.log('fecha vacia',pacienteExternacion.obtenerValor() == '')
+    console.log('no contiene seleccionado',!estaInternado)
+    console.log('no contiene descartado',!pacienteEstaInternadoAlternar.html.classList.contains('descartado'))
+
+    if (!estaInternado) {
+        if (
+            pacienteExternacion.obtenerValor() == '' &&
+            !pacienteEstaInternadoAlternar.html.classList.contains('descartado')
+        ) {
+            errorDetectado = ' ¡Sin selección!';
+        } else {
+            console.log('hubo una seleccion')
+            return validarConExreg(pacienteExternacion, exregFecha, errorHtml)
+        }
+    }
+    errorHtml.html.innerHTML = errorDetectado;
     return esValido;
 }
 
 
 
-
 function validarForm() {
-    let esValidoPacienteDni = validarConExreg(pacienteDni.obtenerValor(), exregDni, pacienteDniError.html);
-    let esValidoPacienteNombre = validarConExreg(pacienteNombre.obtenerValor(), exregPalabras, pacienteNombreError.html);
-    let esValidoPacienteApellido = validarConExreg(pacienteApellido.obtenerValor(), exregPalabras, pacienteApellidoError.html);
-    //let esValidoPacienteGenero = validarGenero(pacienteGenero.obtenerValor(), pacienteGeneroError.html);
-    let esValidoPacienteInternacion = validarConExreg(pacienteInternacion.obtenerValor(), exregFecha, pacienteInternacionError.html);
-    //let esValidoPacienteExternacion = esValidoarExit(pacienteExternacion);
-    //let esValidoPacienteEdad = esValidoarAge(pacienteEdad, errorPacienteEdad);
-    let esValidoFamiliarDni = validarConExreg(familiarDni.obtenerValor(), exregDni, familiarDniError.html);
-    let esValidoFamiliarNombre = validarConExreg(familiarNombre.obtenerValor(), exregPalabras, familiarNombreError.html);
-    let esValidoFamiliarApellido = validarConExreg(familiarApellido.obtenerValor(), exregPalabras, familiarApellidoError.html);
-    //let esValidoFamiliarGenero = validarGenero(familiarGenero.obtenerValor(), familiarGeneroError.html);
-    let esValidoRelacion = validarConExreg(relacion.obtenerValor(), exregPalabras, relacionError.html);
-    let esValidoPresentacion = validarConExreg(presentacion.obtenerValor(), exregFecha, presentacionError.html);
+    let esValidoPacienteDni = validarConExreg(pacienteDni, exregDni, pacienteDniError);
+    let esValidoPacienteNombre = validarConExreg(pacienteNombre, exregPalabras, pacienteNombreError);
+    let esValidoPacienteApellido = validarConExreg(pacienteApellido, exregPalabras, pacienteApellidoError);
+    let esValidoPacienteGenero = validarEleccion(pacienteGeneroFemenino, pacienteGeneroMasculino, pacienteGeneroError);
+    let esValidoPacienteInternacion = validarConExreg(pacienteInternacion, exregFecha, pacienteInternacionError);
+    let esValidoPacienteExternacion = validarExternacion(pacienteExternacionError);
+    let esValidoPacienteTipoEdad = validarEleccion(pacienteTipoEdadAdulto, pacienteTipoEdadMenor, pacienteTipoEdadError);
+    let esValidoFamiliarDni = validarConExreg(familiarDni, exregDni, familiarDniError);
+    let esValidoFamiliarNombre = validarConExreg(familiarNombre, exregPalabras, familiarNombreError);
+    let esValidoFamiliarApellido = validarConExreg(familiarApellido, exregPalabras, familiarApellidoError);
+    let esValidoFamiliarGenero = validarEleccion(familiarGeneroFemenino, familiarGeneroMasculino, familiarGeneroError);
+    let esValidoRelacion = validarConExreg(relacion, exregPalabras, relacionError);
+    let esValidoPresentacion = validarConExreg(presentacion, exregFecha, presentacionError);
     if (
-        esValidoPacienteNombre && esValidoPacienteApellido && esValidoPacienteDni && /*esValidoPacienteGenero &&*/
-        esValidoPacienteInternacion && /*esValidoPacienteExternacion && esValidoPacienteEdad &&*/
-        esValidoFamiliarNombre && esValidoFamiliarApellido && esValidoFamiliarDni &&  /*esValidoFamiliarGenero &&*/
+        esValidoPacienteNombre && esValidoPacienteApellido && esValidoPacienteDni && esValidoPacienteGenero &&
+        esValidoPacienteInternacion && esValidoPacienteExternacion && esValidoPacienteTipoEdad &&
+        esValidoFamiliarNombre && esValidoFamiliarApellido && esValidoFamiliarDni &&  esValidoFamiliarGenero &&
         esValidoRelacion && esValidoPresentacion
     ) {
         return true;
     }
 };
 
-
-confirmar.html.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (validarForm()) {
-        console.log('formulario valido');
-        //constanciaFormulario.submit();
-    }
-});

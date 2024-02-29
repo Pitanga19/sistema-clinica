@@ -9,7 +9,7 @@ class ListarPacientes:
             pacientes_html += f'''
             <li class="invisible" data-dni="{paciente.dni}" data-nombre="{paciente.nombre}" data-apellido="{paciente.apellido}" 
                 data-genero="{paciente.genero}" data-internacion="{paciente.internacion}" 
-                data-externacion="{externacion}" data-edad="{paciente.edad}">
+                data-externacion="{externacion}" data-tipo-edad="{paciente.edad}">
                 {paciente.nombre} {paciente.apellido} ({paciente.dni})
             </li>
             '''
