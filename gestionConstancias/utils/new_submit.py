@@ -1,5 +1,5 @@
 from datetime import datetime
-from models import Persona, Paciente, RelacionPacienteFamiliar, Constancia
+from gestionConstancias.models import Persona, Paciente, RelacionPacienteFamiliar, Constancia
 
 ES_MASCULINO = 'masculino'
 ES_FEMENINO = 'femenino'
@@ -64,7 +64,7 @@ class ModConstancia:
         return f'Paciente: {self.paciente} - Familiar: {self.familiar} - Presentación: {self.constancia.presentacion}'
     
     def redactar_inicio(self):
-        return f'<p class="contenido__fecha-presentacion">Lanús, {ModFecha(self.constancia.presentacion).texto}.</p><br><p class="contenido__p">Se deja constancia que {self.paciente.articulo} paciente <b class="contenido__b">{self.paciente.apellido} {self.paciente.apellido} DNI {ModDni(self.paciente.dni).miles}</b> '
+        return f'<p class="contenido__fecha-presentacion">Lanús, {ModFecha(self.constancia.presentacion).texto}.</p><br><p class="contenido__p">Se deja constancia que {self.paciente.articulo} paciente <b class="contenido__b">{self.paciente.apellido} {self.paciente.nombre} DNI {ModDni(self.paciente.dni).miles}</b> '
     
     def redactar_desarrollo(self):
         if not self.paciente_fechas.externacion:
@@ -73,12 +73,12 @@ class ModConstancia:
             return f'cursó internación en esta institución desde el día {ModFecha(self.paciente_fechas.internacion).numero} hasta el día {ModFecha(self.paciente_fechas.externacion).numero}.</p>'
     
     def redactar_final(self):
-        return f'<br><p class="contenido__p">La presente se extiende a pedido {self.familiar.prefijo} <b class="contenido__b">{self.familiar.apellido} {self.familiar.nombre} DNI {ModDni(self.familiar.dni).miles}</b>{self.redactar_extra()}.</p>'
+        return f'<br><p class="contenido__p">La presente se extiende a pedido {self.familiar.constancia_a_solicitud} <b class="contenido__b">{self.familiar.apellido} {self.familiar.nombre} DNI {ModDni(self.familiar.dni).miles}</b>{self.redactar_extra()}.</p>'
 
     def redactar_extra(self):
         if self.paciente.tipo_edad == ES_ADULTO:
             extra = ''
-        elif not self.paciente.externacion:
+        elif not self.paciente_fechas.externacion:
             extra = f', quien se encuentra acompañando a su {self.relacion.vinculo} de manera continua'
         else:
             extra = f', quien acompañó a su {self.relacion.vinculo} de manera continua'

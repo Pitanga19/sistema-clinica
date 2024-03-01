@@ -6,11 +6,16 @@ from .utils.new_submit import *
 
 @receiver(pre_save, sender=Persona)
 def pre_save_persona(sender, instance, **kwargs):
+    print('se están guardando los presave')
+    print('se están guardando los presave')
+    print('se están guardando los presave')
+    print('se están guardando los presave')
+    print('se están guardando los presave')
+    print('se están guardando los presave')
+    print('se están guardando los presave')
+    print('se están guardando los presave')
     instance.nombre = instance.nombre.title()
     instance.apellido = instance.apellido.title()
-
-@receiver(post_save, sender=Persona)
-def post_save_persona(sender, instance, created, **kwargs):
     if instance.genero == ES_FEMENINO: 
         instance.articulo = 'la'
         instance.terminacion = 'a'
@@ -19,8 +24,10 @@ def post_save_persona(sender, instance, created, **kwargs):
         instance.articulo = 'el'
         instance.terminacion = 'o'
         instance.constancia_a_solicitud = 'del Sr.'
+    instance.save()
 
 
 @receiver(pre_save, sender=Paciente)
 def pre_save_paciente(sender, instance, **kwargs):
     if not instance.externacion: instance.externacion = None
+    instance.save()

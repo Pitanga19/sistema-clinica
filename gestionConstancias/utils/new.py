@@ -7,10 +7,10 @@ class ListarPacientes:
         for paciente in self.lista_pacientes_objects:
             externacion = paciente.externacion.strftime('%Y-%m-%d') if paciente.externacion else "null"
             pacientes_html += f'''
-            <li class="invisible" data-dni="{paciente.dni}" data-nombre="{paciente.nombre}" data-apellido="{paciente.apellido}" 
-                data-genero="{paciente.genero}" data-internacion="{paciente.internacion}" 
-                data-externacion="{externacion}" data-tipo-edad="{paciente.edad}">
-                {paciente.nombre} {paciente.apellido} ({paciente.dni})
+            <li class="invisible" data-dni="{paciente.persona_dni.dni}" data-nombre="{paciente.persona_dni.nombre}" data-apellido="{paciente.persona_dni.apellido}" 
+                data-genero="{paciente.persona_dni.genero}" data-internacion="{paciente.internacion}" 
+                data-externacion="{externacion}" data-tipo-edad="{paciente.persona_dni.tipo_edad}">
+                {paciente}
             </li>
             '''
         return pacientes_html
@@ -25,7 +25,7 @@ class ListarFamiliares:
             familiares_html += f'''
             <li class="invisible" data-dni="{familiar.dni}" data-nombre="{familiar.nombre}" data-apellido="{familiar.apellido}" 
                 data-genero="{familiar.genero}">
-                {familiar.nombre} {familiar.apellido} ({familiar.dni})
+                {familiar}
             </li>
             '''
         return familiares_html
@@ -37,13 +37,13 @@ class ListarRelacionesFamiliares:
     def obtener_html(self):
         relaciones_familiares_html = ""
         for relacion in self.lista_relaciones_familiares_objects:
-            dni_paciente_relacionado = relacion.paciente.dni
-            familiar = relacion.familiar
-            relacion = relacion.relacion
+            paciente_relacionado_dni = relacion.paciente_id.persona_dni.dni
+            familiar = relacion.persona_dni
+            vinculo = relacion.vinculo
             relaciones_familiares_html += f'''
-            <li class="invisible" data-dni="{familiar.dni}" data-nombre="{familiar.nombre}" data-apellido="{familiar.apellido}" 
-                data-genero="{familiar.genero}" data-relacion="{relacion}" data-dni-paciente-relacionado="{dni_paciente_relacionado}">
-                {familiar.nombre} {familiar.apellido} ({familiar.dni})
+            <li class="invisible" data-dni-paciente-relacionado="{paciente_relacionado_dni} data-dni="{familiar.dni}" data-nombre="{familiar.nombre}" data-apellido="{familiar.apellido}" 
+                data-genero="{familiar.genero}" data-vinculo="{vinculo}"">
+                {familiar}
             </li>
             '''
         return relaciones_familiares_html

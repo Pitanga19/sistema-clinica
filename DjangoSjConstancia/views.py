@@ -56,12 +56,13 @@ def new_submit(request):
         relacion = obtener_relacion(paciente, familiar, relacion_vinculo)
         
         constancia = obtener_constancia(relacion, constancia_presentacion)
-        
 
-        print(constancia.contenido)
+        print(ModConstancia(constancia).contenido)
+        
+        contenido = ModConstancia(constancia).contenido
 
         # Redirecciona a una página de éxito o muestra un mensaje de éxito
-        return render(request, 'membrete.html', {'contenido': constancia.contenido})
+        return render(request, 'membrete.html', {'contenido': contenido})
     else:
         # Si la solicitud no es POST, devuelve un error
         return JsonResponse({'error': 'Method not allowed'}, status=405)
