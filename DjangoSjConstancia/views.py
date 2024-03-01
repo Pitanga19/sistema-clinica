@@ -1,12 +1,10 @@
 from django.http import HttpResponse
-# importando el método render para simplificar el renderizado de la página
 from django.shortcuts import render
 from django.http import JsonResponse
 from gestionConstancias.models import Persona, Paciente, RelacionPacienteFamiliar, Constancia
 from gestionConstancias.utils.new import *
 from gestionConstancias.utils.new_submit import *
-
-import datetime
+from datetime import datetime
 
 
 def index(request):
@@ -15,9 +13,13 @@ def index(request):
 
 
 def new(request):
-# la vista new no está recibiendo el parámetro id_constancia_recibida
+    fecha_actual = datetime.now().date()
+    
     pacientes_objects = Paciente.objects.all()
     pacientes_html = ListarPacientes(pacientes_objects).obtener_html()
+    
+    personas_no_paciente_objects = Persona.objects.exclude(dni__in=Paciente.objects.values('persona_dni'))
+    personas_no_paciente_html = ListarPersonasNoPaciente(personas_no_paciente_objects).obtener_html()
         
     familiares_objects = Persona.objects.all()
     familiares_html = ListarFamiliares(familiares_objects).obtener_html()
@@ -27,8 +29,10 @@ def new(request):
     
     return render(request, 'new.html', {
         'pacientes_html': pacientes_html,
+        'personas_no_paciente_html': personas_no_paciente_html,
         'familiares_html':familiares_html,
-        'relaciones_familiares_html': relaciones_familiares_html
+        'relaciones_familiares_html': relaciones_familiares_html,
+        'fecha_actual': fecha_actual
     })
 
 

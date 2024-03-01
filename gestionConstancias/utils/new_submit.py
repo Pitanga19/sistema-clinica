@@ -85,26 +85,39 @@ class ModConstancia:
         return extra
 
 
-def obtener_paciente(dni, nombre, apellido, genero, tipo_edad, internacion, externacion):
-    persona, created = Persona.objects.get_or_create(
-        dni=dni,
-        defaults={
-            'nombre': nombre,
-            'apellido': apellido,
-            'genero': genero,
-            'tipo_edad': tipo_edad
-        }
-    )
+def obtener_paciente(dni, apellido, nombre, genero, tipo_edad, internacion, externacion):
+    try:
+        paciente = Paciente.objects.get(persona_dni=dni)
+    except Paciente.DoesNotExist:
+        try:
+            persona = Persona.objects.get(dni=dni)
+        except Persona.DoesNotExist:
+            persona = Persona.objects.create(
+                dni=dni,
+                apellido=apellido,
+                nombre=nombre,
+                genero=genero,
+                tipo_edad=tipo_edad
+            )
+    # persona, created = Persona.objects.get_or_create(
+    #     dni=dni,
+    #     defaults={
+    #         'nombre': nombre,
+    #         'apellido': apellido,
+    #         'genero': genero,
+    #         'tipo_edad': tipo_edad
+    #     }
+    # )
 
-    paciente, created = Paciente.objects.update_or_create(
-        persona_dni=persona,
-        defaults={
-            'internacion': internacion,
-            'externacion': externacion
-        }
-    )
+    # paciente, created = Paciente.objects.update_or_create(
+    #     persona_dni=persona,
+    #     defaults={
+    #         'internacion': internacion,
+    #         'externacion': externacion
+    #     }
+    # )
 
-    return paciente
+    #return paciente
 
 
 # FUNCIÓN OBTENER FAMILIAR

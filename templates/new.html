@@ -22,6 +22,9 @@
                 <ul id="paciente_buscar-lista">
                     {{ pacientes_html | safe }}
                 </ul>
+                <ul id="persona_no_paciente_buscar-lista">
+                    {{ personas_no_paciente_html | safe }}
+                </ul>
             </div>
         
             <div class="form__div paciente_modificar invisible">
@@ -135,6 +138,7 @@
 {% block script %}
 <script>
     const indexUrl = "{% url 'index' %}";
+    const fechaActual = new Date('{{ fecha_actual }}');
 </script>
 <script src="{% static 'js/new.js' %}"></script>
 {% endblock %}

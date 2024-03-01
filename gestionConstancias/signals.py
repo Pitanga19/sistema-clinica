@@ -5,17 +5,8 @@ from .models import Persona, Paciente
 from .utils.new_submit import *
 
 @receiver(pre_save, sender=Persona)
-def pre_save_persona(sender, instance, **kwargs):
-    print('se están guardando los presave')
-    print('se están guardando los presave')
-    print('se están guardando los presave')
-    print('se están guardando los presave')
-    print('se están guardando los presave')
-    print('se están guardando los presave')
-    print('se están guardando los presave')
-    print('se están guardando los presave')
-    instance.nombre = instance.nombre.title()
-    instance.apellido = instance.apellido.title()
+def actualizar_campos_relacionados(sender, instance, **kwargs):
+    print(f'instance genero en SIGNALS: {instance.genero}')
     if instance.genero == ES_FEMENINO: 
         instance.articulo = 'la'
         instance.terminacion = 'a'
@@ -24,10 +15,9 @@ def pre_save_persona(sender, instance, **kwargs):
         instance.articulo = 'el'
         instance.terminacion = 'o'
         instance.constancia_a_solicitud = 'del Sr.'
-    instance.save()
 
 
-@receiver(pre_save, sender=Paciente)
-def pre_save_paciente(sender, instance, **kwargs):
-    if not instance.externacion: instance.externacion = None
-    instance.save()
+# @receiver(pre_save, sender=Paciente)
+# def pre_save_paciente(sender, instance, **kwargs):
+#     if not instance.externacion: instance.externacion = None
+#     instance.save()

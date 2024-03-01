@@ -15,6 +15,22 @@ class ListarPacientes:
             '''
         return pacientes_html
     
+class ListarPersonasNoPaciente:
+    def __init__(self, lista_personas_no_paciente_objects):
+        self.lista_personas_no_paciente_objects = lista_personas_no_paciente_objects
+    
+    def obtener_html(self):
+        personas_html = ""
+        for persona in self.lista_personas_no_paciente_objects:
+            personas_html += f'''
+            <li class="invisible" data-dni="{persona.dni}" data-nombre="{persona.nombre}" data-apellido="{persona.apellido}" 
+                data-genero="{persona.genero}" 
+                data-tipo_edad="{persona.tipo_edad}">
+                {persona}
+            </li>
+            '''
+        return personas_html
+    
 class ListarFamiliares:
     def __init__(self, lista_familiares_objects):
         self.lista_familiares_objects = lista_familiares_objects
@@ -41,7 +57,7 @@ class ListarRelacionesFamiliares:
             familiar = relacion.persona_dni
             vinculo = relacion.vinculo
             relaciones_familiares_html += f'''
-            <li class="invisible" data-dni-paciente-relacionado="{paciente_relacionado_dni} data-dni="{familiar.dni}" data-nombre="{familiar.nombre}" data-apellido="{familiar.apellido}" 
+            <li class="invisible" data-dni-paciente-relacionado="{paciente_relacionado_dni}" data-dni="{familiar.dni}" data-nombre="{familiar.nombre}" data-apellido="{familiar.apellido}" 
                 data-genero="{familiar.genero}" data-vinculo="{vinculo}"">
                 {familiar}
             </li>

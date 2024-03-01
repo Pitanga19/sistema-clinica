@@ -152,6 +152,8 @@ const pacienteBuscarInput = new Input(document.getElementById('paciente_buscar-i
 const pacienteElegirNuevo = new Boton(document.getElementById('paciente_elegir-nuevo'));
 const pacienteBuscarLista = new Lista(document.getElementById('paciente_buscar-lista'));
 const pacienteBuscarItemLista = pacienteBuscarLista.elementosItemListaArray;
+const personaNoPacienteBuscarLista = new Lista(document.getElementById('persona_no_paciente_buscar-lista'));
+const personaNoPacienteBuscarItemLista = personaNoPacienteBuscarLista.elementosItemListaArray;
 
 const pacienteModificarArray = new ElementosArray(Array.from(document.querySelectorAll('.paciente_modificar')));
 
@@ -412,8 +414,10 @@ pacienteBuscarInput.html.addEventListener('input', function() {
     
     if (cadenaBuscada.length < 3) {
         pacienteBuscarLista.ocultarTodos();
+        personaNoPacienteBuscarLista.ocultarTodos();
     } else {
         filtrarListaPersonas(pacienteBuscarItemLista, listaCadenasBuscadas);
+        filtrarListaPersonas(personaNoPacienteBuscarItemLista, listaCadenasBuscadas);
     }
 });
 
@@ -430,6 +434,26 @@ pacienteBuscarItemLista.forEach(elemento => {
         pacienteInternacion.actualizarValor(elemento.obtenerValorAtributo('data-internacion'));
         pacienteExternacion.actualizarValor(elemento.obtenerValorAtributo('data-externacion'));
         seleccionarBotonExternacion(pacienteExternacion, pacienteEstaInternadoAlternar);
+        pacienteTipoEdad.actualizarValor(elemento.obtenerValorAtributo('data-tipo-edad'));
+        seleccionarBotonTipoEdad(pacienteTipoEdad, pacienteTipoEdadMenor, pacienteTipoEdadAdulto);
+
+        // Mostrar campos para poder modificar al paciente
+        desplegarCampos(pacienteModificarArray)
+
+        // Abrir bloque familiar para continuar
+        desplegarBloqueFamiliar();
+    });
+});
+
+personaNoPacienteBuscarItemLista.forEach(elemento => {
+    // Agrega un evento de escucha al elemento
+    elemento.html.addEventListener('click', function() {
+        // Pasando los valores a los campos
+        pacienteDni.actualizarValor(elemento.obtenerValorAtributo('data-dni'));
+        pacienteNombre.actualizarValor(elemento.obtenerValorAtributo('data-nombre'));        
+        pacienteApellido.actualizarValor(elemento.obtenerValorAtributo('data-apellido'));
+        pacienteGenero.actualizarValor(elemento.obtenerValorAtributo('data-genero'));
+        seleccionarBotonGenero(pacienteGenero, pacienteGeneroFemenino, pacienteGeneroMasculino);
         pacienteTipoEdad.actualizarValor(elemento.obtenerValorAtributo('data-tipo-edad'));
         seleccionarBotonTipoEdad(pacienteTipoEdad, pacienteTipoEdadMenor, pacienteTipoEdadAdulto);
 
@@ -473,16 +497,16 @@ familiarElegirRelacionado.html.addEventListener('click', function() {
     desplegarFamiliaresRelacionados();
 });
 
-familiarRelacionadoItemLista.forEach(familiar => {
-    // Agrega un evento de escucha al elemento
-    familiar.html.addEventListener('click', function() {
+familiarRelacionadoItemLista.forEach(persona => {
+    // Agrega un evento de escucha a la persona
+    persona.html.addEventListener('click', function() {
         // Pasando los valores a los campos
-        familiarDni.actualizarValor(familiar.obtenerValorAtributo('data-dni'));
-        familiarNombre.actualizarValor(familiar.obtenerValorAtributo('data-nombre'));        
-        familiarApellido.actualizarValor(familiar.obtenerValorAtributo('data-apellido'));
-        familiarGenero.actualizarValor(familiar.obtenerValorAtributo('data-genero'));
+        familiarDni.actualizarValor(persona.obtenerValorAtributo('data-dni'));
+        familiarNombre.actualizarValor(persona.obtenerValorAtributo('data-nombre'));        
+        familiarApellido.actualizarValor(persona.obtenerValorAtributo('data-apellido'));
+        familiarGenero.actualizarValor(persona.obtenerValorAtributo('data-genero'));
         seleccionarBotonGenero(familiarGenero, familiarGeneroFemenino, familiarGeneroMasculino);
-        relacion.actualizarValor(familiar.obtenerValorAtributo('data-relacion'));
+        relacion.actualizarValor(persona.obtenerValorAtributo('data-vinculo'));
 
         // Mostrar campos para poder modificar al familiar
         desplegarCampos(familiarModificarArray);
@@ -508,14 +532,14 @@ familiarAgregarBuscarInput.html.addEventListener('input', function() {
 });
 
 //  b.1.II.- OBTENER VALORES
-familiarAgregarBuscarItemLista.forEach(elemento => {
-    // Agrega un evento de escucha al elemento
-    elemento.html.addEventListener('click', function() {
+familiarAgregarBuscarItemLista.forEach(persona => {
+    // Agrega un evento de escucha a la persona
+    persona.html.addEventListener('click', function() {
         // Pasando los valores a los campos
-        familiarDni.actualizarValor(elemento.obtenerValorAtributo('data-dni'));
-        familiarNombre.actualizarValor(elemento.obtenerValorAtributo('data-nombre'));        
-        familiarApellido.actualizarValor(elemento.obtenerValorAtributo('data-apellido'));
-        familiarGenero.actualizarValor(elemento.obtenerValorAtributo('data-genero'));
+        familiarDni.actualizarValor(persona.obtenerValorAtributo('data-dni'));
+        familiarNombre.actualizarValor(persona.obtenerValorAtributo('data-nombre'));        
+        familiarApellido.actualizarValor(persona.obtenerValorAtributo('data-apellido'));
+        familiarGenero.actualizarValor(persona.obtenerValorAtributo('data-genero'));
         seleccionarBotonGenero(familiarGenero, familiarGeneroFemenino, familiarGeneroMasculino);
 
         // Mostrar campos para poder modificar al familiar
@@ -554,7 +578,6 @@ volver.html.addEventListener('click', (e) => {window.location.href = indexUrl;})
 confirmar.html.addEventListener('click', (e) => {
     e.preventDefault();
     if (validarForm()) {
-        console.log('formulario valido');
         constanciaFormulario.html.submit();
     }
 });
@@ -607,22 +630,38 @@ function validarUsoAlternar(botonAlternar) {
     botonAlternar.html.classList.contains('')
 }
 
-function validarExternacion(errorHtml) {
+
+function validarInternacion(errorHtml) {
     let errorDetectado = '';
     let esValido = estaInternado;
 
-    console.log('fecha vacia',pacienteExternacion.obtenerValor() == '')
-    console.log('no contiene seleccionado',!estaInternado)
-    console.log('no contiene descartado',!pacienteEstaInternadoAlternar.html.classList.contains('descartado'))
+    fechaIngresada = new Date(pacienteInternacion.obtenerValor())
 
+    if (fechaIngresada > fechaActual) {
+        errorDetectado = ' ¡No puede ser posterior a hoy!';
+    } else {
+        return validarConExreg(pacienteInternacion, exregFecha, errorHtml)
+    }
+    errorHtml.html.innerHTML = errorDetectado;
+    return esValido;
+}
+
+function validarExternacion(errorHtml) {
+    let errorDetectado = '';
+    let esValido = estaInternado;
+    let fechaInternacion = new Date(pacienteInternacion.obtenerValor());
+    let fechaExternacion = new Date(pacienteExternacion.obtenerValor());
+
+    
     if (!estaInternado) {
         if (
             pacienteExternacion.obtenerValor() == '' &&
             !pacienteEstaInternadoAlternar.html.classList.contains('descartado')
         ) {
             errorDetectado = ' ¡Sin selección!';
+        } else if (fechaInternacion > fechaExternacion) {
+            errorDetectado = ' ¡No puede ser anterior a la internación!';
         } else {
-            console.log('hubo una seleccion')
             return validarConExreg(pacienteExternacion, exregFecha, errorHtml)
         }
     }
@@ -637,7 +676,7 @@ function validarForm() {
     let esValidoPacienteNombre = validarConExreg(pacienteNombre, exregPalabras, pacienteNombreError);
     let esValidoPacienteApellido = validarConExreg(pacienteApellido, exregPalabras, pacienteApellidoError);
     let esValidoPacienteGenero = validarEleccion(pacienteGeneroFemenino, pacienteGeneroMasculino, pacienteGeneroError);
-    let esValidoPacienteInternacion = validarConExreg(pacienteInternacion, exregFecha, pacienteInternacionError);
+    let esValidoPacienteInternacion = validarInternacion(pacienteInternacionError);
     let esValidoPacienteExternacion = validarExternacion(pacienteExternacionError);
     let esValidoPacienteTipoEdad = validarEleccion(pacienteTipoEdadAdulto, pacienteTipoEdadMenor, pacienteTipoEdadError);
     let esValidoFamiliarDni = validarConExreg(familiarDni, exregDni, familiarDniError);

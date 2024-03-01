@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import pre_save, post_save
+from django.dispatch import receiver
 
 ES_MASCULINO = 'masculino'
 ES_FEMENINO = 'femenino'
@@ -23,18 +25,14 @@ class Persona(models.Model):
     nombre = models.CharField(max_length=30)
     genero = models.CharField(max_length=10, choices=GENERO_OPCIONES)
     tipo_edad = models.CharField(max_length=10, choices=TIPO_EDAD_OPCIONES)
-    
-    # Atributos adicionales que no se almacenan en la base de datos
-    articulo = models.CharField(max_length=5, default='')
-    terminacion = models.CharField(max_length=5, default='')
-    constancia_a_solicitud = models.CharField(max_length=50, default='')
+    articulo = models.CharField(max_length=5, default='', editable=False)  # editable=False para evitar que se muestre en los formularios
+    terminacion = models.CharField(max_length=5, default='', editable=False)
+    constancia_a_solicitud = models.CharField(max_length=50, default='', editable=False)
 
     def __str__(self):
         return f'{self.dni} {self.apellido} {self.nombre}'
-
-    def save(self, *args, **kwargs):
-        self.nombre = self.nombre.title()
-        self.apellido = self.apellido.title()
+    
+    def actualizar_segun_genero (self):
         if self.genero == ES_FEMENINO: 
             self.articulo = 'la'
             self.terminacion = 'a'
@@ -43,8 +41,19 @@ class Persona(models.Model):
             self.articulo = 'el'
             self.terminacion = 'o'
             self.constancia_a_solicitud = 'del Sr.'
-        super().save(*args, **kwargs)
 
+    def save(self, *args, **kwargs):
+        self.nombre = self.nombre.title()
+        self.apellido = self.apellido.title()
+        print(f'valor de ES_MASCULINO: {ES_MASCULINO}')
+        print(f'valor de ES_FEMENINO: {ES_FEMENINO}')
+        print(f'self genero de {self} en MODELS antes de actualizar: {self.genero}')
+        print(f'self constancia_a_solicitud de {self} en MODELS antes de actualizar: {self.constancia_a_solicitud}')
+        self.actualizar_segun_genero()
+        print(f'self genero de {self} en MODELS después de actualizar: {self.genero}')
+        print(f'self constancia_a_solicitud de {self} en MODELS después de actualizar: {self.constancia_a_solicitud}')
+        
+        super().save(*args, **kwargs)
 
 class Paciente(models.Model):
     id = models.AutoField(primary_key=True)
@@ -56,8 +65,10 @@ class Paciente(models.Model):
         return f'{self.persona_dni}'
     
     def save(self, *args, **kwargs):
-        if not self.externacion: self.externacion = None
+        if not self.externacion:
+            self.externacion = None
         super().save(*args, **kwargs)
+
 
 class RelacionPacienteFamiliar(models.Model):
     paciente_id = models.ForeignKey(Paciente, on_delete=models.CASCADE)
@@ -79,3 +90,16 @@ class Constancia(models.Model):
     
     def __str__(self):
         return f'{self.relacion_paciente_familiar_id} - Presentación: {self.presentacion}'
+
+
+# @receiver(pre_save, sender=Persona)
+# def actualizar_campos_relacionados(sender, instance, **kwargs):
+#     print(f'instance genero en SIGNALS adentro de MODELS: {instance.genero}')
+#     if instance.genero == ES_FEMENINO: 
+#         instance.articulo = 'la'
+#         instance.terminacion = 'a'
+#         instance.constancia_a_solicitud = 'de la Sra.'
+#     elif instance.genero == ES_MASCULINO:
+#         instance.articulo = 'el'
+#         instance.terminacion = 'o'
+#         instance.constancia_a_solicitud = 'del Sr.'
