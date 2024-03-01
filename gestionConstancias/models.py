@@ -1,41 +1,45 @@
 from django.db import models
+from gestionConstancias.utils.new_submit import *
 
 # Create your models here.
+class Persona(models.Model):
+    dni = models.IntegerField(primary_key=True)
+    nombre = models.CharField(max_length=30)
+    apellido = models.CharField(max_length=30)
+    genero = models.CharField(max_length=10, choices=GENERO_OPCIONES)
+    tipo_edad = models.CharField(max_length=10, choices=TIPO_EDAD_OPCIONES)
+
+    def __str__(self):
+        return f'{self.dni} {self.apellido} {self.nombre}'
+
 
 class Paciente(models.Model):
-    dni = models.IntegerField(primary_key=True)
-    nombre = models.CharField(max_length=30)
-    apellido = models.CharField(max_length=30)
-    genero = models.CharField(max_length=30)
-    internacion = models.DateField(max_length=30)
-    externacion = models.DateField(max_length=30, blank=True, null=True)
-    edad = models.CharField(max_length=30, verbose_name='Adulto/Menor')
+    id = models.AutoField(primary_key=True)
+    persona_dni = models.ForeignKey(Persona, on_delete=models.CASCADE)
+    internacion = models.DateField()
+    externacion = models.DateField(null=True, blank=True)
     
     def __str__(self):
-        return f'{self.nombre} {self.apellido}'
-
-class Familiar(models.Model):
-    dni = models.IntegerField(primary_key=True)
-    nombre = models.CharField(max_length=30)
-    apellido = models.CharField(max_length=30)
-    genero = models.CharField(max_length=30)
+        return f'{self.persona_dni}'
     
-    def __str__(self):
-        return f'{self.nombre} {self.apellido}'
 
 class RelacionPacienteFamiliar(models.Model):
-    id = models.AutoField(primary_key=True)
-    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
-    familiar = models.ForeignKey(Familiar, on_delete=models.CASCADE)
-    relacion = models.CharField(max_length=30)
+    paciente_id = models.ForeignKey(Paciente, on_delete=models.CASCADE)
+    persona_dni = models.ForeignKey(Persona, on_delete=models.CASCADE)
+    vinculo = models.CharField(max_length=100)
+    class Meta:
+        # Define la clave primaria compuesta
+        constraints = [
+            models.UniqueConstraint(fields=['paciente_id', 'persona_dni'], name='pk_relacion_compuesta')
+        ]
     
     def __str__(self):
-        return f'Paciente: {self.paciente} ({self.relacion}) - Familiar: {self.familiar}'
+        return f'Paciente: {self.paciente_id} ({self.vinculo}) - Familiar: {self.persona_dni}'
 
 class Constancia(models.Model):
     id = models.AutoField(primary_key=True)
-    paciente_familiar = models.ForeignKey(RelacionPacienteFamiliar, on_delete=models.CASCADE)
+    relacion_paciente_familiar_id = models.ForeignKey(RelacionPacienteFamiliar, on_delete=models.CASCADE)
     presentacion = models.DateField()
     
     def __str__(self):
-        return f'{self.paciente_familiar} - Presentación: {self.presentacion}'
+        return f'{self.relacion_paciente_familiar_id} - Presentación: {self.presentacion}'

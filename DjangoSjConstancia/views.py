@@ -2,7 +2,7 @@ from django.http import HttpResponse
 # importando el método render para simplificar el renderizado de la página
 from django.shortcuts import render
 from django.http import JsonResponse
-from gestionConstancias.models import Paciente, Familiar, RelacionPacienteFamiliar, Constancia
+from gestionConstancias.models import Persona, Paciente, RelacionPacienteFamiliar, Constancia
 from gestionConstancias.utils.new import *
 from gestionConstancias.utils.new_submit import *
 
@@ -14,67 +14,54 @@ def index(request):
     return render (request, 'index.html')
 
 
-def new(request, id_constancia_recibida=None):
+def new(request):
 # la vista new no está recibiendo el parámetro id_constancia_recibida
     pacientes_objects = Paciente.objects.all()
     pacientes_html = ListarPacientes(pacientes_objects).obtener_html()
         
-    familiares_objects = Familiar.objects.all()
+    familiares_objects = Persona.objects.all()
     familiares_html = ListarFamiliares(familiares_objects).obtener_html()
         
     relaciones_objects = RelacionPacienteFamiliar.objects.all()
     relaciones_familiares_html = ListarRelacionesFamiliares(relaciones_objects).obtener_html()
     
-    constancias_objects = Constancia.objects.all()
-    id_constancia_buscada = id_constancia_recibida
-    
-    if id_constancia_buscada == None:
-        valores_constancia = '','','','','','','','','','','','',''
-    else:
-        valores_constancia = FiltrarConstancias(constancias_objects, id_constancia_buscada).obtener_valores()
-    
-    return render(request, 'new.html', {'pacientes_html': pacientes_html, 'familiares_html':familiares_html, 'relaciones_familiares_html': relaciones_familiares_html, 'valores_constancia':valores_constancia})
+    return render(request, 'new.html', {
+        'pacientes_html': pacientes_html,
+        'familiares_html':familiares_html,
+        'relaciones_familiares_html': relaciones_familiares_html
+    })
 
 
 def new_submit(request):
     if request.method == 'POST':
         # Obtén los datos del formulario
-        p_dni = request.POST.get('paciente_dni')
-        p_nombre = request.POST.get('paciente_nombre')
-        p_apellido = request.POST.get('paciente_apellido')
-        p_genero = request.POST.get('paciente_genero')
-        p_internacion = request.POST.get('paciente_internacion')
-        p_externacion = request.POST.get('paciente_externacion')
-        p_edad = request.POST.get('paciente_tipo_edad')
-        f_dni = request.POST.get('familiar_dni')
-        f_nombre = request.POST.get('familiar_nombre')
-        f_apellido = request.POST.get('familiar_apellido')
-        f_genero = request.POST.get('familiar_genero')
-        p_f_relacion = request.POST.get('relacion_paciente_familiar')
-        c_presentacion = request.POST.get('presentacion')
+        paciente_dni = request.POST.get('paciente_dni')
+        paciente_nombre = request.POST.get('paciente_nombre')
+        paciente_apellido = request.POST.get('paciente_apellido')
+        paciente_genero = request.POST.get('paciente_genero')
+        paciente_tipo_edad = request.POST.get('paciente_tipo_edad')
+        paciente_internacion = request.POST.get('paciente_internacion')
+        paciente_externacion = request.POST.get('paciente_externacion')
+        familiar_dni = request.POST.get('familiar_dni')
+        familiar_nombre = request.POST.get('familiar_nombre')
+        familiar_apellido = request.POST.get('familiar_apellido')
+        familiar_genero = request.POST.get('familiar_genero')
+        relacion_vinculo = request.POST.get('relacion_paciente_familiar')
+        constancia_presentacion = request.POST.get('presentacion')
         
-        pacientes_objects = Paciente.objects
-        paciente = PacienteBBDD(pacientes_objects, p_dni, p_nombre, p_apellido, p_genero, p_internacion, p_externacion, p_edad).obtener()
+        paciente = obtener_paciente(paciente_dni, paciente_nombre, paciente_apellido, paciente_genero, paciente_tipo_edad, paciente_internacion, paciente_externacion)
+        
+        familiar = obtener_familiar(familiar_dni, familiar_nombre, familiar_apellido, familiar_genero)
+        
+        relacion = obtener_relacion(paciente, familiar, relacion_vinculo)
+        
+        constancia = obtener_constancia(relacion, constancia_presentacion)
+        
 
-        familiares_objects = Familiar.objects
-        familiar = FamiliarBBDD(familiares_objects, f_dni, f_nombre, f_apellido, f_genero).obtener()
-
-        relaciones_objects = RelacionPacienteFamiliar.objects
-        relacion_paciente_familiar = RelacionesBBDD(relaciones_objects, paciente, familiar, p_f_relacion)
-        
-        constancias_objects = Constancia.objects
-        constancia = ConstanciaBBDD(constancias_objects, relacion_paciente_familiar, c_presentacion)
-        
-        obj_paciente = generar_paciente(paciente.nombre, paciente.apellido, paciente.dni, paciente.genero, paciente.internacion, paciente.externacion, paciente.edad)
-        obj_familiar = generar_familiar(familiar.nombre, familiar.apellido, familiar.dni, familiar.genero)
-        
-        obj_relacion = generar_relacion(obj_paciente, obj_familiar, relacion_paciente_familiar.relacion)
-        obj_constancia = generar_constancia(obj_relacion, constancia.presentacion)
-        
-        print(obj_constancia.contenido)
+        print(constancia.contenido)
 
         # Redirecciona a una página de éxito o muestra un mensaje de éxito
-        return render(request, 'membrete.html', {'contenido': obj_constancia.contenido})
+        return render(request, 'membrete.html', {'contenido': constancia.contenido})
     else:
         # Si la solicitud no es POST, devuelve un error
         return JsonResponse({'error': 'Method not allowed'}, status=405)
