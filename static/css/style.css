@@ -124,11 +124,11 @@ body {
     cursor: pointer;
 }
 
-#imprimir {
+#confirmar {
     background: var(--main-green);
 }
 
-#imprimir:hover {
+#confirmar:hover {
     background: radial-gradient(var(--gradient-light-green));
     cursor: pointer;
 }

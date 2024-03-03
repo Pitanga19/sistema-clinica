@@ -110,8 +110,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     
     .main__nav-contenedor {
         display: grid;
-        grid-auto-rows: minmax(min-content, max-content);
+        grid-template-columns: 1fr 1fr;
         grid-gap: 10px;
+    }
+
+    #confirmar {
+        order: 2;
+    }
+
+    #volver {
+        order: 1;
     }
 }
 
@@ -149,4 +157,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     .main__button {
         min-width: 300px;
     }
+
+    #confirmar {
+        order: 2;
     }
+
+    #volver {
+        order: 1;
+    }
+}

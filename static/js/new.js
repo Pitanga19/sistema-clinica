@@ -570,17 +570,18 @@ familiarDni.html.addEventListener('input', function() {
 })
 
 
-// NAVEGACIÓN - VOLVER
-volver.html.addEventListener('click', (e) => {window.location.href = indexUrl;});
-
-
-// NAVEGACION - CONFIRMAR
+// NAVEGACION 
+// a.- confirmar
 confirmar.html.addEventListener('click', (e) => {
     e.preventDefault();
     if (validarForm()) {
         constanciaFormulario.html.submit();
     }
 });
+
+
+// b.- Volver
+volver.html.addEventListener('click', (e) => {window.location.href = indexUrl;});
 
 
 
