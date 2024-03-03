@@ -20,10 +20,10 @@ def new(request):
     
     personas_no_paciente_objects = Persona.objects.exclude(dni__in=Paciente.objects.values('persona_dni'))
     personas_no_paciente_html = ListarPersonasNoPaciente(personas_no_paciente_objects).obtener_html()
-        
+    
     familiares_objects = Persona.objects.all()
     familiares_html = ListarFamiliares(familiares_objects).obtener_html()
-        
+    
     relaciones_objects = RelacionPacienteFamiliar.objects.all()
     relaciones_familiares_html = ListarRelacionesFamiliares(relaciones_objects).obtener_html()
     
@@ -60,15 +60,12 @@ def new_submit(request):
         relacion = obtener_relacion(paciente, familiar, relacion_vinculo)
         
         constancia = obtener_constancia(relacion, constancia_presentacion)
-
-        print(ModConstancia(constancia).contenido)
         
         contenido = ModConstancia(constancia).contenido
 
         # Redirecciona a una página de éxito o muestra un mensaje de éxito
         return render(request, 'membrete.html', {'contenido': contenido})
     else:
-        # Si la solicitud no es POST, devuelve un error
         return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 

@@ -25,7 +25,7 @@ class Persona(models.Model):
     nombre = models.CharField(max_length=30)
     genero = models.CharField(max_length=10, choices=GENERO_OPCIONES)
     tipo_edad = models.CharField(max_length=10, choices=TIPO_EDAD_OPCIONES)
-    articulo = models.CharField(max_length=5, default='', editable=False)  # editable=False para evitar que se muestre en los formularios
+    articulo = models.CharField(max_length=5, default='', editable=False)
     terminacion = models.CharField(max_length=5, default='', editable=False)
     constancia_a_solicitud = models.CharField(max_length=50, default='', editable=False)
 
@@ -45,13 +45,7 @@ class Persona(models.Model):
     def save(self, *args, **kwargs):
         self.nombre = self.nombre.title()
         self.apellido = self.apellido.title()
-        print(f'valor de ES_MASCULINO: {ES_MASCULINO}')
-        print(f'valor de ES_FEMENINO: {ES_FEMENINO}')
-        print(f'self genero de {self} en MODELS antes de actualizar: {self.genero}')
-        print(f'self constancia_a_solicitud de {self} en MODELS antes de actualizar: {self.constancia_a_solicitud}')
         self.actualizar_segun_genero()
-        print(f'self genero de {self} en MODELS después de actualizar: {self.genero}')
-        print(f'self constancia_a_solicitud de {self} en MODELS después de actualizar: {self.constancia_a_solicitud}')
         
         super().save(*args, **kwargs)
 
@@ -90,16 +84,3 @@ class Constancia(models.Model):
     
     def __str__(self):
         return f'{self.relacion_paciente_familiar_id} - Presentación: {self.presentacion}'
-
-
-# @receiver(pre_save, sender=Persona)
-# def actualizar_campos_relacionados(sender, instance, **kwargs):
-#     print(f'instance genero en SIGNALS adentro de MODELS: {instance.genero}')
-#     if instance.genero == ES_FEMENINO: 
-#         instance.articulo = 'la'
-#         instance.terminacion = 'a'
-#         instance.constancia_a_solicitud = 'de la Sra.'
-#     elif instance.genero == ES_MASCULINO:
-#         instance.articulo = 'el'
-#         instance.terminacion = 'o'
-#         instance.constancia_a_solicitud = 'del Sr.'

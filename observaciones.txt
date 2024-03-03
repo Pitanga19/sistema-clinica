@@ -1,0 +1,20 @@
+21/02/2024
+	R.R.- Lanzar el programa entre el 28/02 y el 6/03 
+OK	R.R.- Validar que la fecha de internación sea igual o menor a 'hoy'
+	R.R.- Recibir una base de datos de pacientes con la que se pueda autocompletar la información
+
+22/02/2024
+! OK	G.F.- Agregar campo 'género' en paciente y familiar
+OK	G.F.- Modificar texto sobre menores:
+		actual: 'de forma permanente (las 24hs diariamente)'
+		nuevo: 'de manera continua'
+	G.F.- Extensión para controlar el cambio de acompañantes de los menores
+
+26/02/2024
+OK	D.D.- Corregir repetición codigo para botones de genero y edad (cuando ya esté todo funcionando)
+OK	D.D.- Corregir alerta de error que se mezclan genero paciente y familiar (cuando ya esté todo funcionando)
+NO	D.D.- Que familiar valide no estar recibiendo un dni de paciente y viceversa - Cambiado con la nueva BBDD
+
+01/03/2024
+	G.F.- Modificar texto de la constancia para eliminar uso de vínculos
+	G.F.- Extensión para controlar el cambio de acompañantes de los menores o campos para completarlos

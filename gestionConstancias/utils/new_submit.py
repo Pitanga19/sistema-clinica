@@ -87,18 +87,39 @@ class ModConstancia:
 
 def obtener_paciente(dni, apellido, nombre, genero, tipo_edad, internacion, externacion):
     try:
+        persona = Persona.objects.get(dni=dni)
+    except Persona.DoesNotExist:
+        persona = Persona.objects.create(
+            dni=dni,
+            apellido=apellido,
+            nombre=nombre,
+            genero=genero,
+            tipo_edad=tipo_edad
+        )
+    else:
+        persona.apellido=apellido
+        persona.nombre=nombre
+        persona.genero=genero
+        persona.tipo_edad=tipo_edad
+    
+    persona.save()
+    
+    try:
         paciente = Paciente.objects.get(persona_dni=dni)
     except Paciente.DoesNotExist:
-        try:
-            persona = Persona.objects.get(dni=dni)
-        except Persona.DoesNotExist:
-            persona = Persona.objects.create(
-                dni=dni,
-                apellido=apellido,
-                nombre=nombre,
-                genero=genero,
-                tipo_edad=tipo_edad
-            )
+        paciente = Paciente.objects.create(
+            persona_dni=persona,
+            internacion=internacion,
+            externacion=externacion
+        )
+    else:
+        paciente.persona_dni=persona
+        paciente.internacion=internacion
+        paciente.externacion=externacion
+    
+    paciente.save()
+    return paciente
+            
     # persona, created = Persona.objects.get_or_create(
     #     dni=dni,
     #     defaults={
@@ -122,50 +143,88 @@ def obtener_paciente(dni, apellido, nombre, genero, tipo_edad, internacion, exte
 
 # FUNCIÓN OBTENER FAMILIAR
 def obtener_familiar(dni, nombre, apellido, genero, tipo_edad=ES_ADULTO):
-    defaults = {
-        'nombre': nombre,
-        'apellido': apellido,
-        'genero': genero,
-        'tipo_edad': tipo_edad
-    }
-
-    persona, created = Persona.objects.update_or_create(
-        dni=dni,
-        defaults=defaults
-    )
-
+    try:
+        persona = Persona.objects.get(dni=dni)
+    except Persona.DoesNotExist:
+        persona = Persona.objects.create(
+            dni=dni,
+            apellido=apellido,
+            nombre=nombre,
+            genero=genero,
+            tipo_edad=tipo_edad
+        )
+    else:
+        persona.apellido=apellido
+        persona.nombre=nombre
+        persona.genero=genero
+        persona.tipo_edad=tipo_edad
+    
+    persona.save()
     return persona
+    # defaults = {
+    #     'nombre': nombre,
+    #     'apellido': apellido,
+    #     'genero': genero,
+    #     'tipo_edad': tipo_edad
+    # }
+
+    # persona, created = Persona.objects.update_or_create(
+    #     dni=dni,
+    #     defaults=defaults
+    # )
+
 
 
 # FUNCIÓN OBTENER RELACION
-def obtener_relacion(paciente, familiar, vinculo):
-    defaults = {
-        'paciente_id': paciente,
-        'persona_dni': familiar,
-        'vinculo': vinculo
-    }
-
-    relacion, created = RelacionPacienteFamiliar.objects.update_or_create(
-        paciente_id=paciente,
-        persona_dni=familiar,
-        defaults=defaults
-    )
-
+def obtener_relacion(paciente, persona, vinculo):
+    try:
+        relacion = RelacionPacienteFamiliar.objects.get(paciente_id=paciente.id, persona_dni=persona.dni)
+    except RelacionPacienteFamiliar.DoesNotExist:
+        relacion = RelacionPacienteFamiliar.objects.create(
+            paciente_id=paciente,
+            persona_dni=persona,
+            vinculo=vinculo
+        )
+    else:
+        relacion.paciente_id=paciente
+        relacion.persona_dni=persona
+        relacion.vinculo=vinculo
+    
+    relacion.save()
     return relacion
+    # defaults = {
+    #     'paciente_id': paciente,
+    #     'persona_dni': familiar,
+    #     'vinculo': vinculo
+    # }
+
+    # relacion, created = RelacionPacienteFamiliar.objects.update_or_create(
+    #     paciente_id=paciente,
+    #     persona_dni=familiar,
+    #     defaults=defaults
+    # )
 
 
 # FUNCIÓN OBTENER CONSTANCIA
 def obtener_constancia(relacion, presentacion):
-    defaults = {
-        'presentacion': presentacion
-    }
-
-    constancia, created = Constancia.objects.update_or_create(
-        relacion_paciente_familiar_id=relacion,
-        defaults=defaults
-    )
-
+    try:
+        constancia = Constancia.objects.get(relacion_paciente_familiar_id=relacion)
+    except Constancia.DoesNotExist:
+        constancia = Constancia.objects.create(
+            relacion_paciente_familiar_id=relacion,
+            presentacion=presentacion
+        )
+    
+    constancia.save()
     return constancia
+    # defaults = {
+    #     'presentacion': presentacion
+    # }
+
+    # constancia, created = Constancia.objects.update_or_create(
+    #     relacion_paciente_familiar_id=relacion,
+    #     defaults=defaults
+    # )
 
 
 # FUNCIÓN OBTENER CONTENIDO A DEVOLVER
