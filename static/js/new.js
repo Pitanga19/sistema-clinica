@@ -321,13 +321,13 @@ function resetearTodos() {
 }
 
 function desplegarBloqueFamiliar(){
-    familiarElegirRelacionado.html.click()
+    familiarElegirRelacionado.html.click();
     familiarBloque.mostrar();
     familiarRelacionadoLista.mostrar();
 }
 
 function desplegarFamiliaresRelacionados(){
-    familiarAgregar.ocultar()
+    familiarAgregar.ocultar();
     familiarRelacionadoLista.mostrar();
     let dniPacienteBuscado = pacienteDni.obtenerValor();
 
@@ -343,12 +343,12 @@ function desplegarFamiliaresRelacionados(){
 
 function desplegarFamiliaresAgregar(){
     familiarRelacionadoLista.ocultar();
-    familiarAgregar.mostrar()
+    familiarAgregar.mostrar();
 }
 
 function desplegarFamiliaresAgregar(){
     familiarRelacionadoLista.ocultar();
-    familiarAgregar.mostrar()
+    familiarAgregar.mostrar();
 }
 
 function desplegarBloquePresentacion(){
@@ -357,7 +357,6 @@ function desplegarBloquePresentacion(){
 
 
 // LOGICA PARA OPCIONES
-
 pacienteGeneroFemenino.html.addEventListener('click', function() {
     pacienteGenero.actualizarValor(esFemenino);
     pacienteGeneroFemenino.seleccionar(pacienteGeneroMasculino);
@@ -401,9 +400,6 @@ familiarGeneroMasculino.html.addEventListener('click', function() {
 });
 
 
-
-
-
 // 1.- ELEGIR PACIENTE
 
 //  a.1- BUSCAR
@@ -438,7 +434,7 @@ pacienteBuscarItemLista.forEach(elemento => {
         seleccionarBotonTipoEdad(pacienteTipoEdad, pacienteTipoEdadMenor, pacienteTipoEdadAdulto);
 
         // Mostrar campos para poder modificar al paciente
-        desplegarCampos(pacienteModificarArray)
+        desplegarCampos(pacienteModificarArray);
 
         // Abrir bloque familiar para continuar
         desplegarBloqueFamiliar();
@@ -458,7 +454,7 @@ personaNoPacienteBuscarItemLista.forEach(elemento => {
         seleccionarBotonTipoEdad(pacienteTipoEdad, pacienteTipoEdadMenor, pacienteTipoEdadAdulto);
 
         // Mostrar campos para poder modificar al paciente
-        desplegarCampos(pacienteModificarArray)
+        desplegarCampos(pacienteModificarArray);
 
         // Abrir bloque familiar para continuar
         desplegarBloqueFamiliar();
@@ -486,7 +482,7 @@ pacienteDni.html.addEventListener('input', function() {
     if (this.value.length > 6) {
         desplegarBloqueFamiliar();
     }
-})
+});
 
 
 // ELEGIR FAMILIAR
@@ -548,7 +544,6 @@ familiarAgregarBuscarItemLista.forEach(persona => {
     });
 });
 
-
 //  b.2.- AGREGAR NUEVO
 familiarAgregarNuevo.html.addEventListener('click', function() {
     familiarDni.actualizarValor('');
@@ -576,18 +571,12 @@ confirmar.html.addEventListener('click', (e) => {
     e.preventDefault();
     if (validarForm()) {
         constanciaFormulario.html.submit();
+        window.location.href = indexUrl;
     }
 });
 
-
 // b.- Volver
 volver.html.addEventListener('click', (e) => {window.location.href = indexUrl;});
-
-
-
-
-
-
 
 
 // LOGICA PARA VALIDACIÓN FRONT DEL FORMULARIO
@@ -595,11 +584,10 @@ const exregDni = /^[1-9]\d{6,7}$/;
 const exregPalabras = /^[a-zA-ZñÑ]+(?:\s[a-zA-ZñÑ]+)*$/;
 const exregFecha = /^(19[6-9]\d|20\d\d)-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 
-
 function validarConExreg(objeto, exreg, errorHtml) {
     let errorDetectado = '';
     let esValido = false;
-    let cadena = objeto.obtenerValor()
+    let cadena = objeto.obtenerValor();
 
     if (cadena === '') {
         errorDetectado = ' ¡Incompleto!';
@@ -613,7 +601,6 @@ function validarConExreg(objeto, exreg, errorHtml) {
     return esValido;
 }
 
-
 function validarEleccion(botonOpcion1, botonOpcion2, errorHtml) {
     let errorDetectado = '';
     let esValido = false;
@@ -626,22 +613,20 @@ function validarEleccion(botonOpcion1, botonOpcion2, errorHtml) {
     return esValido;
 }
 
-
 function validarUsoAlternar(botonAlternar) {
-    botonAlternar.html.classList.contains('')
+    botonAlternar.html.classList.contains('');
 }
-
 
 function validarInternacion(errorHtml) {
     let errorDetectado = '';
     let esValido = estaInternado;
 
-    fechaIngresada = new Date(pacienteInternacion.obtenerValor())
+    fechaIngresada = new Date(pacienteInternacion.obtenerValor());
 
     if (fechaIngresada > fechaActual) {
         errorDetectado = ' ¡No puede ser posterior a hoy!';
     } else {
-        return validarConExreg(pacienteInternacion, exregFecha, errorHtml)
+        return validarConExreg(pacienteInternacion, exregFecha, errorHtml);
     }
     errorHtml.html.innerHTML = errorDetectado;
     return esValido;
@@ -663,14 +648,12 @@ function validarExternacion(errorHtml) {
         } else if (fechaInternacion > fechaExternacion) {
             errorDetectado = ' ¡No puede ser anterior a la internación!';
         } else {
-            return validarConExreg(pacienteExternacion, exregFecha, errorHtml)
+            return validarConExreg(pacienteExternacion, exregFecha, errorHtml);
         }
     }
     errorHtml.html.innerHTML = errorDetectado;
     return esValido;
 }
-
-
 
 function validarForm() {
     let esValidoPacienteDni = validarConExreg(pacienteDni, exregDni, pacienteDniError);
@@ -695,4 +678,3 @@ function validarForm() {
         return true;
     }
 };
-

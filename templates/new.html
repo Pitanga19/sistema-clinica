@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-<form class="form" id="constancia_formulario" action="{% url 'new_submit' %}" method="POST" autocomplete="off">
+<form class="form" id="constancia_formulario" action="{% url 'new_submit' %}" target="_blank" method="POST" autocomplete="off">
     {% csrf_token %}
 
     <div class="form__bloque-contenedor">
