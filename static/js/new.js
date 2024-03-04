@@ -471,7 +471,6 @@ pacienteElegirNuevo.html.addEventListener('click', function() {
     pacienteExternacion.actualizarValor('');
     pacienteTipoEdad.actualizarValor('');
     resetearOpcionesPaciente();
-
     desplegarCampos(pacienteModificarArray);
     familiarBloque.ocultar();
     presentacionBloque.ocultar();
@@ -503,7 +502,6 @@ familiarRelacionadoItemLista.forEach(persona => {
         familiarGenero.actualizarValor(persona.obtenerValorAtributo('data-genero'));
         seleccionarBotonGenero(familiarGenero, familiarGeneroFemenino, familiarGeneroMasculino);
         relacion.actualizarValor(persona.obtenerValorAtributo('data-vinculo'));
-
         // Mostrar campos para poder modificar al familiar
         desplegarCampos(familiarModificarArray);
         desplegarBloquePresentacion();
@@ -519,7 +517,6 @@ familiarElegirAgregar.html.addEventListener('click', function() {
 familiarAgregarBuscarInput.html.addEventListener('input', function() {
     let cadenaBuscada = familiarAgregarBuscarInput.obtenerValor().toLowerCase();
     let listaCadenasBuscadas = cadenaBuscada.split(' ');
-    
     if (cadenaBuscada.length < 3) {
         familiarAgregarBuscarLista.ocultarTodos();
     } else {
@@ -619,10 +616,8 @@ function validarUsoAlternar(botonAlternar) {
 
 function validarInternacion(errorHtml) {
     let errorDetectado = '';
-    let esValido = estaInternado;
-
+    let esValido = false;
     fechaIngresada = new Date(pacienteInternacion.obtenerValor());
-
     if (fechaIngresada > fechaActual) {
         errorDetectado = ' ¡No puede ser posterior a hoy!';
     } else {
@@ -637,8 +632,6 @@ function validarExternacion(errorHtml) {
     let esValido = estaInternado;
     let fechaInternacion = new Date(pacienteInternacion.obtenerValor());
     let fechaExternacion = new Date(pacienteExternacion.obtenerValor());
-
-    
     if (!estaInternado) {
         if (
             pacienteExternacion.obtenerValor() == '' &&

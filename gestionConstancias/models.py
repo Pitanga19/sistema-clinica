@@ -1,6 +1,4 @@
 from django.db import models
-from django.db.models.signals import pre_save, post_save
-from django.dispatch import receiver
 
 ES_MASCULINO = 'masculino'
 ES_FEMENINO = 'femenino'
@@ -46,7 +44,6 @@ class Persona(models.Model):
         self.nombre = self.nombre.title()
         self.apellido = self.apellido.title()
         self.actualizar_segun_genero()
-        
         super().save(*args, **kwargs)
 
 class Paciente(models.Model):

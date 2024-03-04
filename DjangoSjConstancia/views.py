@@ -53,9 +53,9 @@ def new_submit(request):
         relacion_vinculo = request.POST.get('relacion_paciente_familiar')
         constancia_presentacion = request.POST.get('presentacion')
         
-        paciente = obtener_paciente(paciente_dni, paciente_nombre, paciente_apellido, paciente_genero, paciente_tipo_edad, paciente_internacion, paciente_externacion)
+        paciente = obtener_paciente(paciente_dni, paciente_apellido, paciente_nombre, paciente_genero, paciente_tipo_edad, paciente_internacion, paciente_externacion)
         
-        familiar = obtener_familiar(familiar_dni, familiar_nombre, familiar_apellido, familiar_genero)
+        familiar = obtener_familiar(familiar_dni, familiar_apellido, familiar_nombre, familiar_genero)
         
         relacion = obtener_relacion(paciente, familiar, relacion_vinculo)
         

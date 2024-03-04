@@ -122,7 +122,7 @@ def obtener_paciente(dni, apellido, nombre, genero, tipo_edad, internacion, exte
 
 
 # FUNCIÓN OBTENER FAMILIAR
-def obtener_familiar(dni, nombre, apellido, genero, tipo_edad=ES_ADULTO):
+def obtener_familiar(dni, apellido, nombre, genero, tipo_edad=ES_ADULTO):
     try:
         persona = Persona.objects.get(dni=dni)
     except Persona.DoesNotExist:

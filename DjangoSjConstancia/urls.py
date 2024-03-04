@@ -21,7 +21,7 @@ from DjangoSjConstancia.views import index, new, new_submit, membrete
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/', index, name='index'),
+    path('', index, name='index'),
     path('new/', new, name='new'),
     path('new_submit/', new_submit, name='new_submit'),
     path('membrete/', membrete, name='membrete')
