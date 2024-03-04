@@ -119,26 +119,6 @@ def obtener_paciente(dni, apellido, nombre, genero, tipo_edad, internacion, exte
     
     paciente.save()
     return paciente
-            
-    # persona, created = Persona.objects.get_or_create(
-    #     dni=dni,
-    #     defaults={
-    #         'nombre': nombre,
-    #         'apellido': apellido,
-    #         'genero': genero,
-    #         'tipo_edad': tipo_edad
-    #     }
-    # )
-
-    # paciente, created = Paciente.objects.update_or_create(
-    #     persona_dni=persona,
-    #     defaults={
-    #         'internacion': internacion,
-    #         'externacion': externacion
-    #     }
-    # )
-
-    #return paciente
 
 
 # FUNCIÓN OBTENER FAMILIAR
@@ -161,18 +141,6 @@ def obtener_familiar(dni, nombre, apellido, genero, tipo_edad=ES_ADULTO):
     
     persona.save()
     return persona
-    # defaults = {
-    #     'nombre': nombre,
-    #     'apellido': apellido,
-    #     'genero': genero,
-    #     'tipo_edad': tipo_edad
-    # }
-
-    # persona, created = Persona.objects.update_or_create(
-    #     dni=dni,
-    #     defaults=defaults
-    # )
-
 
 
 # FUNCIÓN OBTENER RELACION
@@ -192,17 +160,6 @@ def obtener_relacion(paciente, persona, vinculo):
     
     relacion.save()
     return relacion
-    # defaults = {
-    #     'paciente_id': paciente,
-    #     'persona_dni': familiar,
-    #     'vinculo': vinculo
-    # }
-
-    # relacion, created = RelacionPacienteFamiliar.objects.update_or_create(
-    #     paciente_id=paciente,
-    #     persona_dni=familiar,
-    #     defaults=defaults
-    # )
 
 
 # FUNCIÓN OBTENER CONSTANCIA
@@ -214,17 +171,12 @@ def obtener_constancia(relacion, presentacion):
             relacion_paciente_familiar_id=relacion,
             presentacion=presentacion
         )
+    else:
+        constancia.relacion_paciente_familiar_id=relacion
+        constancia.presentacion=presentacion
     
     constancia.save()
     return constancia
-    # defaults = {
-    #     'presentacion': presentacion
-    # }
-
-    # constancia, created = Constancia.objects.update_or_create(
-    #     relacion_paciente_familiar_id=relacion,
-    #     defaults=defaults
-    # )
 
 
 # FUNCIÓN OBTENER CONTENIDO A DEVOLVER
