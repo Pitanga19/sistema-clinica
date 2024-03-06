@@ -110,6 +110,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     
     .main__nav-contenedor {
         display: grid;
+        grid-auto-rows: minmax(min-content, max-content);
+        grid-auto-flow: column-reverse;
+        grid-gap: 10px;
+    }
+    
+    /* .main__nav-contenedor {
+        display: grid;
         grid-template-columns: 1fr 1fr;
         grid-gap: 10px;
     }
@@ -120,7 +127,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
     #volver {
         order: 1;
-    }
+    } */
 }
 
 
@@ -150,19 +157,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     .main__nav-contenedor {
         margin-left: auto;
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-auto-columns: 300px;
+        /* grid-template-columns: repeat(2, 1fr); */
         grid-gap: 10px;
     }
-        
-    .main__button {
-        min-width: 300px;
-    }
 
-    #confirmar {
+    /* #confirmar {
         order: 2;
     }
 
     #volver {
         order: 1;
-    }
+    } */
 }

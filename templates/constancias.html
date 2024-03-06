@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}Constancia Nueva{% endblock %}
+{% block title %}Constancias de internación{% endblock %}
 
 {% block style %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/new.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/constancias.css' %}">
 {% endblock %}
 
 {% block content %}
-<form class="form" id="constancia_formulario" action="{% url 'new_submit' %}" target="_blank" method="POST" autocomplete="off">
+<form class="form" id="constancia_formulario" action="{% url 'constancias_submit' %}" target="_blank" method="POST" autocomplete="off">
     {% csrf_token %}
 
     <div class="form__bloque-contenedor">
@@ -129,7 +129,7 @@
     
     <nav class="main__nav-contenedor">
         <input type="submit" class="main__nav-boton" id="confirmar" value="Confirmar">
-        <input type="button" class="main__nav-boton" id="volver" value="Volver">
+        <!-- <input type="button" class="main__nav-boton" id="volver" value="Volver"> -->
     </nav>
 </form>
 {% endblock %}
@@ -139,5 +139,5 @@
     const indexUrl = "{% url 'index' %}";
     const fechaActual = new Date('{{ fecha_actual }}');
 </script>
-<script src="{% static 'js/new.js' %}"></script>
+<script src="{% static 'js/constancias.js' %}"></script>
 {% endblock %}

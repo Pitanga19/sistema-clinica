@@ -239,9 +239,8 @@ const presentacionError = new Elemento(document.getElementById('presentacion-err
 const presentacion = new Input(document.getElementById('presentacion'));
 
 const navegadorContenedor = new Elemento(document.querySelector('.main__nav-contenedor'));
-const volver = new Boton(document.getElementById('volver'));
 const confirmar = new Boton(document.getElementById('confirmar'));
-const imprimir = new Boton(document.getElementById('imprimir'));
+// const volver = new Boton(document.getElementById('volver'));
 
 const esFemenino = 'femenino';
 const esMasculino = 'masculino';
@@ -568,12 +567,12 @@ confirmar.html.addEventListener('click', (e) => {
     e.preventDefault();
     if (validarForm()) {
         constanciaFormulario.html.submit();
-        window.location.href = indexUrl;
+        window.location.reload();
     }
 });
 
 // b.- Volver
-volver.html.addEventListener('click', (e) => {window.location.href = indexUrl;});
+// volver.html.addEventListener('click', (e) => {window.location.href = indexUrl;});
 
 
 // LOGICA PARA VALIDACIÓN FRONT DEL FORMULARIO

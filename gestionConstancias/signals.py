@@ -2,7 +2,7 @@ from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 from datetime import datetime
 from .models import Persona, Paciente
-from .utils.new_submit import *
+from .utils.constancias_submit import *
 
 @receiver(pre_save, sender=Persona)
 def actualizar_campos_relacionados(sender, instance, **kwargs):

@@ -2,8 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.http import JsonResponse
 from gestionConstancias.models import Persona, Paciente, RelacionPacienteFamiliar, Constancia
-from gestionConstancias.utils.new import *
-from gestionConstancias.utils.new_submit import *
+from gestionConstancias.utils.constancias import *
+from gestionConstancias.utils.constancias_submit import *
 from datetime import datetime
 
 
@@ -12,7 +12,7 @@ def index(request):
     return render (request, 'index.html')
 
 
-def new(request):
+def constancias(request):
     fecha_actual = datetime.now().date()
     
     pacientes_objects = Paciente.objects.all()
@@ -27,7 +27,7 @@ def new(request):
     relaciones_objects = RelacionPacienteFamiliar.objects.all()
     relaciones_familiares_html = ListarRelacionesFamiliares(relaciones_objects).obtener_html()
     
-    return render(request, 'new.html', {
+    return render(request, 'constancias.html', {
         'pacientes_html': pacientes_html,
         'personas_no_paciente_html': personas_no_paciente_html,
         'familiares_html':familiares_html,
@@ -36,7 +36,7 @@ def new(request):
     })
 
 
-def new_submit(request):
+def constancias_submit(request):
     if request.method == 'POST':
         # Obtén los datos del formulario
         paciente_dni = request.POST.get('paciente_dni')
@@ -51,7 +51,7 @@ def new_submit(request):
         familiar_apellido = request.POST.get('familiar_apellido')
         familiar_genero = request.POST.get('familiar_genero')
         relacion_vinculo = request.POST.get('relacion_paciente_familiar')
-        constancia_presentacion = request.POST.get('presentacion')
+        constancias_presentacion = request.POST.get('presentacion')
         
         paciente = obtener_paciente(paciente_dni, paciente_apellido, paciente_nombre, paciente_genero, paciente_tipo_edad, paciente_internacion, paciente_externacion)
         
@@ -59,9 +59,9 @@ def new_submit(request):
         
         relacion = obtener_relacion(paciente, familiar, relacion_vinculo)
         
-        constancia = obtener_constancia(relacion, constancia_presentacion)
+        constancias = obtener_constancia(relacion, constancias_presentacion)
         
-        contenido = ModConstancia(constancia).contenido
+        contenido = ModConstancia(constancias).contenido
 
         # Redirecciona a una página de éxito o muestra un mensaje de éxito
         return render(request, 'membrete.html', {'contenido': contenido})

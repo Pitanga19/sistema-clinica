@@ -16,13 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from DjangoSjConstancia.views import index, new, new_submit, membrete
+from sistemaClinica.views import index, constancias, constancias_submit, membrete
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, name='index'),
-    path('new/', new, name='new'),
-    path('new_submit/', new_submit, name='new_submit'),
+    path('index/', index, name='index'),
+    path('', constancias, name='constancias'),
+    path('constancias_submit/', constancias_submit, name='constancias_submit'),
     path('membrete/', membrete, name='membrete')
 ]
