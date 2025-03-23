@@ -8,6 +8,8 @@ import {
     StyledButtonContainer,
     StyledTableFilterFormContainer,
     StyledTableFilterInputContainer,
+    StyledGridFormContainer,
+    StyledGridListContainer,
 } from "../styles/Containers.styles"
 import type { ReactNode, FormHTMLAttributes, HTMLAttributes } from "react"
 
@@ -132,5 +134,29 @@ export const TableFilterInputContainer = ({
         <StyledTableFilterInputContainer className={className} id={id}>
             {children}
         </StyledTableFilterInputContainer>
+    )
+}
+
+export const GridFormContainer = ({
+    children,
+    className,
+    id,
+}: ContainerProps) => {
+    return (
+        <StyledGridFormContainer className={className} id={id}>
+            {children}
+        </StyledGridFormContainer>
+    )
+}
+
+export const GridListContainer = ({
+    children,
+    className,
+    id,
+}: ContainerProps) => {
+    return (
+        <StyledGridListContainer className={className} id={id}>
+            {children}
+        </StyledGridListContainer>
     )
 }

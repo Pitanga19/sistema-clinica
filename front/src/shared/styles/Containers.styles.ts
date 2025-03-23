@@ -35,16 +35,12 @@ export const StyledFormContainer = styled(StyledBaseContainer)`
 export const StyledInputContainer = styled(StyledBaseContainer)`
     flex-direction: row;
     width: 100%;
-    min-width: 20rem;
-    max-width: 30rem;
 `
 
 export const StyledButtonContainer = styled(StyledBaseContainer)`
     flex-direction: row-reverse;
     justify-content: flex-start;
     width: 100%;
-    min-width: 20rem;
-    max-width: 30rem;
     padding: 1rem 0 0;
     gap: 0;
 `
@@ -57,4 +53,19 @@ export const StyledTableFilterFormContainer = styled(StyledBaseContainer)`
 export const StyledTableFilterInputContainer = styled(StyledBaseContainer)`
     flex-direction: row;
     width: 8rem;
+`
+
+export const StyledGridFormContainer = styled(StyledBaseContainer)`
+    display: grid;
+    grid-template-columns: repeat(2, minmax(20rem, 30rem));
+    gap: 1rem;
+    width: 100%;
+`
+
+export const StyledGridListContainer = styled(StyledBaseContainer)`
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 1rem;
+    width: 100%;
+    max-width: 80rem;
 `
