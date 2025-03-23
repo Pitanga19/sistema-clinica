@@ -49,8 +49,7 @@ const PeopleUpdate = () => {
         setData((prevData) => ({ ...prevData, ...newData }))
     }
     
-    const handleEntityChange = async (entityIdStr: string) => {
-        const entityId = parseInt(entityIdStr)
+    const handleEntityChange = async (entityId: number) => {
         setSelectedEntity(await EntityService.getById(entityId))
         setPlans(await PlanService.getByEntityId(entityId))
     }
