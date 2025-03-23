@@ -10,7 +10,7 @@ interface PlanOut {
     entity: Partial<EntityOut>
 }
 
-interface patientOut {
+interface PatientOut {
     id: number
     clinicalHistoryNumber: string
     entityCode: string
@@ -27,7 +27,7 @@ export interface PeopleBase {
     email: string | null
     address: string
     isPatient:boolean
-    patient: Partial<patientOut> | null
+    patient: Partial<PatientOut>
 }
 
 export type People = PeopleBase & {
@@ -39,6 +39,7 @@ export type PeopleCreate = PeopleBase
 export type PeopleUpdate = Partial<PeopleCreate>
 
 export type PeopleFormData = {
+    id: number | null
     dni: string
     firstName: string
     lastName: string
@@ -47,33 +48,20 @@ export type PeopleFormData = {
     email: string | null
     address: string
     isPatient:boolean
-    patient: patientOut
+    patient: Partial<PatientOut>
 }
 
-export const peopleDefaultData = {
-    dni: '',
-    firstName: '',
-    lastName: '',
-    phone1: '',
+export const peopleDefaultData: PeopleFormData = {
+    id: null,
+    dni: 'to modify',
+    firstName: 'to modify',
+    lastName: 'to modify',
+    phone1: 'to modify',
     phone2: null,
     email: null,
-    address: '',
+    address: 'to modify',
     isPatient: false,
-    patient: {
-        id: 0,
-        clinicalHistoryNumber: '',
-        entityCode: '',
-        planId: 0,
-        plan: {
-            id: 0,
-            name: '',
-            entityId: 0,
-            entity: {
-                id: 0,
-                name: '',
-            },
-        },
-    },
+    patient: {},
 }
 
 export type PeopleFilter = {
