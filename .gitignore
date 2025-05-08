@@ -1,0 +1,41 @@
+# Entornos virtuales
+venv/
+.env
+.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+dist/
+build/
+pip-wheel-metadata/
+
+# Archivos de logs y bases de datos temporales
+*.log
+*.sqlite3
+
+# Configuración de editores/IDEs
+.vscode/
+.idea/
+*.swp
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Mypy / Pytest / Coverage
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+.cache/
+
+# Compilaciones de Cython (por si se usan extensiones nativas)
+*.c
+*.cpp
+*.html
+*.pyd
