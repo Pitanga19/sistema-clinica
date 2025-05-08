@@ -15,20 +15,22 @@ class SearchField(BaseModel):
     value: str | int
 
 # Error de valor no encontrado
-class NotFoundError(ValueError): pass
-async def not_found_error_handler(request: Request, exc: NotFoundError):
-    return JSONResponse(
-        status_code=404,
-        content={'msg': str(exc)},
-    )
+class NotFoundError(ValueError):
+    @staticmethod
+    async def handler(request: Request, exc: 'NotFoundError'):
+        return JSONResponse(
+            status_code=404,
+            content={'msg': str(exc)},
+        )
 
 # Error de valor ya existente
-class AlreadyExistsError(ValueError): pass
-async def already_exists_error_handler(request: Request, exc: AlreadyExistsError):
-    return JSONResponse(
-        status_code=409,
-        content={'msg': str(exc)},
-    )
+class AlreadyExistsError(ValueError):
+    @staticmethod
+    async def handler(request: Request, exc: 'AlreadyExistsError'):
+        return JSONResponse(
+            status_code=409,
+            content={'msg': str(exc)},
+        )
 
 # Ejecutar consulta y obtener un solo resultado o ninguno
 async def get_one_or_none(stmt: Select, db: AsyncSession) -> T | None:
