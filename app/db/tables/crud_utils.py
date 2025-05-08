@@ -66,12 +66,12 @@ def ensure_not_exists(obj: T | None, search_fields: List[SearchField]) -> None:
 
 # Buscar un objeto en la db y validar su existencia
 async def get_validated(
-    db: AsyncSession,
     stmt: Select,
     should_exist: bool,
-    search_fields: List[SearchField]
+    search_fields: List[SearchField],
+    db: AsyncSession
 ) -> T | None:
-    obj: T = await get_one_or_none(db, stmt)
+    obj: T = await get_one_or_none(stmt, db)
     
     if should_exist: ensure_exists(obj, search_fields)
     else: ensure_not_exists(obj, search_fields)
@@ -79,12 +79,12 @@ async def get_validated(
     return obj
 
 # Eliminar un objeto de la db
-async def delete(db: AsyncSession, obj: T) -> None:
+async def delete(obj: T, db: AsyncSession) -> None:
     await db.delete(obj)
     await db.commit()
 
 # Aplicar cambios a la db y devolver el objeto actualizado
-async def commit_and_refresh(db: AsyncSession, obj: T) -> T:
+async def commit_and_refresh(obj: T, db: AsyncSession) -> T:
     db.add(obj)
     await db.commit()
     await db.refresh(obj)
