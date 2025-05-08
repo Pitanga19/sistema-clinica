@@ -6,6 +6,8 @@ import os
 from dotenv import load_dotenv
 from app.db.base_class import Base
 
+from app.db.tables.users.model import User
+
 load_dotenv()
 config = context.config
 config.set_main_option('sqlalchemy.url', os.environ.get('DATABASE_URL'))
