@@ -1,15 +1,15 @@
-from sqlalchemy import Column, BigInteger, String, Boolean, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy import Integer, String, Boolean, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base_class import Base
 
 class User(Base):
-    id = Column(BigInteger, primary_key=True, index=True)
-    role_id = Column(BigInteger, ForeignKey("role.id"), nullable=False)
-    username = Column(String, unique=True, index=True)
-    hashed_password = Column(String)
-    full_name = Column(String)
-    is_active = Column(Boolean, default=True)
-    is_superuser = Column(Boolean, default=False)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    role_id: Mapped[int] = mapped_column(Integer, ForeignKey("role.id"), index=True, nullable=False)
+    username: Mapped[str] = mapped_column(String, unique=True, index=True, nullable=False)
+    hashed_password: Mapped[str] = mapped_column(String, nullable=False)
+    full_name: Mapped[str] = mapped_column(String, nullable=False)
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+    is_superuser: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     
     # Relaciones
     role = relationship('Role', back_populates='users')
