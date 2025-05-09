@@ -2,7 +2,6 @@ from pydantic import BaseModel, Field
 from typing import Annotated, Optional
 
 class UserBase(BaseModel):
-    role_id: Annotated[int, Field(..., gt=0)]
     username: Annotated[str, Field(..., min_length=3, max_length=30)]
     full_name: Annotated[str, Field(..., min_length=3, max_length=120)]
     is_active: Annotated[bool, Field(default=True)]
