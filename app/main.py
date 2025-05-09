@@ -1,13 +1,12 @@
 from fastapi import FastAPI
 from app.core.config import settings as sett
+from app.core.exceptions import register_custom_errors
 from app.db import base
 from app.db.tables.routes_utils import collect_routers
-from app.db.tables.crud_utils import NotFoundError, AlreadyExistsError
 
 app = FastAPI(title=sett.PROJECT_NAME, version=sett.PROJECT_VERSION)
 
-app.add_exception_handler(NotFoundError, NotFoundError.handler)
-app.add_exception_handler(AlreadyExistsError, AlreadyExistsError.handler)
+register_custom_errors(app)
 
 @app.get('/', tags=['Home'])
 def root():

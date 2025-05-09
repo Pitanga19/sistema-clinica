@@ -1,10 +1,9 @@
-from fastapi.responses import JSONResponse
-from fastapi import Request
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.sql import Select
 from sqlalchemy.future import select
 from typing import TypeVar, List
 from pydantic import BaseModel
+from app.core.exceptions import NotFoundError, AlreadyExistsError
 
 # Tipo genérico para los modelos
 T = TypeVar('T')
@@ -13,24 +12,6 @@ T = TypeVar('T')
 class SearchField(BaseModel):
     field: str
     value: str | int
-
-# Error de valor no encontrado
-class NotFoundError(ValueError):
-    @staticmethod
-    async def handler(request: Request, exc: 'NotFoundError'):
-        return JSONResponse(
-            status_code=404,
-            content={'msg': str(exc)},
-        )
-
-# Error de valor ya existente
-class AlreadyExistsError(ValueError):
-    @staticmethod
-    async def handler(request: Request, exc: 'AlreadyExistsError'):
-        return JSONResponse(
-            status_code=409,
-            content={'msg': str(exc)},
-        )
 
 # Ejecutar consulta y obtener un solo resultado o ninguno
 async def get_one_or_none(stmt: Select, db: AsyncSession) -> T | None:
