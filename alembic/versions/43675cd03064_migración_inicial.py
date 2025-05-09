@@ -1,8 +1,8 @@
-"""Crear tablas:users, roles, assignments, role_assignments
+"""Migración inicial
 
-Revision ID: 232312b72772
+Revision ID: 43675cd03064
 Revises: 
-Create Date: 2025-05-08 23:24:34.053808
+Create Date: 2025-05-09 19:15:23.023616
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '232312b72772'
+revision: str = '43675cd03064'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -48,7 +48,7 @@ def upgrade() -> None:
     sa.Column('is_active', sa.Boolean(), nullable=False),
     sa.Column('is_superuser', sa.Boolean(), nullable=False),
     sa.Column('role_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['role_id'], ['roles.id'], name='user_role_id', ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['role_id'], ['roles.id'], name='user_role_id'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_users_role_id'), 'users', ['role_id'], unique=False)
