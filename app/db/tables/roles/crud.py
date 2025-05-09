@@ -40,7 +40,7 @@ async def get_by_name(name: str, db: AsyncSession) -> Role | None:
 async def get_by_assignment_id(assignment_id: int, db: AsyncSession) -> List[Role]:
     stmt = (select(Role)
         .join(Role.assignments)
-        .where(Assignment.assignment_id == assignment_id)
+        .where(Assignment.id == assignment_id)
     )
     return await utils.get_many(stmt, db)
 
