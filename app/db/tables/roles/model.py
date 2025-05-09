@@ -1,21 +1,7 @@
-from sqlalchemy import Table, Column, Integer, String, ForeignKey
+from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base_class import Base
-
-role_assignments = Table('role_assignments', Base.metadata,
-    Column(
-        'role_id',
-        Integer,
-        ForeignKey('roles.id', ondelete='CASCADE', name='role_assignments_role_id'),
-        primary_key=True
-    ),
-    Column(
-        'assignment_id',
-        Integer,
-        ForeignKey('assignments.id', ondelete='CASCADE', name='role_assignments_assignment_id'),
-        primary_key=True
-    )
-)
+from app.db.tables.role_assignments.model import RoleAssignment
 
 class Role(Base):
     __tablename__ = 'roles'
@@ -26,4 +12,10 @@ class Role(Base):
     
     # Relaciones
     users = relationship('User', back_populates='role')
-    assignments = relationship('Assignment', secondary=role_assignments, back_populates='roles')
+    role_assignments = relationship('RoleAssignment', back_populates='role', passive_deletes=True)
+    assignments = relationship(
+        'Assignment',
+        secondary='role_assignments',
+        viewonly=True,
+        back_populates='roles'
+    )

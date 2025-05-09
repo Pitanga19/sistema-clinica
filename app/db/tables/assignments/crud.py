@@ -2,13 +2,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from typing import List
 from app.db.tables import crud_utils as utils
-from app.db.tables.assignments.model import Assignment, role_assignments
+from app.db.tables.assignments.model import Assignment
 from app.db.tables.assignments.schemas import *
+from app.db.tables.roles.model import Role
 
 async def create(data: AssignmentCreate, db: AsyncSession) -> Assignment:
     should_exist = False
     fields = [
-        ('nombre', data.name)
+        ('name', data.name)
     ]
     
     for field, value in fields:
@@ -31,13 +32,13 @@ async def get_by_id(id: int, db: AsyncSession) -> Assignment | None:
 async def get_by_name(name: str, db: AsyncSession) -> Assignment | None:
     stmt = select(Assignment).where(Assignment.name == name)
     should_exist = True
-    search_fields = [utils.SearchField(field='nombre', value=name)]
+    search_fields = [utils.SearchField(field='name', value=name)]
     return await utils.get_validated(stmt, should_exist, search_fields, db)
 
 async def get_by_role_id(role_id: int, db: AsyncSession) -> List[Assignment]:
     stmt = (select(Assignment)
-        .join(role_assignments)
-        .where(role_assignments.role_id == role_id)
+        .join(Assignment.roles)
+        .where(Role.id == role_id)
     )
     return await utils.get_many(stmt, db)
 
