@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from typing import List
-from app.db.tables import crud_utils as utils
+from app.db.utils import crud as utils
 from app.db.tables.users.model import User
 from app.db.tables.users.schemas import *
 from app.core.security import hash_password

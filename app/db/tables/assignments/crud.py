@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from typing import List
-from app.db.tables import crud_utils as utils
+from app.db.utils import crud as utils
 from app.db.tables.assignments.model import Assignment
 from app.db.tables.assignments.schemas import *
 from app.db.tables.roles.model import Role

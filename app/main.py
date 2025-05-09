@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from app.core.config import settings as sett
 from app.core.exceptions import register_custom_errors
 from app.db import base
-from app.db.tables.routes_utils import collect_routers
+from app.db.utils.routes import collect_routers
 
 app = FastAPI(title=sett.PROJECT_NAME, version=sett.PROJECT_VERSION)
 
