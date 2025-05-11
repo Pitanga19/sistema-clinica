@@ -10,3 +10,4 @@ class Entity(Base):
     name: Mapped[str] = mapped_column(String, unique=True, index=True, nullable=False)
     
     # Relaciones
+    plans = relationship('Plan', back_populates='entity')
