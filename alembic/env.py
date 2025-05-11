@@ -14,6 +14,7 @@ from app.db.tables.assignments.model import Assignment
 from app.db.tables.professionals.model import Professional
 from app.db.tables.modes.model import Mode
 from app.db.tables.entities.model import Entity
+from app.db.tables.plans.model import Plan
 
 load_dotenv()
 config = context.config
