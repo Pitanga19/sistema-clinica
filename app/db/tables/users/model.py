@@ -16,3 +16,4 @@ class User(Base):
     
     # Relaciones
     role = relationship('Role', back_populates='users')
+    professional = relationship('Professional', back_populates='user', uselist=False)
