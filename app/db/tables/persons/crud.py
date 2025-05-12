@@ -7,7 +7,7 @@ from app.db.tables.persons.schemas import *
 
 async def create(data: PersonCreate, db: AsyncSession) -> Person:
     should_exist = False
-    search_fields = [('id', data.id)]
+    search_fields = [utils.SearchField(field='id', value=data.id)]
     stmt = select(Person).where(Person.id == data.id)
     await utils.get_validated(stmt, should_exist, search_fields, db)
     
@@ -30,11 +30,9 @@ async def get_by_id(id: int, db: AsyncSession) -> Person | None:
     search_fields = [utils.SearchField(field='id', value=id)]
     return await utils.get_validated(stmt, should_exist, search_fields, db)
 
-async def get_by_last_name(last_name: str, db: AsyncSession) -> Person | None:
+async def get_by_last_name(last_name: str, db: AsyncSession) -> List[Person]:
     stmt = select(Person).where(Person.last_name == last_name)
-    should_exist = True
-    search_fields = [utils.SearchField(field='last_name', value=last_name)]
-    return await utils.get_validated(stmt, should_exist, search_fields, db)
+    return await utils.get_many(stmt, db)
 
 async def get_all(db: AsyncSession) -> List[Person]:
     return await utils.get_all(Person, db)
