@@ -18,8 +18,8 @@ async def create_person(data: PersonCreate, db: AsyncSession=Depends(get_db)) ->
 async def get_by_id(id: int, db: AsyncSession=Depends(get_db)) -> PersonRead | None:
     return await crud.get_by_id(id, db)
 
-@router.get('/by_last_name/{last_name}', response_model=PersonRead, status_code=200)
-async def get_by_last_name(last_name: str, db: AsyncSession=Depends(get_db)) -> PersonRead | None:
+@router.get('/by_last_name/{last_name}', response_model=List[PersonRead], status_code=200)
+async def get_by_last_name(last_name: str, db: AsyncSession=Depends(get_db)) -> List[PersonRead]:
     return await crud.get_by_last_name(last_name, db)
 
 @router.get('/', response_model=List[PersonRead], status_code=200)
