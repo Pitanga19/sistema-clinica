@@ -10,8 +10,8 @@ class Person(Base):
     first_name: Mapped[str] = mapped_column(String, nullable=False)
     last_name: Mapped[str] = mapped_column(String, index=True, nullable=False)
     phone_1: Mapped[str] = mapped_column(String, nullable=False)
-    phone_2: Mapped[str] = mapped_column(String)
-    email: Mapped[str] = mapped_column(String)
+    phone_2: Mapped[str] = mapped_column(String, nullable=True)
+    email: Mapped[str] = mapped_column(String, nullable=True)
     address: Mapped[str] = mapped_column(String, nullable=False)
     
     # Relaciones
