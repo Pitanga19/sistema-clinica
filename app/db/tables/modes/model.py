@@ -1,5 +1,5 @@
 from sqlalchemy import String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base_class import Base
 
 class Mode(Base):
@@ -10,3 +10,4 @@ class Mode(Base):
     name: Mapped[str] = mapped_column(String, unique=True, index=True, nullable=False)
     
     # Relaciones
+    evaluations = relationship('Evaluation', back_populates='mode')

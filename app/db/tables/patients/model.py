@@ -14,3 +14,4 @@ class Patient(Base):
     # Relaciones
     plan = relationship('Plan', back_populates='patients')
     person = relationship('Person', back_populates='patient')
+    evaluations = relationship('Evaluation', back_populates='patient')

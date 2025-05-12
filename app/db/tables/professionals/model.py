@@ -14,3 +14,4 @@ class Professional(Base):
     
     # Relaciones
     user = relationship('User', back_populates='professional')
+    evaluations = relationship('Evaluation', back_populates='professional')
