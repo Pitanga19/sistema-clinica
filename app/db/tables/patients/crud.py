@@ -33,11 +33,8 @@ async def get_by_person_id(person_id: str, db: AsyncSession) -> Patient | None:
     search_fields = [utils.SearchField(field='person_id', value=person_id)]
     return await utils.get_validated(stmt, should_exist, search_fields, db)
 
-async def get_by_plan_id(plan_id: int, db: AsyncSession) -> Patient | None:
-    stmt = (select(Patient)
-        .join(Patient.assignments)
-        .where(Plan.id == plan_id)
-    )
+async def get_by_plan_id(plan_id: int, db: AsyncSession) -> List[Patient]:
+    stmt = select(Patient).where(Patient.plan_id == plan_id)
     return await utils.get_many(stmt, db)
 
 async def get_all(db: AsyncSession) -> List[Patient]:
