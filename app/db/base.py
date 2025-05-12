@@ -8,3 +8,5 @@ from app.db.tables.professionals.model import Professional
 from app.db.tables.modes.model import Mode
 from app.db.tables.entities.model import Entity
 from app.db.tables.plans.model import Plan
+from app.db.tables.persons.model import Person
+from app.db.tables.patients.model import Patient
