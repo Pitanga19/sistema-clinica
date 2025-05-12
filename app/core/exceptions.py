@@ -27,6 +27,7 @@ class AlreadyExistsError(CustomError):
 
 # Lista de errores personalizados
 custom_errors: List[CustomError] = [
+    CustomError,
     ValidationError,
     NotFoundError,
     AlreadyExistsError
