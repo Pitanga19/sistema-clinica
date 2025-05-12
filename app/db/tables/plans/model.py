@@ -11,7 +11,8 @@ class Plan(Base):
     
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
-    entity_id: Mapped[int] = mapped_column(Integer, ForeignKey('entities.id', name='plan_entity_id'), index=True, nullable=False)
+    entity_id: Mapped[int] = mapped_column(Integer, ForeignKey('entities.id', name='plan_entity_id', ondelete='CASCADE'), index=True, nullable=False)
     
     # Relaciones
     entity = relationship('Entity', back_populates='plans')
+    patients = relationship('Patient', back_populates='plan')
