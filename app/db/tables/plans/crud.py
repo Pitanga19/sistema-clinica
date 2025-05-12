@@ -1,9 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from typing import List
+from app.core.exceptions import CustomError
 from app.db.utils import crud as utils
 from app.db.tables.plans.model import Plan
 from app.db.tables.plans.schemas import *
+from app.db.tables.patients.crud import get_by_plan_id
 
 async def create(data: PlanCreate, db: AsyncSession) -> Plan:
     stmt = select(Plan).where(
@@ -76,5 +78,8 @@ async def update(id: int, data: PlanUpdate, db: AsyncSession) -> Plan | None:
     return await utils.commit_and_refresh(plan, db)
 
 async def delete(id: int, db: AsyncSession) -> None:
+    patients = await get_by_plan_id(id, db)
+    if patients.length() > 0:
+        raise CustomError('El plan no se puede eliminar porque tiene pacientes asignados')
     plan = await get_by_id(id, db)
     await utils.delete(plan, db)
