@@ -10,7 +10,7 @@ class Professional(Base):
     signature: Mapped[str] = mapped_column(String, unique=True, nullable=False)
     national_registration: Mapped[int] = mapped_column(Integer, unique=True, nullable=True)
     provincial_registration: Mapped[int] = mapped_column(Integer, unique=True, nullable=True)
-    user_id: Mapped[int] = mapped_column(Integer, ForeignKey('users.id', name='professional_user_id'), unique=True, index=True, nullable=False)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey('users.id', name='professional_user_id', ondelete='CASCADE'), unique=True, index=True, nullable=False)
     
     # Relaciones
     user = relationship('User', back_populates='professional')
