@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = 'Sistema Clínica'
-    PROJECT_VERSION: str = '0.0.2'
+    PROJECT_VERSION: str = '0.1.0'
     DATABASE_URL: str
     JWT_SECRET: str
     JWT_ALGORITHM: str
