@@ -1,13 +1,11 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Login from './pages/Login'
+import { BrowserRouter } from 'react-router-dom'
+import AppRoutes from './shared/AppRoutes'
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path='/' element={<Login />} />
-      </Routes>
-    </Router>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   )
 }
 
