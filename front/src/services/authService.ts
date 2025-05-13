@@ -6,10 +6,18 @@ export interface LoginData {
 }
 
 export const login = async (data: LoginData) => {
-    try {
-        const response = await api.post('/auth/login', data)
-        const { access_token } = response.data
+    const formData = new URLSearchParams()
+    formData.append('username', data.username)
+    formData.append('password', data.password)
 
+    try {
+        const response = await api.post('/auth/login', formData, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        })
+
+        const { access_token } = response.data
         localStorage.setItem('access_token', access_token)
 
         return data
