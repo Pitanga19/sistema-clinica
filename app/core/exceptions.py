@@ -25,12 +25,22 @@ class NotFoundError(CustomError):
 class AlreadyExistsError(CustomError):
     status_code = 409
 
+# Error de contraseña incorrecta
+class IncorrectPasswordError(CustomError):
+    status_code = 401
+
+# Error de usuario inactivo
+class InactiveUserError(CustomError):
+    status_code = 401
+
 # Lista de errores personalizados
 custom_errors: List[CustomError] = [
     CustomError,
     ValidationError,
     NotFoundError,
-    AlreadyExistsError
+    AlreadyExistsError,
+    IncorrectPasswordError,
+    InactiveUserError,
 ]
 
 # Función para registrar los manejadores de errores personalizados
