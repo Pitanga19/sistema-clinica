@@ -1,8 +1,10 @@
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
+import pytz
 from jose import JWTError, jwt
 from app.core.config import settings
-from app.db.tables.users.schemas import UserInDB
+from app.core.exceptions import InvalidTokenError
+from app.auth.schemas import TokenData
 
 # Contexto para hash de contraseñas
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -21,7 +23,8 @@ def create_access_token(
     expires_delta: timedelta = timedelta(minutes=settings.JWT_EXPIRATION_MINUTES)
 ) -> str:
     to_encode = data.copy()
-    expire = datetime.now() + expires_delta
+    tz = pytz.timezone(settings.JWT_TIMEZONE)
+    expire = datetime.now(tz) + expires_delta
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(
         to_encode,
@@ -31,13 +34,13 @@ def create_access_token(
     return encoded_jwt
 
 # Función para verificar el JWT
-def verify_token(token: str) -> UserInDB:
+def verify_token(token: str) -> TokenData:
     try:
         payload = jwt.decode(
             token,
             settings.JWT_SECRET,
             algorithms=[settings.JWT_ALGORITHM]
         )
-        return UserInDB(**payload)
+        return TokenData(**payload)
     except JWTError:
-        raise ValueError("Token inválido o o expirado")
+        raise InvalidTokenError("Token inválido o expirado")
