@@ -25,6 +25,9 @@ class NotFoundError(CustomError):
 class AlreadyExistsError(CustomError):
     status_code = 409
 
+class InvalidTokenError(CustomError):
+    status_code = 401
+
 # Error de contraseña incorrecta
 class IncorrectPasswordError(CustomError):
     status_code = 401
@@ -39,6 +42,7 @@ custom_errors: List[CustomError] = [
     ValidationError,
     NotFoundError,
     AlreadyExistsError,
+    InvalidTokenError,
     IncorrectPasswordError,
     InactiveUserError,
 ]
