@@ -11,3 +11,8 @@ class TokenData(BaseModel):
     is_active: Annotated[bool, Field(...)]
     is_superuser: Annotated[bool, Field(...)]
     role_id: Annotated[int, Field(...)]
+
+class PasswordUpdate(BaseModel):
+    current_password: str
+    new_password: str
+    confirm_password: str
