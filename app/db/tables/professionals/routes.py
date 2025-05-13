@@ -26,7 +26,7 @@ async def get_by_user_id(user_id: int, db: AsyncSession=Depends(get_db)) -> Prof
 async def get_all(db: AsyncSession=Depends(get_db)) -> List[ProfessionalRead]:
     return await crud.get_all(db)
 
-@router.put('/{id}', response_model=ProfessionalRead, status_code=200)
+@router.patch('/{id}', response_model=ProfessionalRead, status_code=200)
 async def update(id: int, data: ProfessionalUpdate, db: AsyncSession=Depends(get_db)) -> ProfessionalRead | None:
     return await crud.update(id, data, db)
 

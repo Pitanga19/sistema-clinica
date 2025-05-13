@@ -30,7 +30,7 @@ async def get_by_assignment_id(assignment_id: int, db: AsyncSession=Depends(get_
 async def get_all(db: AsyncSession=Depends(get_db)) -> List[RoleRead]:
     return await crud.get_all(db)
 
-@router.put('/{id}', response_model=RoleRead, status_code=200)
+@router.patch('/{id}', response_model=RoleRead, status_code=200)
 async def update(id: int, data: RoleUpdate, db: AsyncSession=Depends(get_db)) -> RoleRead | None:
     return await crud.update(id, data, db)
 

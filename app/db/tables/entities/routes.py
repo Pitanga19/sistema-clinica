@@ -26,7 +26,7 @@ async def get_by_name(name: str, db: AsyncSession=Depends(get_db)) -> EntityRead
 async def get_all(db: AsyncSession=Depends(get_db)) -> List[EntityRead]:
     return await crud.get_all(db)
 
-@router.put('/{id}', response_model=EntityRead, status_code=200)
+@router.patch('/{id}', response_model=EntityRead, status_code=200)
 async def update(id: int, data: EntityUpdate, db: AsyncSession=Depends(get_db)) -> EntityRead | None:
     return await crud.update(id, data, db)
 

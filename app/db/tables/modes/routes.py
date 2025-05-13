@@ -26,7 +26,7 @@ async def get_by_name(name: str, db: AsyncSession=Depends(get_db)) -> ModeRead |
 async def get_all(db: AsyncSession=Depends(get_db)) -> List[ModeRead]:
     return await crud.get_all(db)
 
-@router.put('/{id}', response_model=ModeRead, status_code=200)
+@router.patch('/{id}', response_model=ModeRead, status_code=200)
 async def update(id: int, data: ModeUpdate, db: AsyncSession=Depends(get_db)) -> ModeRead | None:
     return await crud.update(id, data, db)
 

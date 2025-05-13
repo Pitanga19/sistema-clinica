@@ -30,7 +30,7 @@ async def get_by_plan_id(plan_id: int, db: AsyncSession=Depends(get_db)) -> List
 async def get_all(db: AsyncSession=Depends(get_db)) -> List[PatientRead]:
     return await crud.get_all(db)
 
-@router.put('/{id}', response_model=PatientRead, status_code=200)
+@router.patch('/{id}', response_model=PatientRead, status_code=200)
 async def update(id: int, data: PatientUpdate, db: AsyncSession=Depends(get_db)) -> PatientRead | None:
     return await crud.update(id, data, db)
 

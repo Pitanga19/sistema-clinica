@@ -26,7 +26,7 @@ async def get_by_last_name(last_name: str, db: AsyncSession=Depends(get_db)) -> 
 async def get_all(db: AsyncSession=Depends(get_db)) -> List[PersonRead]:
     return await crud.get_all(db)
 
-@router.put('/{id}', response_model=PersonRead, status_code=200)
+@router.patch('/{id}', response_model=PersonRead, status_code=200)
 async def update(id: int, data: PersonUpdate, db: AsyncSession=Depends(get_db)) -> PersonRead | None:
     return await crud.update(id, data, db)
 
