@@ -35,12 +35,6 @@ Thumbs.db
 htmlcov/
 .cache/
 
-# Compilaciones de Cython (por si se usan extensiones nativas)
-*.c
-*.cpp
-*.html
-*.pyd
-
 
 # FRONTEND REACT
 # dependencies
