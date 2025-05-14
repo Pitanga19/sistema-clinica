@@ -1,4 +1,4 @@
-import api from '../../../shared/services/api'
+import api from '../../shared/services/api'
 
 export interface LoginData {
     username: string
