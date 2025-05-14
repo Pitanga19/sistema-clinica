@@ -19,11 +19,11 @@ const superuserRoutes: RouteObject[] = [
     },
     {
         path: '/roles/detail/:id',
-        element: <RolesUpdate />,
+        element: <RolesDetail />,
     },
     {
         path: '/roles/update/:id',
-        element: <RolesDetail />,
+        element: <RolesUpdate />,
     },
     {
         path: '/users',
