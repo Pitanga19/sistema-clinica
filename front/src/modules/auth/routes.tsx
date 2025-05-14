@@ -5,7 +5,7 @@ const authRoutes: RouteObject[] = [
     {
         path: '/login',
         element: <Login />,
-    }
+    },
 ]
 
 export default authRoutes

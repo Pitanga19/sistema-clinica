@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { RoleService } from '../service'
 
 const RolesDetail = () => {
-    const {id} = useParams<{id: string}>()
+    const { id } = useParams<{ id: string }>()
     const [name, setName] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)

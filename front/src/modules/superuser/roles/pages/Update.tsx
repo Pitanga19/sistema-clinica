@@ -4,7 +4,7 @@ import { RoleService } from '../service'
 import type { RoleUpdate } from '../types'
 
 const RolesUpdate = () => {
-    const {id} = useParams<{id: string}>()
+    const { id } = useParams<{ id: string }>()
     const [name, setName] = useState<string>('')
     const [currentName, setCurrentName] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(true)
@@ -37,7 +37,7 @@ const RolesUpdate = () => {
         setError(null)
 
         const updateRoleData: RoleUpdate = {
-            name
+            name,
         }
 
         try {

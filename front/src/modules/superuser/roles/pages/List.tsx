@@ -6,7 +6,7 @@ const RolesList = () => {
     const [roles, setRoles] = useState<Role[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
-    let content;
+    let content
 
     useEffect(() => {
         const fetchRoles = async () => {

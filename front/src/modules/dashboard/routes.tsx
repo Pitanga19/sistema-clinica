@@ -5,7 +5,7 @@ const dashboardRoutes: RouteObject[] = [
     {
         path: '/',
         element: <Dashboard />,
-    }
+    },
 ]
 
 export default dashboardRoutes
