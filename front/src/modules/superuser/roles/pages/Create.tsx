@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { RoleService } from '../service'
 import type { RoleCreate } from '../types'
+import RolesCreateView from './Create.view'
 
 const RolesCreate = () => {
     const [name, setName] = useState<string>('')
@@ -26,23 +27,12 @@ const RolesCreate = () => {
     }
 
     return (
-        <div className='main_container'>
-            <h1>Crear Rol</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor='name'>Nombre</label>
-                    <input
-                        type='text'
-                        id='name'
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                    />
-                </div>
-                {error && <p className='error'>{error}</p>}
-                <button type='submit'>Crear</button>
-            </form>
-        </div>
+        <RolesCreateView
+            name={name}
+            error={error}
+            onNameChange={setName}
+            onSubmit={handleSubmit}
+        />
     )
 }
 

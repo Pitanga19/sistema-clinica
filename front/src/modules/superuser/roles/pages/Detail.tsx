@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { RoleService } from '../service'
+import RolesDetailView from './Detail.view'
 
 const RolesDetail = () => {
     const { id } = useParams<{ id: string }>()
@@ -28,11 +29,12 @@ const RolesDetail = () => {
     }, [])
 
     return (
-        <div className='main_container'>
-            <h1>Detalles del Rol</h1>
-            <h2>{loading ? loadingMsg : name}</h2>
-            {error && <p className='error'>{error}</p>}
-        </div>
+        <RolesDetailView
+            name={name}
+            loading={loading}
+            loadingMsg={loadingMsg}
+            error={error}
+        />
     )
 }
 

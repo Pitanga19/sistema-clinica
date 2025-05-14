@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import { RoleService } from '../service'
 import type { Role } from '../types'
+import RolesListView from './List.view'
 
 const RolesList = () => {
     const [roles, setRoles] = useState<Role[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
-    let content
 
     useEffect(() => {
         const fetchRoles = async () => {
@@ -23,27 +23,12 @@ const RolesList = () => {
         fetchRoles()
     }, [])
 
-    if (loading) {
-        content = <p>Cargando roles ...</p>
-    } else if (error) {
-        content = <p className='error'>{error}</p>
-    } else if (roles.length === 0) {
-        content = <p>No hay roles para mostrar</p>
-    } else {
-        content = (
-            <ul>
-                {roles.map((role) => (
-                    <li key={role.id}>{role.name}</li>
-                ))}
-            </ul>
-        )
-    }
-
     return (
-        <div className='main_container'>
-            <h1>Lista de Roles</h1>
-            {content}
-        </div>
+        <RolesListView
+            roles={roles}
+            loading={loading}
+            error={error}
+        />
     )
 }
 

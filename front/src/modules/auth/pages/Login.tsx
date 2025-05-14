@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../service'
+import LoginView from './Login.view'
 
 const Login = () => {
     const [username, setUsername] = useState('')
@@ -26,33 +27,14 @@ const Login = () => {
     }
 
     return (
-        <div className='main_container'>
-            <h2>Iniciar sesión</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor='username'>Usuario</label>
-                    <input
-                        type='text'
-                        id='username'
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor='password'>Contraseña</label>
-                    <input
-                        type='password'
-                        id='password'
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                {error && <p className='error'>{error}</p>}
-                <button type='submit'>Acceder</button>
-            </form>
-        </div>
+        <LoginView
+            username={username}
+            password={password}
+            error={error}
+            onUsernameChange={setUsername}
+            onPasswordChange={setPassword}
+            onSubmit={handleSubmit}
+        />
     )
 }
 

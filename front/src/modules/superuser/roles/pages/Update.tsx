@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { RoleService } from '../service'
 import type { RoleUpdate } from '../types'
+import RolesUpdateView from './Update.view'
 
 const RolesUpdate = () => {
     const { id } = useParams<{ id: string }>()
@@ -54,24 +55,15 @@ const RolesUpdate = () => {
     }
 
     return (
-        <div className='main_container'>
-            <h1>Editar Rol</h1>
-            <h2>{loading ? loadingMsg : currentName}</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor='name'>Nombre</label>
-                    <input
-                        type='text'
-                        id='name'
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                    />
-                </div>
-                {error && <p className='error'>{error}</p>}
-                <button type='submit'>Guardar</button>
-            </form>
-        </div>
+        <RolesUpdateView
+            name={name}
+            currentName={currentName}
+            loading={loading}
+            loadingMsg={loadingMsg}
+            error={error}
+            onChangeName={setName}
+            onSubmit={handleSubmit}
+        />
     )
 }
 
