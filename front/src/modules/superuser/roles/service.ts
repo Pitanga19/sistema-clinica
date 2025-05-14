@@ -2,7 +2,7 @@ import api from '../../../shared/services/api'
 import type { Role, RoleCreate, RoleUpdate } from './types'
 
 export class RoleService {
-    static createRole = (data: RoleCreate) =>
+    static create = (data: RoleCreate) =>
         api.post<Role>('/roles', data)
 
     static getById = (id: number) =>
