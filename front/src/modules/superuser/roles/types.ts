@@ -6,6 +6,6 @@ export interface Role extends RoleBase {
     id: number
 }
 
-export interface RoleCreate extends RoleBase {}
+export type RoleCreate = RoleBase
 
-export interface RoleUpdate extends RoleBase {}
+export type RoleUpdate = RoleBase
