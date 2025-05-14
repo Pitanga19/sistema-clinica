@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../service'
@@ -15,8 +16,12 @@ const Login = () => {
         try {
             await login({ username, password })
             navigate('/')
-        } catch (error: any) {
-            setError(error.response?.data?.detail || 'Usuario o contraseña inválidos')
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                setError(error.response?.data?.detail || 'Usuario o contraseña inválidos')
+            } else {
+                setError('Ocurrió un error inesperado')
+            }
         }
     }
 
