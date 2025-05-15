@@ -1,9 +1,6 @@
+import axios from 'axios'
 import api from '../../shared/services/api'
-
-export interface LoginData {
-    username: string
-    password: string
-}
+import type { LoginData } from './types'
 
 export const login = async (data: LoginData) => {
     const formData = new URLSearchParams()
@@ -21,7 +18,10 @@ export const login = async (data: LoginData) => {
         localStorage.setItem('access_token', access_token)
 
         return data
-    } catch (error: any) {
-        throw new Error(error.response?.data?.detail || 'Error al iniciar sesión')
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.detail || 'Error al iniciar sesión')
+        }
+        throw new Error('Error desconocido al iniciar sesión')
     }
 }
