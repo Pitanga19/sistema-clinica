@@ -22,7 +22,6 @@ const UsersListView = ({
     onDelete,
 }: UsersListViewProps) => {
     let content
-    console.log('Users: ', users)
 
     if (loading) {
         content = <p>Cargando users ...</p>
