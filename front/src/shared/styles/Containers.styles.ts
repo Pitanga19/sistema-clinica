@@ -1,37 +1,43 @@
 import styled from 'styled-components'
 
-export const StyledContainer = styled.div`
+export const StyledBaseContainer = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    gap: 1rem;
+`
+
+export const StyledMainContainer = styled(StyledBaseContainer)`
     min-height: 100vh;
-    padding: 1rem;
+    padding: 2rem;
     background-color: ${({ theme }) => theme.background};
     color: ${({ theme }) => theme.text};
 `
 
-export const StyledCard = styled.div`
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 1rem;
-    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.5);
-    padding: 2rem 1rem;
-    margin: 1rem auto;
-    display: flex;
-    flex-direction: column;
+export const StyledCardContainer = styled(StyledBaseContainer)`
     align-items: center;
-`
-
-export const StyledFormContainer = styled.div`
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.5);
+    padding: 2rem 4rem;
     margin: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
 `
 
-export const StyledInputContainer = styled.div`
+export const StyledFormContainer = styled(StyledBaseContainer)`
+    align-items: flex-start;
+`
+
+export const StyledInputContainer = styled(StyledBaseContainer)`
+    flex-direction: row;
     width: 100%;
     min-width: 20rem;
     max-width: 30rem;
+`
+
+export const StyledButtonContainer = styled(StyledBaseContainer)`
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    width: 100%;
+    min-width: 20rem;
+    max-width: 30rem;
+    padding: 1rem 0 0;
+    gap: 0;
 `

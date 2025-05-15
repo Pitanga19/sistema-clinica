@@ -4,6 +4,7 @@ import {
     StyledConfirmButton,
     StyledDeleteButton,
     StyledCancelButton,
+    StyledNavBarButton,
 } from '../styles/Buttons.styles';
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -24,4 +25,8 @@ export const DeleteButton = ({ children, ...rest }: Props) => {
 
 export const CancelButton = ({ children, ...rest }: Props) => {
     return <StyledCancelButton {...rest}>{children}</StyledCancelButton>;
+};
+
+export const NavBarButton = ({ children, ...rest }: Props) => {
+    return <StyledNavBarButton {...rest}>{children}</StyledNavBarButton>;
 };

@@ -1,38 +1,46 @@
 import {
-    StyledContainer,
-    StyledCard,
+    StyledBaseContainer,
+    StyledMainContainer,
+    StyledCardContainer,
     StyledFormContainer,
     StyledInputContainer,
+    StyledButtonContainer,
 } from "../styles/Containers.styles"
 import type { ReactNode, FormHTMLAttributes, HTMLAttributes } from "react"
 
-// Para contenedores genéricos tipo div
 type ContainerProps = HTMLAttributes<HTMLDivElement> & {
     children: ReactNode
     className?: string
     id?: string
 }
 
-// Para FormContainer que es un form
 type FormProps = FormHTMLAttributes<HTMLFormElement> & {
     children: ReactNode
     className?: string
     id?: string
 }
 
+export const BaseContainer = ({ children, className, id }: ContainerProps) => {
+    return (
+        <StyledBaseContainer className={className} id={id}>
+            {children}
+        </StyledBaseContainer>
+    )
+}
+
 export const MainContainer = ({ children, className, id }: ContainerProps) => {
     return (
-        <StyledContainer className={className} id={id}>
+        <StyledMainContainer className={className} id={id}>
             {children}
-        </StyledContainer>
+        </StyledMainContainer>
     )
 }
 
 export const CardContainer = ({ children, className, id }: ContainerProps) => {
     return (
-        <StyledCard className={className} id={id}>
+        <StyledCardContainer className={className} id={id}>
             {children}
-        </StyledCard>
+        </StyledCardContainer>
     )
 }
 
@@ -59,5 +67,13 @@ export const InputContainer = ({ children, className, id }: ContainerProps) => {
         <StyledInputContainer className={className} id={id}>
             {children}
         </StyledInputContainer>
+    )
+}
+
+export const ButtonContainer = ({ children, className, id }: ContainerProps) => {
+    return (
+        <StyledButtonContainer className={className} id={id}>
+            {children}
+        </StyledButtonContainer>
     )
 }

@@ -1,6 +1,6 @@
 import type { ReactNode, InputHTMLAttributes, TextareaHTMLAttributes } from "react"
 import {
-    StyledInput,
+    StyledTextInput,
     StyledTextArea,
     StyledSelect,
     StyledCheckbox,
@@ -13,7 +13,7 @@ type LabelProps = {
 }
 
 export const TextInput = (props: InputHTMLAttributes<HTMLInputElement>) => {
-    return <StyledInput {...props} />
+    return <StyledTextInput {...props} />
 }
 
 export const TextArea = (props: TextareaHTMLAttributes<HTMLTextAreaElement>) => {
