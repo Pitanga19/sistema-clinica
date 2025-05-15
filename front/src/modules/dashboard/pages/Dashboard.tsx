@@ -12,18 +12,17 @@ const Dashboard = () => {
         }
     }, [navigate])
 
-    const navigateToRolesList = () => {
-        navigate('/roles')
-    }
+    const navigateToRolesList = () => navigate('/roles')
 
-    const navigateToUsersList = () => {
-        navigate('/users')
-    }
+    const navigateToUsersList = () => navigate('/users')
+
+    const navigateToPersonsList = () => navigate('/persons')
 
     return (
         <DashboardView
             goToRolesList={navigateToRolesList}
             goToUsersList={navigateToUsersList}
+            goToPersonsList={navigateToPersonsList}
         />
     )
 }
