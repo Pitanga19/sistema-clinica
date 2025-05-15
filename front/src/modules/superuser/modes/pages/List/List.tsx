@@ -12,8 +12,7 @@ const ModesList = () => {
 
     const fetchModes = async () => {
         try {
-            const response = await ModeService.getAll()
-            setModes(response.data)
+            setModes(await ModeService.getAll())
         } catch (error) {
             setError(`${error}`)
         } finally {

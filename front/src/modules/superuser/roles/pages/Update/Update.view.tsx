@@ -1,35 +1,40 @@
+import type { Role, RoleUpdate } from "../../types"
+
 interface RolesUpdateViewProps {
-    name: string
-    currentName: string
+    currentRole: Role | null
+    updateData: RoleUpdate | null
     loading: boolean
     loadingMsg: string
     error: string | null
-    onChangeName: (name: string) => void
+    onUpdateDataChange: (data: RoleUpdate) => void
     onSubmit: (e: React.FormEvent) => void
 }
 
 const RolesUpdateView = ({
-    name,
-    currentName,
+    currentRole,
+    updateData,
     loading,
     loadingMsg,
     error,
-    onChangeName,
+    onUpdateDataChange,
     onSubmit,
 }: RolesUpdateViewProps) => {
     return (
         <div className='main_container'>
             <h1>Editar Rol</h1>
-            <h2>{loading ? loadingMsg : currentName}</h2>
+            <h2>{loading ? loadingMsg : currentRole?.name}</h2>
             <form onSubmit={onSubmit}>
                 <div>
                     <label htmlFor='name'>Nombre</label>
                     <input
                         type='text'
                         id='name'
-                        value={name}
-                        onChange={(e) => onChangeName(e.target.value)}
-                        required
+                        onChange={(e) => 
+                            onUpdateDataChange({
+                                ...updateData,
+                                name: e.target.value,
+                            })
+                        }
                     />
                 </div>
                 {error && <p className='error'>{error}</p>}

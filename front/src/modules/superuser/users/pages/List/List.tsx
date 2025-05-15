@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { UserService } from '../../service'
 import type { User } from '../../types'
 import UsersListView from './List.view'
-import { userSnakeToCamel } from '../../utils'
 
 const UsersList = () => {
     const [users, setUsers] = useState<User[]>([])
@@ -13,9 +12,7 @@ const UsersList = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await UserService.getAll()
-            const usersMapped = response.data.map((user) => userSnakeToCamel(user))
-            setUsers(usersMapped)
+            setUsers(await UserService.getAll())
         } catch (error) {
             setError(`${error}`)
         } finally {

@@ -1,35 +1,40 @@
+import type { Mode, ModeUpdate } from "../../types"
+
 interface ModesUpdateViewProps {
-    name: string
-    currentName: string
+    currentMode: Mode | null
+    updateData: ModeUpdate | null
     loading: boolean
     loadingMsg: string
     error: string | null
-    onChangeName: (name: string) => void
+    onUpdateDataChange: (data: ModeUpdate) => void
     onSubmit: (e: React.FormEvent) => void
 }
 
 const ModesUpdateView = ({
-    name,
-    currentName,
+    currentMode,
+    updateData,
     loading,
     loadingMsg,
     error,
-    onChangeName,
+    onUpdateDataChange,
     onSubmit,
 }: ModesUpdateViewProps) => {
     return (
         <div className='main_container'>
             <h1>Editar Modo</h1>
-            <h2>{loading ? loadingMsg : currentName}</h2>
+            <h2>{loading ? loadingMsg : currentMode?.name}</h2>
             <form onSubmit={onSubmit}>
                 <div>
                     <label htmlFor='name'>Nombre</label>
                     <input
                         type='text'
                         id='name'
-                        value={name}
-                        onChange={(e) => onChangeName(e.target.value)}
-                        required
+                        onChange={(e) => 
+                            onUpdateDataChange({
+                                ...updateData,
+                                name: e.target.value,
+                            })
+                        }
                     />
                 </div>
                 {error && <p className='error'>{error}</p>}

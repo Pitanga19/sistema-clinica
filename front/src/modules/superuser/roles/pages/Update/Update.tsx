@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { RoleService } from '../../service'
-import type { RoleUpdate } from '../../types'
+import type { Role, RoleUpdate } from '../../types'
 import RolesUpdateView from './Update.view'
 
 const RolesUpdate = () => {
     const { id } = useParams<{ id: string }>()
-    const [name, setName] = useState<string>('')
-    const [currentName, setCurrentName] = useState<string>('')
+    const [currentRole, setCurrentRole] = useState<Role | null>(null)
+    const [updateData, setUpdateData] = useState<RoleUpdate | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
+    const loadingMsg = 'Cargando rol ...'
     const navigate = useNavigate()
-    const loadingMsg = 'Cargando ...'
 
     useEffect(() => {
         const fetchRole = async () => {
@@ -19,9 +19,7 @@ const RolesUpdate = () => {
                 if (!id) {
                     throw new Error('ID no proporcionado')
                 }
-                const response = await RoleService.getById(Number(id))
-                setName(response.data.name)
-                setCurrentName(response.data.name)
+                setCurrentRole(await RoleService.getById(Number(id)))
             } catch (error) {
                 setError(`${error}`)
             } finally {
@@ -37,15 +35,11 @@ const RolesUpdate = () => {
         setLoading(true)
         setError(null)
 
-        const updateRoleData: RoleUpdate = {
-            name,
-        }
+
+        if (!id || !currentRole || !updateData) return
 
         try {
-            if (!id) {
-                throw new Error('ID no proporcionado')
-            }
-            await RoleService.update(Number(id), updateRoleData)
+            await RoleService.update(Number(id), updateData)
             navigate(`/roles/detail/${id}`)
         } catch (error) {
             setError(`${error}`)
@@ -56,12 +50,12 @@ const RolesUpdate = () => {
 
     return (
         <RolesUpdateView
-            name={name}
-            currentName={currentName}
+            currentRole={currentRole}
+            updateData={updateData}
             loading={loading}
             loadingMsg={loadingMsg}
             error={error}
-            onChangeName={setName}
+            onUpdateDataChange={setUpdateData}
             onSubmit={handleSubmit}
         />
     )

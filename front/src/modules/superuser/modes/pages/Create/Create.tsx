@@ -18,9 +18,8 @@ const ModesCreate = () => {
         }
 
         try {
-            const response = await ModeService.create(newModeData)
-            const newModeId = response.data.id
-            navigate(`/modes/detail/${newModeId}`)
+            const newMode = await ModeService.create(newModeData)
+            navigate(`/modes/detail/${newMode.id}`)
         } catch (error) {
             setError(`${error}`)
         }

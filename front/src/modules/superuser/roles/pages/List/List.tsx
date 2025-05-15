@@ -12,8 +12,7 @@ const RolesList = () => {
 
     const fetchRoles = async () => {
         try {
-            const response = await RoleService.getAll()
-            setRoles(response.data)
+            setRoles(await RoleService.getAll())
         } catch (error) {
             setError(`${error}`)
         } finally {

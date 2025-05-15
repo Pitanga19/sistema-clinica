@@ -9,8 +9,8 @@ const RolesDetail = () => {
     const [role, setRole] = useState<Role | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
-    const navigate = useNavigate()
     const loadingMsg = 'Cargando rol ...'
+    const navigate = useNavigate()
 
     const handleEdit = (roleId: number) => navigate(`/roles/update/${roleId}`)
 
@@ -19,8 +19,7 @@ const RolesDetail = () => {
             if (!id) {
                 throw new Error('ID no proporcionado')
             }
-            const response = await RoleService.getById(Number(id))
-            setRole(response.data)
+            setRole(await RoleService.getById(Number(id)))
         } catch (error) {
             setError(`${error}`)
         } finally {

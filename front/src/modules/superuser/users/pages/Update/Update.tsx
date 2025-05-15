@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import UsersUpdateView from './Update.view'
 import { UserService } from '../../service'
-import { userSnakeToCamel } from '../../utils'
-import type { User, UserUpdate, UserUpdateBackend } from '../../types'
+import type { User, UserUpdate } from '../../types'
 import type { Role } from '../../../roles/types'
 import { RoleService } from '../../../roles/service'
 
@@ -14,8 +13,8 @@ const UsersUpdate = () => {
     const [roles, setRoles] = useState<Role[]>([])
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
-    const navigate = useNavigate()
     const loadingMsg = 'Cargando ...'
+    const navigate = useNavigate()
 
     const fetchUser = async () => {
         if (!id) {
@@ -24,9 +23,7 @@ const UsersUpdate = () => {
             return
         }
         try {
-            const response = await UserService.getById(Number(id))
-            const userMapped = userSnakeToCamel(response.data)
-            setCurrentUser(userMapped)
+            setCurrentUser(await UserService.getById(Number(id)))
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Error desconocido'
             setError(errorMessage)
@@ -37,8 +34,7 @@ const UsersUpdate = () => {
 
     const fetchRoles = async () => {
         try {
-            const response = await RoleService.getAll()
-            setRoles(response.data)
+            setRoles(await RoleService.getAll())
         } catch (error) {
             setError(`${error}`)
         }
@@ -49,20 +45,10 @@ const UsersUpdate = () => {
         setLoading(true)
         setError(null)
 
-        const userUpdateBackend: UserUpdateBackend = {
-            id: updateData?.id ?? undefined,
-            username: updateData?.username ?? undefined,
-            password: updateData?.password ?? undefined,
-            full_name: updateData?.fullName ?? undefined,
-            is_active: updateData?.isActive ?? undefined,
-            is_superuser: updateData?.isSuperuser ?? undefined,
-            role_id: updateData?.roleId ?? undefined,
-        }
-
-        if (!id || !currentUser) return
+        if (!id || !currentUser || !updateData) return
 
         try {
-            await UserService.update(Number(id), userUpdateBackend)
+            await UserService.update(Number(id), updateData)
             navigate(`/users/detail/${id}`)
         } catch (error) {
             setError(`${error}`)

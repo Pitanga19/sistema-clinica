@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ModeService } from '../../service'
-import type { ModeUpdate } from '../../types'
+import type { Mode, ModeUpdate } from '../../types'
 import ModesUpdateView from './Update.view'
 
 const ModesUpdate = () => {
     const { id } = useParams<{ id: string }>()
-    const [name, setName] = useState<string>('')
-    const [currentName, setCurrentName] = useState<string>('')
+    const [currentMode, setCurrentMode] = useState<Mode | null>(null)
+    const [updateData, setUpdateData] = useState<ModeUpdate | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
+    const loadingMsg = 'Cargando modo ...'
     const navigate = useNavigate()
-    const loadingMsg = 'Cargando ...'
 
     useEffect(() => {
         const fetchMode = async () => {
@@ -19,9 +19,7 @@ const ModesUpdate = () => {
                 if (!id) {
                     throw new Error('ID no proporcionado')
                 }
-                const response = await ModeService.getById(Number(id))
-                setName(response.data.name)
-                setCurrentName(response.data.name)
+                setCurrentMode(await ModeService.getById(Number(id)))
             } catch (error) {
                 setError(`${error}`)
             } finally {
@@ -37,15 +35,11 @@ const ModesUpdate = () => {
         setLoading(true)
         setError(null)
 
-        const updateModeData: ModeUpdate = {
-            name,
-        }
+
+        if (!id || !currentMode || !updateData) return
 
         try {
-            if (!id) {
-                throw new Error('ID no proporcionado')
-            }
-            await ModeService.update(Number(id), updateModeData)
+            await ModeService.update(Number(id), updateData)
             navigate(`/modes/detail/${id}`)
         } catch (error) {
             setError(`${error}`)
@@ -56,12 +50,12 @@ const ModesUpdate = () => {
 
     return (
         <ModesUpdateView
-            name={name}
-            currentName={currentName}
+            currentMode={currentMode}
+            updateData={updateData}
             loading={loading}
             loadingMsg={loadingMsg}
             error={error}
-            onChangeName={setName}
+            onUpdateDataChange={setUpdateData}
             onSubmit={handleSubmit}
         />
     )

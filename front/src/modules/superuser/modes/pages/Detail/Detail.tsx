@@ -9,8 +9,8 @@ const ModesDetail = () => {
     const [mode, setMode] = useState<Mode | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
-    const navigate = useNavigate()
     const loadingMsg = 'Cargando modo ...'
+    const navigate = useNavigate()
 
     const handleEdit = (modeId: number) => navigate(`/modes/update/${modeId}`)
 
@@ -19,8 +19,7 @@ const ModesDetail = () => {
             if (!id) {
                 throw new Error('ID no proporcionado')
             }
-            const response = await ModeService.getById(Number(id))
-            setMode(response.data)
+            setMode(await ModeService.getById(Number(id)))
         } catch (error) {
             setError(`${error}`)
         } finally {

@@ -21,7 +21,7 @@ const ModesDetailView = ({
 
     return (
         <div className='main_container'>
-            <h1>Detalles del Modo</h1>
+            <h1>Detalles del Mod</h1>
             <h2>{loading ? loadingMsg : mode.name}</h2>
             <button onClick={() => onEdit(mode.id)}>
                 <FontAwesomeIcon icon={faEdit} />

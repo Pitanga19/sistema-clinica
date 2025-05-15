@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
-import { booleanToString } from '../../utils'
+import { booleanToString } from '../../../../../shared/utils/functions'
 import type { Role } from '../../../roles/types'
 import type { User } from '../../types'
 

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { UserService } from '../../service'
 import UsersCreateView from './Create.view'
 import { RoleService } from '../../../roles/service'
-import type { UserCreate, UserCreateBackend } from '../../types'
+import type { UserCreate } from '../../types'
 import type { Role } from '../../../roles/types'
 
 const UsersCreate = () => {
@@ -20,25 +20,13 @@ const UsersCreate = () => {
     const [error, setError] = useState<string | null>(null)
     const navigate = useNavigate()
 
-    const mapUserData = (data: UserCreate): UserCreateBackend => ({
-        id: data.id,
-        username: data.username,
-        password: data.password,
-        full_name: data.fullName,
-        is_active: data.isActive,
-        is_superuser: data.isSuperuser,
-        role_id: data.roleId,
-    })
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setError(null)
 
         try {
-            const mappedUserData = mapUserData(userData)
-            const response = await UserService.create(mappedUserData)
-            const newUserId = response.data.id
-            navigate(`/users/detail/${newUserId}`)
+            const newUser = await UserService.create(userData)
+            navigate(`/users/detail/${newUser.id}`)
         } catch (error) {
             setError(`${error}`)
         }
@@ -46,8 +34,7 @@ const UsersCreate = () => {
 
     const fetchRoles = async () => {
         try {
-            const response = await RoleService.getAll()
-            setRoles(response.data)
+            setRoles(await RoleService.getAll())
         } catch (error) {
             setError(`${error}`)
         }

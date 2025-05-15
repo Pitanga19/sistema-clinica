@@ -18,9 +18,8 @@ const RolesCreate = () => {
         }
 
         try {
-            const response = await RoleService.create(newRoleData)
-            const newRoleId = response.data.id
-            navigate(`/roles/detail/${newRoleId}`)
+            const newRole = await RoleService.create(newRoleData)
+            navigate(`/roles/detail/${newRole.id}`)
         } catch (error) {
             setError(`${error}`)
         }

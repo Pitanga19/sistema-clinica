@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import UsersDetailView from './Detail.view'
 import { UserService } from '../../service'
-import { userSnakeToCamel } from '../../utils'
 import type { User } from '../../types'
 import type { Role } from '../../../roles/types'
 import { RoleService } from '../../../roles/service'
@@ -13,8 +12,8 @@ const UsersDetail = () => {
     const [roles, setRoles] = useState<Role[]>([])
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
-    const navigate = useNavigate()
     const loadingMsg = 'Cargando usuario ...'
+    const navigate = useNavigate()
 
     const fetchUser = async () => {
         if (!id) {
@@ -23,9 +22,7 @@ const UsersDetail = () => {
             return
         }
         try {
-            const response = await UserService.getById(Number(id))
-            const userMapped = userSnakeToCamel(response.data)
-            setUser(userMapped)
+            setUser(await UserService.getById(Number(id)))
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Error desconocido'
             setError(errorMessage)
@@ -36,8 +33,7 @@ const UsersDetail = () => {
 
     const fetchRoles = async () => {
         try {
-            const response = await RoleService.getAll()
-            setRoles(response.data)
+            setRoles(await RoleService.getAll())
         } catch (error) {
             setError(`${error}`)
         }

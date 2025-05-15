@@ -24,11 +24,11 @@ const ModesListView = ({
     let content
 
     if (loading) {
-        content = <p>Cargando modos ...</p>
+        content = <p>Cargando modes ...</p>
     } else if (error) {
         content = <p className='error'>{error}</p>
     } else if (modes.length === 0) {
-        content = <p>No hay modos para mostrar</p>
+        content = <p>No hay modes para mostrar</p>
     } else {
         content = (
             <ul>
