@@ -61,3 +61,10 @@ export const StyledCheckbox = styled.input`
         opacity: 0.5;
     }
     `
+
+    export const StyledLabel = styled.label`
+    width: 100%;
+    display: flex;
+    align-items: start;
+    font-size: 1rem;
+    `
