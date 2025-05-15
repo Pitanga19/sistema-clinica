@@ -1,16 +1,48 @@
+import type { Role } from "../../roles/types"
+import type { User } from "../types"
+import { booleanToString } from "../utils"
+
 interface UsersDetailViewProps {
-    props: null
+            user: User | null
+            roles: Role[]
+            loading: boolean
+            loadingMsg: string
+            error: string | null
 }
 
 const UsersDetailView = ({
-    props,
+    user,
+    roles,
+    loading,
+    loadingMsg,
+    error,
 }: UsersDetailViewProps) => {
-    console.log(props)
+    if (!user) return
 
     return (
         <div className='main_container'>
-            <h1>Detalles del Usuario</h1>
-            <p>Consulte, edite o elimine el usuario ...</p>
+            <h1>Detalle de Usuario</h1>
+            <h2>{loading ? loadingMsg : user.fullName}</h2>
+            <dl className='user_detail'>
+                <dt>Legajo</dt>
+                <dd>{user.id}</dd>
+                
+                <dt>Usuario</dt>
+                <dd>{user.username}</dd>
+                
+                <dt>Nombre Completo</dt>
+                <dd>{user.fullName}</dd>
+                
+                <dt>Es activo</dt>
+                <dd>{booleanToString(user.isActive)}</dd>
+                
+                <dt>Es superusuario</dt>
+                <dd>{booleanToString(user.isSuperuser)}</dd>
+                
+                <dt>Rol</dt>
+                <dd>{roles.find((role) => role.id === user.roleId)?.name}</dd>
+            </dl>
+            {error && <p className='error'>{error}</p>}
         </div>
     )
 }
