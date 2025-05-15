@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faHome, faMoon, faSun } from '@fortawesome/free-solid-svg-icons'
-import { Container } from './NavBar.styles'
+import { StyledNavBar as NavBar } from '../../styles/NavBar.styles'
 
 type Props = {
     currentTheme: 'dark' | 'light'
@@ -12,21 +12,19 @@ type Props = {
 
 const NavBarView = ({ onToggleTheme, currentTheme, onBack, showBackButton, onHome }: Props) => {
     return (
-        <Container>
-            <div>
-                {showBackButton && (
-                    <button onClick={onBack}>
-                        <FontAwesomeIcon icon={faArrowLeft} />
-                    </button>
-                )}
-                <button title="Inicio" onClick={onHome}>
-                    <FontAwesomeIcon icon={faHome} /> Sistema Clínica
+        <NavBar>
+            {showBackButton && (
+                <button onClick={onBack}>
+                    <FontAwesomeIcon icon={faArrowLeft} />
                 </button>
-                <button onClick={onToggleTheme}>
-                    <FontAwesomeIcon icon={currentTheme === 'dark' ? faMoon : faSun} />
-                </button>
-            </div>
-        </Container>
+            )}
+            <button title="Inicio" onClick={onHome}>
+                <FontAwesomeIcon icon={faHome} /> Sistema Clínica
+            </button>
+            <button onClick={onToggleTheme}>
+                <FontAwesomeIcon icon={currentTheme === 'dark' ? faMoon : faSun} />
+            </button>
+        </NavBar>
     )
 }
 

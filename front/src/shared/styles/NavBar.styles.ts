@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 
-export const Container = styled.nav`
+export const StyledNavBar = styled.nav`
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: start;
     align-items: center;
-    padding: 0.75rem 1.5rem;
     background-color: ${({ theme }) => theme.buttonBackground};
     color: ${({ theme }) => theme.buttonTextColor};
-`
+    `
