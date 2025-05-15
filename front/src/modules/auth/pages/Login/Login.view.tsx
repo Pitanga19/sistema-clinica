@@ -1,3 +1,7 @@
+import { MainContainer, CardContainer, FormContainer, InputContainer } from '../../../../shared/components/Containers'
+import { TextInput, Label } from '../../../../shared/components/Inputs'
+import { BaseButton } from '../../../../shared/components/Buttons'
+
 interface LoginViewProps {
     username: string
     password: string
@@ -16,33 +20,37 @@ const LoginView = ({
     onSubmit,
 }: LoginViewProps) => {
     return (
-        <div className="main_container">
-            <h2>Iniciar sesión</h2>
-            <form onSubmit={onSubmit}>
-                <div>
-                    <label htmlFor="username">Usuario</label>
-                    <input
-                        type="text"
-                        id="username"
-                        value={username}
-                        onChange={(e) => onUsernameChange(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Contraseña</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => onPasswordChange(e.target.value)}
-                        required
-                    />
-                </div>
-                {error && <p className="error">{error}</p>}
-                <button type="submit">Acceder</button>
-            </form>
-        </div>
+        <MainContainer>
+            <CardContainer>
+                <h2>Iniciar sesión</h2>
+                <FormContainer onSubmit={onSubmit}>
+                    <InputContainer>
+                        <Label htmlFor="username">Usuario</Label>
+                        <TextInput
+                            type="text"
+                            id="username"
+                            value={username}
+                            onChange={(e) => onUsernameChange(e.target.value)}
+                            required
+                        />
+                    </InputContainer>
+                    <InputContainer>
+                        <Label htmlFor="password">Contraseña</Label>
+                        <TextInput
+                            type="password"
+                            id="password"
+                            value={password}
+                            onChange={(e) => onPasswordChange(e.target.value)}
+                            required
+                        />
+                    </InputContainer>
+                    <InputContainer>
+                        {error && <p className="error">{error}</p>}
+                        <BaseButton type="submit">Acceder</BaseButton>
+                    </InputContainer>
+                </FormContainer>
+            </CardContainer>
+        </MainContainer>
     )
 }
 
