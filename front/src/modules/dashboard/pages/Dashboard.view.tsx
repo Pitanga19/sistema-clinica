@@ -1,16 +1,24 @@
 interface DashboardViewProps {
-    props: null
+    goToRolesList: () => void
+    goToUsersList: () => void
 }
 
 const DashboardView = ({
-    props,
+    goToRolesList,
+    goToUsersList,
 }: DashboardViewProps) => {
-    console.log(props)
-
     return (
         <div className='main_container'>
             <h1>Sistema Clínica</h1>
             <p>Seleccione la tarea que desea realizar ...</p>
+            <ul>
+                <li>
+                    <button onClick={goToRolesList}>Gestión de roles</button>
+                </li>
+                <li>
+                    <button onClick={goToUsersList}>Gestión de usuarios</button>
+                </li>
+            </ul>
         </div>
     )
 }
