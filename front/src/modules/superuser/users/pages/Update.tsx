@@ -50,16 +50,14 @@ const UsersUpdate = () => {
         setError(null)
         
         const userUpdateBackend: UserUpdateBackend = {
-            id: updateData?.id ?? currentUser?.id,
-            username: updateData?.username ?? currentUser?.username,
-            full_name: updateData?.fullName ?? currentUser?.fullName,
-            is_active: updateData?.isActive ?? currentUser?.isActive,
-            is_superuser: updateData?.isSuperuser ?? currentUser?.isSuperuser,
-            role_id: updateData?.roleId ?? currentUser?.roleId,
+            id: updateData?.id ?? undefined,
+            username: updateData?.username ?? undefined,
+            password: updateData?.password ?? undefined,
+            full_name: updateData?.fullName ?? undefined,
+            is_active: updateData?.isActive ?? undefined,
+            is_superuser: updateData?.isSuperuser ?? undefined,
+            role_id: updateData?.roleId ?? undefined,
         }
-
-        console.log('updateData', updateData)
-        console.log('userUpdateBackend', userUpdateBackend)
 
         if (!id || !currentUser) return
 
