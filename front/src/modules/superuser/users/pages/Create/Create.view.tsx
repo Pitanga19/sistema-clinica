@@ -1,5 +1,8 @@
 import type { UserCreate } from '../../types'
 import type { Role } from '../../../roles/types'
+import { MainContainer, FormContainer, InputContainer, ButtonContainer } from '../../../../../shared/components/Containers'
+import { TextInput, Select, Checkbox, Label } from '../../../../../shared/components/Inputs'
+import { BaseButton } from '../../../../../shared/components/Buttons'
 
 interface UsersCreateViewProps {
     userData: UserCreate
@@ -17,14 +20,14 @@ const UsersCreateView = ({
     onSubmit,
 }: UsersCreateViewProps) => {
     return (
-        <div className='main_container'>
+        <MainContainer>
             <h1>Crear Usuario</h1>
-            <form onSubmit={onSubmit}>
-                <div>
-                    <label htmlFor='id'>Legajo</label>
-                    <input
+            <FormContainer onSubmit={onSubmit}>
+                <InputContainer>
+                    <TextInput
                         type='number'
                         id='id'
+                        placeholder='Legajo'
                         value={userData.id === 0 ? '' : userData.id}
                         onChange={(e) =>
                             onUserDataChange({
@@ -34,12 +37,12 @@ const UsersCreateView = ({
                         }
                         required
                     />
-                </div>
-                <div>
-                    <label htmlFor='username'>Usuario</label>
-                    <input
+                </InputContainer>
+                <InputContainer>
+                    <TextInput
                         type='text'
                         id='username'
+                        placeholder='Usuario'
                         value={userData.username}
                         onChange={(e) =>
                             onUserDataChange({
@@ -49,12 +52,12 @@ const UsersCreateView = ({
                         }
                         required
                     />
-                </div>
-                <div>
-                    <label htmlFor='password'>Contraseña</label>
-                    <input
+                </InputContainer>
+                <InputContainer>
+                    <TextInput
                         type='password'
                         id='password'
+                        placeholder='Contraseña'
                         value={userData.password}
                         onChange={(e) =>
                             onUserDataChange({
@@ -64,12 +67,12 @@ const UsersCreateView = ({
                         }
                         required
                     />
-                </div>
-                <div>
-                    <label htmlFor='fullName'>Nombre Completo</label>
-                    <input
+                </InputContainer>
+                <InputContainer>
+                    <TextInput
                         type='text'
                         id='fullName'
+                        placeholder='Nombre Completo'
                         value={userData.fullName}
                         onChange={(e) =>
                             onUserDataChange({
@@ -79,10 +82,9 @@ const UsersCreateView = ({
                         }
                         required
                     />
-                </div>
-                <div>
-                    <label htmlFor='isActive'>Es activo</label>
-                    <input
+                </InputContainer>
+                <InputContainer>
+                    <Checkbox
                         type='checkbox'
                         id='isActive'
                         checked={userData.isActive}
@@ -94,10 +96,10 @@ const UsersCreateView = ({
                         }
                         required
                     />
-                </div>
-                <div>
-                    <label htmlFor='isSuperuser'>Es superusuario</label>
-                    <input
+                    <Label htmlFor='isActive'>Es activo</Label>
+                </InputContainer>
+                <InputContainer>
+                    <Checkbox
                         type='checkbox'
                         id='isSuperuser'
                         checked={userData.isSuperuser}
@@ -109,10 +111,10 @@ const UsersCreateView = ({
                         }
                         required
                     />
-                </div>
-                <div>
-                    <label htmlFor='roleId'>Rol</label>
-                    <select
+                    <Label htmlFor='isSuperuser'>Es superusuario</Label>
+                </InputContainer>
+                <InputContainer>
+                    <Select
                         id='roleId'
                         value={userData.roleId}
                         onChange={(e) =>
@@ -123,18 +125,20 @@ const UsersCreateView = ({
                         }
                         required
                     >
-                        <option value=''>Seleccione un rol</option>
+                        <option value=''>Seleccione un Rol</option>
                         {roles.map((role) => (
                             <option key={role.id} value={role.id}>
                                 {role.name}
                             </option>
                         ))}
-                    </select>
-                </div>
-                <p className='error'>{error}</p>
-                <button type='submit'>Crear</button>
-            </form>
-        </div>
+                    </Select>
+                </InputContainer>
+                <ButtonContainer>
+                    <p className='error'>{error}</p>
+                    <BaseButton type='submit'>Crear</BaseButton>
+                </ButtonContainer>
+            </FormContainer>
+        </MainContainer>
     )
 }
 

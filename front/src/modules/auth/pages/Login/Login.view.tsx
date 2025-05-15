@@ -1,5 +1,5 @@
-import { MainContainer, CardContainer, FormContainer, InputContainer } from '../../../../shared/components/Containers'
-import { TextInput, Label } from '../../../../shared/components/Inputs'
+import { MainContainer, CardContainer, FormContainer, InputContainer, ButtonContainer } from '../../../../shared/components/Containers'
+import { TextInput } from '../../../../shared/components/Inputs'
 import { BaseButton } from '../../../../shared/components/Buttons'
 
 interface LoginViewProps {
@@ -25,29 +25,29 @@ const LoginView = ({
                 <h2>Iniciar sesión</h2>
                 <FormContainer onSubmit={onSubmit}>
                     <InputContainer>
-                        <Label htmlFor="username">Usuario</Label>
                         <TextInput
                             type="text"
                             id="username"
+                            placeholder='Usuario'
                             value={username}
                             onChange={(e) => onUsernameChange(e.target.value)}
                             required
                         />
                     </InputContainer>
                     <InputContainer>
-                        <Label htmlFor="password">Contraseña</Label>
                         <TextInput
                             type="password"
                             id="password"
+                            placeholder='Contraseña'
                             value={password}
                             onChange={(e) => onPasswordChange(e.target.value)}
                             required
                         />
                     </InputContainer>
-                    <InputContainer>
+                    <ButtonContainer>
                         {error && <p className="error">{error}</p>}
                         <BaseButton type="submit">Acceder</BaseButton>
-                    </InputContainer>
+                    </ButtonContainer>
                 </FormContainer>
             </CardContainer>
         </MainContainer>
