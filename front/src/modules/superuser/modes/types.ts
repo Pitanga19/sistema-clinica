@@ -8,4 +8,4 @@ export interface Mode extends ModeBase {
 
 export type ModeCreate = ModeBase
 
-export type ModeUpdate = ModeBase
+export type ModeUpdate = Partial<ModeBase>

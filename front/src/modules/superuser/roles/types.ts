@@ -8,4 +8,4 @@ export interface Role extends RoleBase {
 
 export type RoleCreate = RoleBase
 
-export type RoleUpdate = RoleBase
+export type RoleUpdate = Partial<RoleBase>
