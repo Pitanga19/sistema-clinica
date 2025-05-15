@@ -1,9 +1,9 @@
 const DARK_MAIN_COLOR = '#110022'
 const DARK_TEXT_COLOR = '#E0E0E0'
-const DARK_HOVER_COLOR = '#EEDDFF'
+const DARK_HOVER_COLOR = '#DDBBEE'
 const LIGHT_MAIN_COLOR = '#EEDDFF'
 const LIGHT_TEXT_COLOR = '#202020'
-const LIGHT_HOVER_COLOR = '#110022'
+const LIGHT_HOVER_COLOR = '#442266'
 
 export const darkTheme = {
     background: DARK_MAIN_COLOR,
