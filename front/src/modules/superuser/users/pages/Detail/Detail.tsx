@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import UsersDetailView from './Detail.view'
 import { UserService } from '../../service'
 import { userSnakeToCamel } from '../../utils'
@@ -13,6 +13,7 @@ const UsersDetail = () => {
     const [roles, setRoles] = useState<Role[]>([])
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
+    const navigate = useNavigate()
     const loadingMsg = 'Cargando usuario ...'
 
     const fetchUser = async () => {
@@ -42,6 +43,8 @@ const UsersDetail = () => {
         }
     }
 
+    const handleEdit = (userId: number) => navigate(`/users/update/${userId}`)
+
     useEffect(() => {
         fetchUser()
         fetchRoles()
@@ -54,6 +57,7 @@ const UsersDetail = () => {
             loading={loading}
             loadingMsg={loadingMsg}
             error={error}
+            onEdit={handleEdit}
         />
     )
 }
