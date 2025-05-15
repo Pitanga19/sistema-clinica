@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import UsersUpdateView from "./Update.view"
-import { UserService } from "../service"
-import { userSnakeToCamel } from "../utils"
-import type { User, UserUpdate, UserUpdateBackend } from "../types"
-import type { Role } from "../../roles/types"
-import { RoleService } from "../../roles/service"
+import { useState, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import UsersUpdateView from './Update.view'
+import { UserService } from '../../service'
+import { userSnakeToCamel } from '../../utils'
+import type { User, UserUpdate, UserUpdateBackend } from '../../types'
+import type { Role } from '../../../roles/types'
+import { RoleService } from '../../../roles/service'
 
 const UsersUpdate = () => {
     const { id } = useParams<{ id: string }>()
@@ -34,7 +34,7 @@ const UsersUpdate = () => {
             setLoading(false)
         }
     }
-    
+
     const fetchRoles = async () => {
         try {
             const response = await RoleService.getAll()
@@ -48,7 +48,7 @@ const UsersUpdate = () => {
         e.preventDefault()
         setLoading(true)
         setError(null)
-        
+
         const userUpdateBackend: UserUpdateBackend = {
             id: updateData?.id ?? undefined,
             username: updateData?.username ?? undefined,

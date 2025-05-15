@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { UserService } from '../service'
+import { UserService } from '../../service'
 import UsersCreateView from './Create.view'
-import { RoleService } from '../../roles/service'
-import type { UserCreate, UserCreateBackend } from '../types'
-import type { Role } from '../../roles/types'
+import { RoleService } from '../../../roles/service'
+import type { UserCreate, UserCreateBackend } from '../../types'
+import type { Role } from '../../../roles/types'
 
 const UsersCreate = () => {
     const [userData, setUserData] = useState<UserCreate>({
@@ -15,7 +15,7 @@ const UsersCreate = () => {
         isActive: true,
         isSuperuser: false,
         roleId: 0,
-    });
+    })
     const [roles, setRoles] = useState<Role[]>([])
     const [error, setError] = useState<string | null>(null)
     const navigate = useNavigate()
@@ -28,7 +28,7 @@ const UsersCreate = () => {
         is_active: data.isActive,
         is_superuser: data.isSuperuser,
         role_id: data.roleId,
-    });
+    })
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()

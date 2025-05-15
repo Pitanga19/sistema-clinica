@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
-import UsersDetailView from "./Detail.view"
-import { UserService } from "../service"
-import { userSnakeToCamel } from "../utils"
-import type { User } from "../types"
-import type { Role } from "../../roles/types"
-import { RoleService } from "../../roles/service"
+import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import UsersDetailView from './Detail.view'
+import { UserService } from '../../service'
+import { userSnakeToCamel } from '../../utils'
+import type { User } from '../../types'
+import type { Role } from '../../../roles/types'
+import { RoleService } from '../../../roles/service'
 
 const UsersDetail = () => {
     const { id } = useParams<{ id: string }>()
@@ -32,7 +32,7 @@ const UsersDetail = () => {
             setLoading(false)
         }
     }
-    
+
     const fetchRoles = async () => {
         try {
             const response = await RoleService.getAll()

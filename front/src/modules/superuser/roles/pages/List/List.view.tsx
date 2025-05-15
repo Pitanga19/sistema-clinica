@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faEye, faEdit, faTrash, faAdd } from "@fortawesome/free-solid-svg-icons"
-import type { Role } from "../types"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye, faEdit, faTrash, faAdd } from '@fortawesome/free-solid-svg-icons'
+import type { Role } from '../../types'
 
 interface RolesListViewProps {
     roles: Role[]
@@ -36,13 +36,13 @@ const RolesListView = ({
                     <li key={role.id}>
                         {role.name}
                         <button onClick={() => onView(role.id)}>
-                            <FontAwesomeIcon icon={faEye}/>
+                            <FontAwesomeIcon icon={faEye} />
                         </button>
                         <button onClick={() => onEdit(role.id)}>
-                            <FontAwesomeIcon icon={faEdit}/>
+                            <FontAwesomeIcon icon={faEdit} />
                         </button>
                         <button onClick={() => onDelete(role.id)}>
-                            <FontAwesomeIcon icon={faTrash}/>
+                            <FontAwesomeIcon icon={faTrash} />
                         </button>
                     </li>
                 ))}
@@ -54,7 +54,7 @@ const RolesListView = ({
         <div className='main_container'>
             <h1>Lista de Roles</h1>
             <button onClick={() => onCreate()}>
-                Crear Rol <FontAwesomeIcon icon={faAdd}/>
+                Crear Rol <FontAwesomeIcon icon={faAdd} />
             </button>
             {content}
         </div>

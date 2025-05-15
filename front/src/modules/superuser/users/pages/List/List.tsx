@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { UserService } from '../service'
-import type { User } from '../types'
+import { UserService } from '../../service'
+import type { User } from '../../types'
 import UsersListView from './List.view'
-import { userSnakeToCamel } from '../utils'
+import { userSnakeToCamel } from '../../utils'
 
 const UsersList = () => {
     const [users, setUsers] = useState<User[]>([])

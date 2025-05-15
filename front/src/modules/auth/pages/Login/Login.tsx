@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { login } from '../service'
+import { login } from '../../service'
 import LoginView from './Login.view'
 
 const Login = () => {

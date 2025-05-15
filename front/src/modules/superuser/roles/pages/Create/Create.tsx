@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { RoleService } from '../service'
-import type { RoleCreate } from '../types'
+import { RoleService } from '../../service'
+import type { RoleCreate } from '../../types'
 import RolesCreateView from './Create.view'
 
 const RolesCreate = () => {
@@ -27,12 +27,7 @@ const RolesCreate = () => {
     }
 
     return (
-        <RolesCreateView
-            name={name}
-            error={error}
-            onNameChange={setName}
-            onSubmit={handleSubmit}
-        />
+        <RolesCreateView name={name} error={error} onNameChange={setName} onSubmit={handleSubmit} />
     )
 }
 

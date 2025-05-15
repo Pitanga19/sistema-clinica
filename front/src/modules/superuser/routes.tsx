@@ -1,12 +1,12 @@
 import type { RouteObject } from 'react-router-dom'
-import RolesList from './roles/pages/List'
-import RolesCreate from './roles/pages/Create'
-import RolesDetail from './roles/pages/Detail'
-import RolesUpdate from './roles/pages/Update'
-import UsersList from './users/pages/List'
-import UsersCreate from './users/pages/Create'
-import UsersDetail from './users/pages/Detail'
-import UsersUpdate from './users/pages/Update'
+import RolesList from './roles/pages/List/List'
+import RolesCreate from './roles/pages/Create/Create'
+import RolesDetail from './roles/pages/Detail/Detail'
+import RolesUpdate from './roles/pages/Update/Update'
+import UsersList from './users/pages/List/List'
+import UsersCreate from './users/pages/Create/Create'
+import UsersDetail from './users/pages/Detail/Detail'
+import UsersUpdate from './users/pages/Update/Update'
 
 const superuserRoutes: RouteObject[] = [
     {

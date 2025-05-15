@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faEye, faEdit, faTrash, faAdd } from "@fortawesome/free-solid-svg-icons"
-import type { User } from "../types"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye, faEdit, faTrash, faAdd } from '@fortawesome/free-solid-svg-icons'
+import type { User } from '../../types'
 
 interface UsersListViewProps {
     users: User[]
@@ -37,13 +37,13 @@ const UsersListView = ({
                     <li key={user.id}>
                         {user.fullName}
                         <button onClick={() => onView(user.id)}>
-                            <FontAwesomeIcon icon={faEye}/>
+                            <FontAwesomeIcon icon={faEye} />
                         </button>
                         <button onClick={() => onEdit(user.id)}>
-                            <FontAwesomeIcon icon={faEdit}/>
+                            <FontAwesomeIcon icon={faEdit} />
                         </button>
                         <button onClick={() => onDelete(user.id)}>
-                            <FontAwesomeIcon icon={faTrash}/>
+                            <FontAwesomeIcon icon={faTrash} />
                         </button>
                     </li>
                 ))}
@@ -54,7 +54,7 @@ const UsersListView = ({
     return (
         <div className='main_container'>
             <button onClick={() => onCreate()}>
-                Crear Usuario <FontAwesomeIcon icon={faAdd}/>
+                Crear Usuario <FontAwesomeIcon icon={faAdd} />
             </button>
             <h1>Lista de Users</h1>
             {content}

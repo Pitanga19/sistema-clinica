@@ -1,5 +1,5 @@
-import type { UserCreate } from '../types'
-import type { Role } from '../../roles/types'
+import type { UserCreate } from '../../types'
+import type { Role } from '../../../roles/types'
 
 interface UsersCreateViewProps {
     userData: UserCreate
@@ -26,10 +26,12 @@ const UsersCreateView = ({
                         type='number'
                         id='id'
                         value={userData.id === 0 ? '' : userData.id}
-                        onChange={(e) => onUserDataChange({
-                            ...userData,
-                            id: parseInt(e.target.value, 10),
-                        })}
+                        onChange={(e) =>
+                            onUserDataChange({
+                                ...userData,
+                                id: parseInt(e.target.value, 10),
+                            })
+                        }
                         required
                     />
                 </div>
@@ -39,10 +41,12 @@ const UsersCreateView = ({
                         type='text'
                         id='username'
                         value={userData.username}
-                        onChange={(e) => onUserDataChange({
-                            ...userData,
-                            username: e.target.value,
-                        })}
+                        onChange={(e) =>
+                            onUserDataChange({
+                                ...userData,
+                                username: e.target.value,
+                            })
+                        }
                         required
                     />
                 </div>
@@ -52,10 +56,12 @@ const UsersCreateView = ({
                         type='password'
                         id='password'
                         value={userData.password}
-                        onChange={(e) => onUserDataChange({
-                            ...userData,
-                            password: e.target.value,
-                        })}
+                        onChange={(e) =>
+                            onUserDataChange({
+                                ...userData,
+                                password: e.target.value,
+                            })
+                        }
                         required
                     />
                 </div>
@@ -65,10 +71,12 @@ const UsersCreateView = ({
                         type='text'
                         id='fullName'
                         value={userData.fullName}
-                        onChange={(e) => onUserDataChange({
-                            ...userData,
-                            fullName: e.target.value,
-                        })}
+                        onChange={(e) =>
+                            onUserDataChange({
+                                ...userData,
+                                fullName: e.target.value,
+                            })
+                        }
                         required
                     />
                 </div>
@@ -78,10 +86,12 @@ const UsersCreateView = ({
                         type='checkbox'
                         id='isActive'
                         checked={userData.isActive}
-                        onChange={(e) => onUserDataChange({
-                            ...userData,
-                            isActive: e.target.checked,
-                        })}
+                        onChange={(e) =>
+                            onUserDataChange({
+                                ...userData,
+                                isActive: e.target.checked,
+                            })
+                        }
                         required
                     />
                 </div>
@@ -91,10 +101,12 @@ const UsersCreateView = ({
                         type='checkbox'
                         id='isSuperuser'
                         checked={userData.isSuperuser}
-                        onChange={(e) => onUserDataChange({
-                            ...userData,
-                            isSuperuser: e.target.checked,
-                        })}
+                        onChange={(e) =>
+                            onUserDataChange({
+                                ...userData,
+                                isSuperuser: e.target.checked,
+                            })
+                        }
                         required
                     />
                 </div>
@@ -103,10 +115,12 @@ const UsersCreateView = ({
                     <select
                         id='roleId'
                         value={userData.roleId}
-                        onChange={(e) => onUserDataChange({
-                            ...userData,
-                            roleId: parseInt(e.target.value, 10),
-                        })}
+                        onChange={(e) =>
+                            onUserDataChange({
+                                ...userData,
+                                roleId: parseInt(e.target.value, 10),
+                            })
+                        }
                         required
                     >
                         <option value=''>Seleccione un rol</option>
@@ -118,7 +132,7 @@ const UsersCreateView = ({
                     </select>
                 </div>
                 <p className='error'>{error}</p>
-                <button type="submit">Crear</button>
+                <button type='submit'>Crear</button>
             </form>
         </div>
     )

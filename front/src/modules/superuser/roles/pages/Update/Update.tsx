@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { RoleService } from '../service'
-import type { RoleUpdate } from '../types'
+import { RoleService } from '../../service'
+import type { RoleUpdate } from '../../types'
 import RolesUpdateView from './Update.view'
 
 const RolesUpdate = () => {

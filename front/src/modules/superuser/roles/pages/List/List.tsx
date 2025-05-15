@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { RoleService } from '../service'
-import type { Role } from '../types'
+import { RoleService } from '../../service'
+import type { Role } from '../../types'
 import RolesListView from './List.view'
 
 const RolesList = () => {

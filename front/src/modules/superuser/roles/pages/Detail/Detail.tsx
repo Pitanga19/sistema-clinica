@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { RoleService } from '../service'
+import { RoleService } from '../../service'
 import RolesDetailView from './Detail.view'
 
 const RolesDetail = () => {
@@ -28,14 +28,7 @@ const RolesDetail = () => {
         fetchRole()
     }, [])
 
-    return (
-        <RolesDetailView
-            name={name}
-            loading={loading}
-            loadingMsg={loadingMsg}
-            error={error}
-        />
-    )
+    return <RolesDetailView name={name} loading={loading} loadingMsg={loadingMsg} error={error} />
 }
 
 export default RolesDetail

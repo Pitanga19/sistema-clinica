@@ -1,15 +1,15 @@
-import type { Role } from "../../roles/types"
-import type { UserBase, UserUpdate } from "../types"
+import type { Role } from '../../../roles/types'
+import type { UserBase, UserUpdate } from '../../types'
 
 interface UsersUpdateViewProps {
-            currentUser: UserBase | null
-            updateData: UserUpdate | null
-            roles: Role[]
-            loading: boolean
-            loadingMsg: string
-            error: string | null
-            onUpdateDataChange: (updateData: UserUpdate) => void
-            onSubmit: (e: React.FormEvent) => void
+    currentUser: UserBase | null
+    updateData: UserUpdate | null
+    roles: Role[]
+    loading: boolean
+    loadingMsg: string
+    error: string | null
+    onUpdateDataChange: (updateData: UserUpdate) => void
+    onSubmit: (e: React.FormEvent) => void
 }
 
 const UsersUpdateView = ({
@@ -34,10 +34,12 @@ const UsersUpdateView = ({
                     <input
                         type='number'
                         id='id'
-                        onChange={(e) => onUpdateDataChange({
-                            ...updateData,
-                            id: parseInt(e.target.value, 10),
-                        })}
+                        onChange={(e) =>
+                            onUpdateDataChange({
+                                ...updateData,
+                                id: parseInt(e.target.value, 10),
+                            })
+                        }
                     />
                 </div>
                 <div>
@@ -45,10 +47,12 @@ const UsersUpdateView = ({
                     <input
                         type='text'
                         id='username'
-                        onChange={(e) => onUpdateDataChange({
-                            ...updateData,
-                            username: e.target.value,
-                        })}
+                        onChange={(e) =>
+                            onUpdateDataChange({
+                                ...updateData,
+                                username: e.target.value,
+                            })
+                        }
                     />
                 </div>
                 <div>
@@ -56,10 +60,12 @@ const UsersUpdateView = ({
                     <input
                         type='password'
                         id='password'
-                        onChange={(e) => onUpdateDataChange({
-                            ...updateData,
-                            password: e.target.value,
-                        })}
+                        onChange={(e) =>
+                            onUpdateDataChange({
+                                ...updateData,
+                                password: e.target.value,
+                            })
+                        }
                     />
                 </div>
                 <div>
@@ -67,10 +73,12 @@ const UsersUpdateView = ({
                     <input
                         type='text'
                         id='fullName'
-                        onChange={(e) => onUpdateDataChange({
-                            ...updateData,
-                            fullName: e.target.value,
-                        })}
+                        onChange={(e) =>
+                            onUpdateDataChange({
+                                ...updateData,
+                                fullName: e.target.value,
+                            })
+                        }
                     />
                 </div>
                 <div>
@@ -79,10 +87,12 @@ const UsersUpdateView = ({
                         type='checkbox'
                         id='isActive'
                         checked={updateData?.isActive ?? currentUser.isActive}
-                        onChange={(e) => onUpdateDataChange({
-                            ...updateData,
-                            isActive: e.target.checked,
-                        })}
+                        onChange={(e) =>
+                            onUpdateDataChange({
+                                ...updateData,
+                                isActive: e.target.checked,
+                            })
+                        }
                     />
                 </div>
                 <div>
@@ -91,20 +101,24 @@ const UsersUpdateView = ({
                         type='checkbox'
                         id='isSuperuser'
                         checked={updateData?.isSuperuser ?? currentUser.isSuperuser}
-                        onChange={(e) => onUpdateDataChange({
-                            ...updateData,
-                            isSuperuser: e.target.checked,
-                        })}
+                        onChange={(e) =>
+                            onUpdateDataChange({
+                                ...updateData,
+                                isSuperuser: e.target.checked,
+                            })
+                        }
                     />
                 </div>
                 <div>
                     <label htmlFor='roleId'>Rol</label>
                     <select
                         id='roleId'
-                        onChange={(e) => onUpdateDataChange({
-                            ...updateData,
-                            roleId: parseInt(e.target.value, 10),
-                        })}
+                        onChange={(e) =>
+                            onUpdateDataChange({
+                                ...updateData,
+                                roleId: parseInt(e.target.value, 10),
+                            })
+                        }
                     >
                         <option value=''>Seleccione un rol</option>
                         {roles.map((role) => (

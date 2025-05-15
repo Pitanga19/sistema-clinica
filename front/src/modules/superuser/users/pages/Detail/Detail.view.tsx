@@ -1,22 +1,16 @@
-import type { Role } from "../../roles/types"
-import type { User } from "../types"
-import { booleanToString } from "../utils"
+import type { Role } from '../../../roles/types'
+import type { User } from '../../types'
+import { booleanToString } from '../../utils'
 
 interface UsersDetailViewProps {
-            user: User | null
-            roles: Role[]
-            loading: boolean
-            loadingMsg: string
-            error: string | null
+    user: User | null
+    roles: Role[]
+    loading: boolean
+    loadingMsg: string
+    error: string | null
 }
 
-const UsersDetailView = ({
-    user,
-    roles,
-    loading,
-    loadingMsg,
-    error,
-}: UsersDetailViewProps) => {
+const UsersDetailView = ({ user, roles, loading, loadingMsg, error }: UsersDetailViewProps) => {
     if (!user) return
 
     return (
@@ -26,19 +20,19 @@ const UsersDetailView = ({
             <dl className='user_detail'>
                 <dt>Legajo</dt>
                 <dd>{user.id}</dd>
-                
+
                 <dt>Usuario</dt>
                 <dd>{user.username}</dd>
-                
+
                 <dt>Nombre Completo</dt>
                 <dd>{user.fullName}</dd>
-                
+
                 <dt>Es activo</dt>
                 <dd>{booleanToString(user.isActive)}</dd>
-                
+
                 <dt>Es superusuario</dt>
                 <dd>{booleanToString(user.isSuperuser)}</dd>
-                
+
                 <dt>Rol</dt>
                 <dd>{roles.find((role) => role.id === user.roleId)?.name}</dd>
             </dl>
