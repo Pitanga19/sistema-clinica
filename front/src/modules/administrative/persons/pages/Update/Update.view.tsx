@@ -23,7 +23,7 @@ const PersonsUpdateView = ({
 
     return (
         <div className='main_container'>
-            <h1>Editar Usuario</h1>
+            <h1>Editar Persona</h1>
             <h2>{loading ? loadingMsg : (`${currentPerson.firstName} ${currentPerson.lastName}`)}</h2>
             <form onSubmit={onSubmit}>
                 <div>
