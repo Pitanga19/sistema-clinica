@@ -1,5 +1,5 @@
 import { useLocation, useRoutes } from 'react-router-dom'
-import NavBar from './components/NavBar/navBar'
+import NavBar from './components/NavBar/NavBar'
 import authRoutes from '../modules/auth/routes'
 import dashboardRoutes from '../modules/dashboard/routes'
 import superuserRoutes from '../modules/superuser/routes'
