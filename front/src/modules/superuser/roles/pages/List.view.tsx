@@ -31,33 +31,31 @@ const RolesListView = ({
         content = <p>No hay roles para mostrar</p>
     } else {
         content = (
-            <div className='main_container'>
-                <button onClick={() => onCreate()}>
-                    Crear Rol <FontAwesomeIcon icon={faAdd}/>
-                </button>
-                <ul>
-                    {roles.map((role) => (
-                        <li key={role.id}>
-                            {role.name}
-                            <button onClick={() => onView(role.id)}>
-                                <FontAwesomeIcon icon={faEye}/>
-                            </button>
-                            <button onClick={() => onEdit(role.id)}>
-                                <FontAwesomeIcon icon={faEdit}/>
-                            </button>
-                            <button onClick={() => onDelete(role.id)}>
-                                <FontAwesomeIcon icon={faTrash}/>
-                            </button>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+            <ul>
+                {roles.map((role) => (
+                    <li key={role.id}>
+                        {role.name}
+                        <button onClick={() => onView(role.id)}>
+                            <FontAwesomeIcon icon={faEye}/>
+                        </button>
+                        <button onClick={() => onEdit(role.id)}>
+                            <FontAwesomeIcon icon={faEdit}/>
+                        </button>
+                        <button onClick={() => onDelete(role.id)}>
+                            <FontAwesomeIcon icon={faTrash}/>
+                        </button>
+                    </li>
+                ))}
+            </ul>
         )
     }
 
     return (
         <div className='main_container'>
             <h1>Lista de Roles</h1>
+            <button onClick={() => onCreate()}>
+                Crear Rol <FontAwesomeIcon icon={faAdd}/>
+            </button>
             {content}
         </div>
     )
