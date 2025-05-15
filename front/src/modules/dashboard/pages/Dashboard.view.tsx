@@ -2,12 +2,14 @@ interface DashboardViewProps {
     goToRolesList: () => void
     goToUsersList: () => void
     goToPersonsList: () => void
+    goToEntitiesList: () => void
 }
 
 const DashboardView = ({
     goToRolesList,
     goToUsersList,
     goToPersonsList,
+    goToEntitiesList,
 }: DashboardViewProps) => {
     return (
         <div className='main_container'>
@@ -22,6 +24,9 @@ const DashboardView = ({
                 </li>
                 <li>
                     <button onClick={goToPersonsList}>Gestión de personas</button>
+                </li>
+                <li>
+                    <button onClick={goToEntitiesList}>Gestión de obras sociales</button>
                 </li>
             </ul>
         </div>
