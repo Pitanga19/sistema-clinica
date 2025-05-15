@@ -1,19 +1,37 @@
 import api from '../../../shared/services/api'
-import type { UserBackend, UserCreateBackend, UserUpdateBackend } from './types'
+import { toCamel, toSnake } from '../../../shared/utils/apiTransform'
+import type { User, UserCreate, UserUpdate } from './types'
 
 export class UserService {
-    static create = (data: UserCreateBackend) => api.post<UserBackend>('/users', data)
+    static create = async (data: UserCreate): Promise<User> => {
+        const res = await api.post('/users', toSnake(data))
+        return toCamel<User>(res.data)
+    }
 
-    static getById = (id: number) => api.get<UserBackend>(`/users/by_id/${id}`)
+    static getById = async (id: number): Promise<User> => {
+        const res = await api.get(`/users/by_id/${id}`)
+        return toCamel<User>(res.data)
+    }
 
-    static getByUsername = (username: string) => api.get<UserBackend>(`/users/by_username/${username}`)
+    static getByUsername = async (username: string): Promise<User> => {
+        const res = await api.get(`/users/by_username/${username}`)
+        return toCamel<User>(res.data)
+    }
 
-    static getByRoleId = (roleId: number) =>
-        api.get<UserBackend[]>(`/users/by_role_id/${roleId}`)
+    static getByRoleId = async (roleId: number): Promise<User[]> => {
+        const res = await api.get(`/users/by_role_id/${roleId}`)
+        return toCamel<User[]>(res.data)
+    }
 
-    static getAll = () => api.get<UserBackend[]>('/users')
+    static getAll = async (): Promise<User[]> => {
+        const res = await api.get('/users')
+        return toCamel<User[]>(res.data)
+    }
 
-    static update = (id: number, data: UserUpdateBackend) => api.patch<UserBackend>(`/users/${id}`, data)
+    static update = async (id: number, data: UserUpdate): Promise<User> => {
+        const res = await api.patch(`/users/${id}`, toSnake(data))
+        return toCamel<User>(res.data)
+    }
 
     static delete = (id: number) => api.delete<void>(`/users/${id}`)
 }
