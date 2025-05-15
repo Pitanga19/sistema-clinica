@@ -18,3 +18,5 @@ export const userCreateCamelToSnake = (user: UserCreate): UserCreateBackend => (
     is_superuser: user.isSuperuser,
     role_id: user.roleId,
 })
+
+export const booleanToString = (value: boolean): string => value ? 'Sí' : 'No'
