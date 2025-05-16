@@ -9,6 +9,7 @@ interface DashboardViewProps {
     goToUsersList: () => void
     goToPersonsList: () => void
     goToEntitiesList: () => void
+    goToPlansList: () => void
 }
 
 const DashboardView = ({
@@ -16,6 +17,7 @@ const DashboardView = ({
     goToUsersList,
     goToPersonsList,
     goToEntitiesList,
+    goToPlansList,
 }: DashboardViewProps) => {
     return (
         <MainContainer>
@@ -42,6 +44,12 @@ const DashboardView = ({
                 <ListItem>
                     Gestión de obras sociales
                     <InLineButton onClick={goToEntitiesList}>
+                        <FontAwesomeIcon icon={faArrowRight} />
+                    </InLineButton>
+                </ListItem>
+                <ListItem>
+                    Gestión de planes
+                    <InLineButton onClick={goToPlansList}>
                         <FontAwesomeIcon icon={faArrowRight} />
                     </InLineButton>
                 </ListItem>
