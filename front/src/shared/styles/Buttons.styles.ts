@@ -13,7 +13,8 @@ export const StyledButton = styled.button`
     `;
 
 export const StyledInLineButton = styled(StyledButton)`
-    padding: 0.25rem 1rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
     `;
 
 export const StyledDeleteButton = styled(StyledInLineButton)`
