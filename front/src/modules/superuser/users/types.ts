@@ -14,3 +14,13 @@ export interface UserCreate extends UserBase {
 }
 
 export type UserUpdate = Partial<UserCreate>
+
+export interface UserFormData {
+    id: number
+    username: string
+    password: string
+    fullName: string
+    isActive: boolean
+    isSuperuser: boolean
+    roleId: number
+}
