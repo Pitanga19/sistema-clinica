@@ -1,19 +1,20 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import UsersUpdateView from './Update.view'
 import { UserService } from '../../service'
-import type { User, UserUpdate } from '../../types'
-import type { Role } from '../../../roles/types'
 import { RoleService } from '../../../roles/service'
+import { userFormDataDefault } from '../../types'
+import type { User, UserFormData } from '../../types'
+import type { Role } from '../../../roles/types'
+import UserFormView from '../../components/UserForm.view'
+import { getToSendUserData } from '../../utils'
 
 const UsersUpdate = () => {
     const { id } = useParams<{ id: string }>()
     const [currentUser, setCurrentUser] = useState<User | null>(null)
-    const [updateData, setUpdateData] = useState<UserUpdate | null>(null)
+    const [updateData, setUpdateData] = useState<UserFormData>(userFormDataDefault)
     const [roles, setRoles] = useState<Role[]>([])
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
-    const loadingMsg = 'Cargando ...'
     const navigate = useNavigate()
 
     const fetchUser = async () => {
@@ -23,7 +24,13 @@ const UsersUpdate = () => {
             return
         }
         try {
-            setCurrentUser(await UserService.getById(Number(id)))
+            const currentUser = await UserService.getById(Number(id))
+            setCurrentUser(currentUser)
+            setUpdateData({
+                ... updateData,
+                isActive: currentUser.isActive,
+                isSuperuser: currentUser.isSuperuser,
+            })
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Error desconocido'
             setError(errorMessage)
@@ -40,6 +47,10 @@ const UsersUpdate = () => {
         }
     }
 
+    const handleDataChange = (newData: Partial<UserFormData>) => {
+        setUpdateData(prev => ({ ...prev, ...newData }))
+    }
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setLoading(true)
@@ -47,8 +58,10 @@ const UsersUpdate = () => {
 
         if (!id || !currentUser || !updateData) return
 
+        const toSendData = getToSendUserData(updateData) 
+
         try {
-            await UserService.update(Number(id), updateData)
+            await UserService.update(Number(id), toSendData)
             navigate(`/users/detail/${id}`)
         } catch (error) {
             setError(`${error}`)
@@ -63,14 +76,13 @@ const UsersUpdate = () => {
     }, [])
 
     return (
-        <UsersUpdateView
+        <UserFormView
             currentUser={currentUser}
-            updateData={updateData}
+            data={updateData}
             roles={roles}
             loading={loading}
-            loadingMsg={loadingMsg}
             error={error}
-            onUpdateDataChange={setUpdateData}
+            onDataChange={handleDataChange}
             onSubmit={handleSubmit}
         />
     )
