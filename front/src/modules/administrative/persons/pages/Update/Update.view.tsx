@@ -1,3 +1,6 @@
+import { MainContainer, FormContainer, InputContainer, ButtonContainer } from '../../../../../shared/components/Containers'
+import { TextInput } from '../../../../../shared/components/Inputs'
+import { NavigationButton } from '../../../../../shared/components/Buttons'
 import type { PersonBase, PersonUpdate } from '../../types'
 
 interface PersonsUpdateViewProps {
@@ -22,15 +25,15 @@ const PersonsUpdateView = ({
     if (!currentPerson) return
 
     return (
-        <div className='main_container'>
+        <MainContainer>
             <h1>Editar Persona</h1>
             <h2>{loading ? loadingMsg : (`${currentPerson.firstName} ${currentPerson.lastName}`)}</h2>
-            <form onSubmit={onSubmit}>
-                <div>
-                    <label htmlFor='id'>DNI</label>
-                    <input
+            <FormContainer onSubmit={onSubmit}>
+                <InputContainer>
+                    <TextInput
                         type='number'
                         id='id'
+                        placeholder='DNI'
                         onChange={(e) =>
                             onUpdateDataChange({
                                 ...updateData,
@@ -38,12 +41,12 @@ const PersonsUpdateView = ({
                             })
                         }
                     />
-                </div>
-                <div>
-                    <label htmlFor='firstName'>Nombre</label>
-                    <input
+                </InputContainer>
+                <InputContainer>
+                    <TextInput
                         type='text'
                         id='firstName'
+                        placeholder='Nombre'
                         onChange={(e) =>
                             onUpdateDataChange({
                                 ...updateData,
@@ -51,12 +54,12 @@ const PersonsUpdateView = ({
                             })
                         }
                     />
-                </div>
-                <div>
-                    <label htmlFor='lastName'>Apellido</label>
-                    <input
+                </InputContainer>
+                <InputContainer>
+                    <TextInput
                         type='text'
                         id='lastName'
+                        placeholder='Apellido'
                         onChange={(e) =>
                             onUpdateDataChange({
                                 ...updateData,
@@ -64,12 +67,12 @@ const PersonsUpdateView = ({
                             })
                         }
                     />
-                </div>
-                <div>
-                    <label htmlFor='phone1'>Teléfono 1</label>
-                    <input
+                </InputContainer>
+                <InputContainer>
+                    <TextInput
                         type='phone'
                         id='phone1'
+                        placeholder='Teléfono 1'
                         onChange={(e) =>
                             onUpdateDataChange({
                                 ...updateData,
@@ -77,12 +80,12 @@ const PersonsUpdateView = ({
                             })
                         }
                     />
-                </div>
-                <div>
-                    <label htmlFor='phone2'>Teléfono 2</label>
-                    <input
+                </InputContainer>
+                <InputContainer>
+                    <TextInput
                         type='phone'
                         id='phone2'
+                        placeholder='Teléfono 2'
                         onChange={(e) =>
                             onUpdateDataChange({
                                 ...updateData,
@@ -90,12 +93,12 @@ const PersonsUpdateView = ({
                             })
                         }
                     />
-                </div>
-                <div>
-                    <label htmlFor='email'>E-mail</label>
-                    <input
+                </InputContainer>
+                <InputContainer>
+                    <TextInput
                         type='email'
                         id='email'
+                        placeholder='E-mail'
                         onChange={(e) =>
                             onUpdateDataChange({
                                 ...updateData,
@@ -103,12 +106,12 @@ const PersonsUpdateView = ({
                             })
                         }
                     />
-                </div>
-                <div>
-                    <label htmlFor='address'>Dirección</label>
-                    <input
+                </InputContainer>
+                <InputContainer>
+                    <TextInput
                         type='text'
                         id='address'
+                        placeholder='Dirección'
                         onChange={(e) =>
                             onUpdateDataChange({
                                 ...updateData,
@@ -116,11 +119,13 @@ const PersonsUpdateView = ({
                             })
                         }
                     />
-                </div>
+                </InputContainer>
                 <p className='error'>{error}</p>
-                <button type='submit'>Crear</button>
-            </form>
-        </div>
+                <ButtonContainer>
+                    <NavigationButton type='submit'>Guardar</NavigationButton>
+                </ButtonContainer>
+            </FormContainer>
+        </MainContainer>
     )
 }
 

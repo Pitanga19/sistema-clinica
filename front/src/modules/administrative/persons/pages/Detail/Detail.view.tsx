@@ -1,6 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { handleOptionalProp } from '../../../../../shared/utils/functions'
+import { MainContainer } from '../../../../../shared/components/Containers'
+import { List, DetailItem, DetailTitle, DetailDescription } from '../../../../../shared/components/Lists'
+import { BaseButton } from '../../../../../shared/components/Buttons'
 import type { Person } from '../../types'
 
 interface PersonsDetailViewProps {
@@ -21,36 +24,50 @@ const PersonsDetailView = ({
     if (!person) return
 
     return (
-        <div className='main_container'>
+        <MainContainer>
             <h1>Detalle de Persona</h1>
             <h2>{loading ? loadingMsg : (`${person.firstName} ${person.lastName}`)}</h2>
-            <button onClick={() => onEdit(person.id)}>
+            <BaseButton onClick={() => onEdit(person.id)}>
                 <FontAwesomeIcon icon={faEdit} />
-            </button>
-            <dl className='person_detail'>
-                <dt>DNI</dt>
-                <dd>{person.id}</dd>
+            </BaseButton>
+            <List>
+                <DetailItem>
+                    <DetailTitle>DNI</DetailTitle>
+                    <DetailDescription>{person.id}</DetailDescription>
+                </DetailItem>
 
-                <dt>Nombre</dt>
-                <dd>{person.firstName}</dd>
+                <DetailItem>
+                    <DetailTitle>Nombre</DetailTitle>
+                    <DetailDescription>{person.firstName}</DetailDescription>
+                </DetailItem>
 
-                <dt>Apellido</dt>
-                <dd>{person.lastName}</dd>
+                <DetailItem>
+                    <DetailTitle>Apellido</DetailTitle>
+                    <DetailDescription>{person.lastName}</DetailDescription>
+                </DetailItem>
 
-                <dt>Teléfono 1</dt>
-                <dd>{person.phone1}</dd>
+                <DetailItem>
+                    <DetailTitle>Teléfono 1</DetailTitle>
+                    <DetailDescription>{person.phone1}</DetailDescription>
+                </DetailItem>
 
-                <dt>Teléfono 2</dt>
-                <dd>{handleOptionalProp(person.phone2)}</dd>
+                <DetailItem>
+                    <DetailTitle>Teléfono 2</DetailTitle>
+                    <DetailDescription>{handleOptionalProp(person.phone2)}</DetailDescription>
+                </DetailItem>
 
-                <dt>E-mail</dt>
-                <dd>{handleOptionalProp(person.email)}</dd>
+                <DetailItem>
+                    <DetailTitle>E-mail</DetailTitle>
+                    <DetailDescription>{handleOptionalProp(person.email)}</DetailDescription>
+                </DetailItem>
 
-                <dt>Dirección</dt>
-                <dd>{person.address}</dd>
-            </dl>
+                <DetailItem>
+                    <DetailTitle>Dirección</DetailTitle>
+                    <DetailDescription>{person.address}</DetailDescription>
+                </DetailItem>
+            </List>
             {error && <p className='error'>{error}</p>}
-        </div>
+        </MainContainer>
     )
 }
 

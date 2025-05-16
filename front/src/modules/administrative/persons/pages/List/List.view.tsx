@@ -1,5 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEdit, faTrash, faAdd } from '@fortawesome/free-solid-svg-icons'
+import { MainContainer } from '../../../../../shared/components/Containers'
+import { BaseButton, InLineButton, DeleteButton } from '../../../../../shared/components/Buttons'
+import { List, ListItem } from '../../../../../shared/components/Lists'
 import type { Person } from '../../types'
 
 interface PersonsListViewProps {
@@ -31,33 +34,33 @@ const PersonsListView = ({
         content = <p>No hay personas para mostrar</p>
     } else {
         content = (
-            <ul>
+            <List>
                 {persons.map((person) => (
-                    <li key={person.id}>
+                    <ListItem key={person.id}>
                         {person.firstName} {person.lastName}
-                        <button onClick={() => onView(person.id)}>
+                        <InLineButton onClick={() => onView(person.id)}>
                             <FontAwesomeIcon icon={faEye} />
-                        </button>
-                        <button onClick={() => onEdit(person.id)}>
+                        </InLineButton>
+                        <InLineButton onClick={() => onEdit(person.id)}>
                             <FontAwesomeIcon icon={faEdit} />
-                        </button>
-                        <button onClick={() => onDelete(person.id)}>
+                        </InLineButton>
+                        <DeleteButton onClick={() => onDelete(person.id)}>
                             <FontAwesomeIcon icon={faTrash} />
-                        </button>
-                    </li>
+                        </DeleteButton>
+                    </ListItem>
                 ))}
-            </ul>
+            </List>
         )
     }
 
     return (
-        <div className='main_container'>
-            <button onClick={() => onCreate()}>
+        <MainContainer>
+            <BaseButton onClick={() => onCreate()}>
                 Crear Persona <FontAwesomeIcon icon={faAdd} />
-            </button>
+            </BaseButton>
             <h1>Lista de Personas</h1>
             {content}
-        </div>
+        </MainContainer>
     )
 }
 
