@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { UserService } from '../../service'
-import UsersCreateView from './Create.view'
 import { RoleService } from '../../../roles/service'
-import type { UserCreate } from '../../types'
+import type { UserFormData } from '../../types'
 import type { Role } from '../../../roles/types'
+import UserFormView from '../../components/UserForm.view'
 
 const UsersCreate = () => {
-    const [userData, setUserData] = useState<UserCreate>({
+    const [userData, setUserData] = useState<UserFormData>({
         id: 0,
         username: '',
         password: '',
@@ -40,6 +40,10 @@ const UsersCreate = () => {
         }
     }
 
+    const handleDataChange = (newData: Partial<UserFormData>) => {
+        setUserData(prev => ({ ...prev, ...newData }))
+    }
+
     useEffect(() => {
         const fetchData = async () => {
             await fetchRoles()
@@ -48,11 +52,13 @@ const UsersCreate = () => {
     })
 
     return (
-        <UsersCreateView
-            userData={userData}
+        <UserFormView
+            currentUser={null}
+            data={userData}
             roles={roles}
+            loading={false}
             error={error}
-            onUserDataChange={setUserData}
+            onDataChange={handleDataChange}
             onSubmit={handleSubmit}
         />
     )
