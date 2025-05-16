@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API_URL } from '../constants'
+import { API_URL } from '../utils/constants'
 import { toSnake, toCamel } from '../utils/apiTransform'
 
 const api = axios.create({
@@ -20,7 +20,7 @@ api.interceptors.request.use(
         }
 
         // Convertir datos del body a snake_case
-        if (config.data) {
+        if (config.data && !(config.data instanceof URLSearchParams)) {
             config.data = toSnake(config.data)
         }
 
