@@ -1,5 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEdit, faTrash, faAdd } from '@fortawesome/free-solid-svg-icons'
+import { MainContainer } from '../../../../../shared/components/Containers'
+import { BaseButton, InLineButton, DeleteButton } from '../../../../../shared/components/Buttons'
+import { List, ListItem } from '../../../../../shared/components/Lists'
 import type { Entity } from '../../types'
 
 interface EntitiesListViewProps {
@@ -31,33 +34,33 @@ const EntitiesListView = ({
         content = <p>No hay obras sociales para mostrar</p>
     } else {
         content = (
-            <ul>
+            <List>
                 {entities.map((entity) => (
-                    <li key={entity.id}>
+                    <ListItem key={entity.id}>
                         {entity.name}
-                        <button onClick={() => onView(entity.id)}>
+                        <InLineButton onClick={() => onView(entity.id)}>
                             <FontAwesomeIcon icon={faEye} />
-                        </button>
-                        <button onClick={() => onEdit(entity.id)}>
+                        </InLineButton>
+                        <InLineButton onClick={() => onEdit(entity.id)}>
                             <FontAwesomeIcon icon={faEdit} />
-                        </button>
-                        <button onClick={() => onDelete(entity.id)}>
+                        </InLineButton>
+                        <DeleteButton onClick={() => onDelete(entity.id)}>
                             <FontAwesomeIcon icon={faTrash} />
-                        </button>
-                    </li>
+                        </DeleteButton>
+                    </ListItem>
                 ))}
-            </ul>
+            </List>
         )
     }
 
     return (
-        <div className='main_container'>
+        <MainContainer>
             <h1>Lista de Obras Sociales</h1>
-            <button onClick={() => onCreate()}>
+            <BaseButton onClick={() => onCreate()}>
                 Crear Obra Social <FontAwesomeIcon icon={faAdd} />
-            </button>
+            </BaseButton>
             {content}
-        </div>
+        </MainContainer>
     )
 }
 

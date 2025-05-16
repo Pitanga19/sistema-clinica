@@ -1,3 +1,6 @@
+import { MainContainer, FormContainer, InputContainer, ButtonContainer } from "../../../../../shared/components/Containers"
+import { TextInput } from "../../../../../shared/components/Inputs"
+import { NavigationButton } from "../../../../../shared/components/Buttons"
 import type { Entity, EntityUpdate } from "../../types"
 
 interface EntitiesUpdateViewProps {
@@ -20,15 +23,15 @@ const EntitiesUpdateView = ({
     onSubmit,
 }: EntitiesUpdateViewProps) => {
     return (
-        <div className='main_container'>
+        <MainContainer>
             <h1>Editar Obra Social</h1>
             <h2>{loading ? loadingMsg : currentEntity?.name}</h2>
-            <form onSubmit={onSubmit}>
-                <div>
-                    <label htmlFor='name'>Nombre</label>
-                    <input
+            <FormContainer onSubmit={onSubmit}>
+                <InputContainer>
+                    <TextInput
                         type='text'
                         id='name'
+                        placeholder="Nombre de la Obra Social"
                         onChange={(e) => 
                             onUpdateDataChange({
                                 ...updateData,
@@ -36,11 +39,13 @@ const EntitiesUpdateView = ({
                             })
                         }
                     />
-                </div>
+                </InputContainer>
                 {error && <p className='error'>{error}</p>}
-                <button type='submit'>Guardar</button>
-            </form>
-        </div>
+                <ButtonContainer>
+                    <NavigationButton type='submit'>Guardar</NavigationButton>
+                </ButtonContainer>
+            </FormContainer>
+        </MainContainer>
     )
 }
 
