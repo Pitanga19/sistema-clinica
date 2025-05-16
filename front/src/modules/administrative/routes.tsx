@@ -7,6 +7,10 @@ import EntitiesList from './entities/pages/List/List'
 import EntitiesCreate from './entities/pages/Create/Create'
 import EntitiesDetail from './entities/pages/Detail/Detail'
 import EntitiesUpdate from './entities/pages/Update/Update'
+import PlansList from './plans/pages/List/List'
+import PlansCreate from './plans/pages/Create/Create'
+import PlansDetail from './plans/pages/Detail/Detail'
+import PlansUpdate from './plans/pages/Update/Update'
 
 const administrativeRoutes: RouteObject[] = [
     {path: '/persons', element: <PersonsList />},
@@ -17,6 +21,10 @@ const administrativeRoutes: RouteObject[] = [
     {path: '/entities/create', element: <EntitiesCreate />},
     {path: '/entities/detail/:id', element: <EntitiesDetail />},
     {path: '/entities/update/:id', element: <EntitiesUpdate />},
+    {path: '/plans', element: <PlansList />},
+    {path: '/plans/create', element: <PlansCreate />},
+    {path: '/plans/detail/:id', element: <PlansDetail />},
+    {path: '/plans/update/:id', element: <PlansUpdate />},
 ]
 
 export default administrativeRoutes
