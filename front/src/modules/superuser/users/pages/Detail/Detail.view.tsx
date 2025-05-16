@@ -1,6 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { booleanToString } from '../../../../../shared/utils/functions'
+import { MainContainer } from '../../../../../shared/components/Containers'
+import { List, DetailItem, DetailTitle, DetailDescription } from '../../../../../shared/components/Lists'
+import { BaseButton } from '../../../../../shared/components/Buttons'
 import type { Role } from '../../../roles/types'
 import type { User } from '../../types'
 
@@ -24,33 +27,45 @@ const UsersDetailView = ({
     if (!user) return
 
     return (
-        <div className='main_container'>
+        <MainContainer>
             <h1>Detalle de Usuario</h1>
             <h2>{loading ? loadingMsg : user.fullName}</h2>
-            <button onClick={() => onEdit(user.id)}>
+            <BaseButton onClick={() => onEdit(user.id)}>
                 <FontAwesomeIcon icon={faEdit} />
-            </button>
-            <dl className='user_detail'>
-                <dt>Legajo</dt>
-                <dd>{user.id}</dd>
+            </BaseButton>
+            <List className='user_detail'>
+                <DetailItem>
+                    <DetailTitle>Legajo</DetailTitle>
+                    <DetailDescription>{user.id}</DetailDescription>
+                </DetailItem>
 
-                <dt>Usuario</dt>
-                <dd>{user.username}</dd>
+                <DetailItem>
+                    <DetailTitle>Usuario</DetailTitle>
+                    <DetailDescription>{user.username}</DetailDescription>
+                </DetailItem>
 
-                <dt>Nombre Completo</dt>
-                <dd>{user.fullName}</dd>
+                <DetailItem>
+                    <DetailTitle>Nombre Completo</DetailTitle>
+                    <DetailDescription>{user.fullName}</DetailDescription>
+                </DetailItem>
 
-                <dt>Es activo</dt>
-                <dd>{booleanToString(user.isActive)}</dd>
+                <DetailItem>
+                    <DetailTitle>Es activo</DetailTitle>
+                    <DetailDescription>{booleanToString(user.isActive)}</DetailDescription>
+                </DetailItem>
 
-                <dt>Es superusuario</dt>
-                <dd>{booleanToString(user.isSuperuser)}</dd>
+                <DetailItem>
+                    <DetailTitle>Es superusuario</DetailTitle>
+                    <DetailDescription>{booleanToString(user.isSuperuser)}</DetailDescription>
+                </DetailItem>
 
-                <dt>Rol</dt>
-                <dd>{roles.find((role) => role.id === user.roleId)?.name}</dd>
-            </dl>
+                <DetailItem>
+                    <DetailTitle>Rol</DetailTitle>
+                    <DetailDescription>{roles.find((role) => role.id === user.roleId)?.name}</DetailDescription>
+                </DetailItem>
+            </List>
             {error && <p className='error'>{error}</p>}
-        </div>
+        </MainContainer>
     )
 }
 

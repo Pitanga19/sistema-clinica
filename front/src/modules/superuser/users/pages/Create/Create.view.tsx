@@ -1,8 +1,8 @@
-import type { UserCreate } from '../../types'
-import type { Role } from '../../../roles/types'
 import { MainContainer, FormContainer, InputContainer, ButtonContainer } from '../../../../../shared/components/Containers'
 import { TextInput, Select, Checkbox, Label } from '../../../../../shared/components/Inputs'
 import { NavigationButton } from '../../../../../shared/components/Buttons'
+import type { UserCreate } from '../../types'
+import type { Role } from '../../../roles/types'
 
 interface UsersCreateViewProps {
     userData: UserCreate

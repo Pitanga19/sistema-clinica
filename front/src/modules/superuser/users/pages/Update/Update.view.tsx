@@ -1,3 +1,6 @@
+import { MainContainer, FormContainer, InputContainer, ButtonContainer } from '../../../../../shared/components/Containers'
+import { TextInput, Select, Checkbox, Label } from '../../../../../shared/components/Inputs'
+import { NavigationButton } from '../../../../../shared/components/Buttons'
 import type { Role } from '../../../roles/types'
 import type { UserBase, UserUpdate } from '../../types'
 
@@ -25,15 +28,15 @@ const UsersUpdateView = ({
     if (!currentUser) return
 
     return (
-        <div className='main_container'>
+        <MainContainer>
             <h1>Editar Usuario</h1>
             <h2>{loading ? loadingMsg : currentUser.fullName}</h2>
-            <form onSubmit={onSubmit}>
-                <div>
-                    <label htmlFor='id'>Legajo</label>
-                    <input
+            <FormContainer onSubmit={onSubmit}>
+                <InputContainer>
+                    <TextInput
                         type='number'
                         id='id'
+                        placeholder='Legajo'
                         onChange={(e) =>
                             onUpdateDataChange({
                                 ...updateData,
@@ -41,12 +44,12 @@ const UsersUpdateView = ({
                             })
                         }
                     />
-                </div>
-                <div>
-                    <label htmlFor='username'>Usuario</label>
-                    <input
+                </InputContainer>
+                <InputContainer>
+                    <TextInput
                         type='text'
                         id='username'
+                        placeholder='Usuario'
                         onChange={(e) =>
                             onUpdateDataChange({
                                 ...updateData,
@@ -54,12 +57,12 @@ const UsersUpdateView = ({
                             })
                         }
                     />
-                </div>
-                <div>
-                    <label htmlFor='password'>Contraseña</label>
-                    <input
+                </InputContainer>
+                <InputContainer>
+                    <TextInput
                         type='password'
                         id='password'
+                        placeholder='Contraseña'
                         onChange={(e) =>
                             onUpdateDataChange({
                                 ...updateData,
@@ -67,12 +70,12 @@ const UsersUpdateView = ({
                             })
                         }
                     />
-                </div>
-                <div>
-                    <label htmlFor='fullName'>Nombre Completo</label>
-                    <input
+                </InputContainer>
+                <InputContainer>
+                    <TextInput
                         type='text'
                         id='fullName'
+                        placeholder='Nombre Completo'
                         onChange={(e) =>
                             onUpdateDataChange({
                                 ...updateData,
@@ -80,10 +83,9 @@ const UsersUpdateView = ({
                             })
                         }
                     />
-                </div>
-                <div>
-                    <label htmlFor='isActive'>Es activo</label>
-                    <input
+                </InputContainer>
+                <InputContainer>
+                    <Checkbox
                         type='checkbox'
                         id='isActive'
                         checked={updateData?.isActive ?? currentUser.isActive}
@@ -94,10 +96,10 @@ const UsersUpdateView = ({
                             })
                         }
                     />
-                </div>
-                <div>
-                    <label htmlFor='isSuperuser'>Es superusuario</label>
-                    <input
+                    <Label htmlFor='isActive'>Es activo</Label>
+                </InputContainer>
+                <InputContainer>
+                    <Checkbox
                         type='checkbox'
                         id='isSuperuser'
                         checked={updateData?.isSuperuser ?? currentUser.isSuperuser}
@@ -108,10 +110,10 @@ const UsersUpdateView = ({
                             })
                         }
                     />
-                </div>
-                <div>
-                    <label htmlFor='roleId'>Rol</label>
-                    <select
+                    <Label htmlFor='isSuperuser'>Es superusuario</Label>
+                </InputContainer>
+                <InputContainer>
+                    <Select
                         id='roleId'
                         onChange={(e) =>
                             onUpdateDataChange({
@@ -126,12 +128,14 @@ const UsersUpdateView = ({
                                 {role.name}
                             </option>
                         ))}
-                    </select>
-                </div>
+                    </Select>
+                </InputContainer>
                 {error && <p className='error'>{error}</p>}
-                <button type='submit'>Guardar</button>
-            </form>
-        </div>
+                <ButtonContainer>
+                    <NavigationButton type='submit'>Guardar</NavigationButton>
+                </ButtonContainer>
+            </FormContainer>
+        </MainContainer>
     )
 }
 

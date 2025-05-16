@@ -1,5 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEdit, faTrash, faAdd } from '@fortawesome/free-solid-svg-icons'
+import { MainContainer } from '../../../../../shared/components/Containers'
+import { BaseButton, InLineButton, DeleteButton } from '../../../../../shared/components/Buttons'
+import { List, ListItem } from '../../../../../shared/components/Lists'
 import type { User } from '../../types'
 
 interface UsersListViewProps {
@@ -31,33 +34,33 @@ const UsersListView = ({
         content = <p>No hay users para mostrar</p>
     } else {
         content = (
-            <ul>
+            <List>
                 {users.map((user) => (
-                    <li key={user.id}>
+                    <ListItem key={user.id}>
                         {user.fullName}
-                        <button onClick={() => onView(user.id)}>
+                        <InLineButton onClick={() => onView(user.id)}>
                             <FontAwesomeIcon icon={faEye} />
-                        </button>
-                        <button onClick={() => onEdit(user.id)}>
+                        </InLineButton>
+                        <InLineButton onClick={() => onEdit(user.id)}>
                             <FontAwesomeIcon icon={faEdit} />
-                        </button>
-                        <button onClick={() => onDelete(user.id)}>
+                        </InLineButton>
+                        <DeleteButton onClick={() => onDelete(user.id)}>
                             <FontAwesomeIcon icon={faTrash} />
-                        </button>
-                    </li>
+                        </DeleteButton>
+                    </ListItem>
                 ))}
-            </ul>
+            </List>
         )
     }
 
     return (
-        <div className='main_container'>
-            <button onClick={() => onCreate()}>
+        <MainContainer>
+            <h1>Lista de Usuarios</h1>
+            <BaseButton onClick={() => onCreate()}>
                 Crear Usuario <FontAwesomeIcon icon={faAdd} />
-            </button>
-            <h1>Lista de Users</h1>
+            </BaseButton>
             {content}
-        </div>
+        </MainContainer>
     )
 }
 
