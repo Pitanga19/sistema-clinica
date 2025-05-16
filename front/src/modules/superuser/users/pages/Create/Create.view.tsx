@@ -2,7 +2,7 @@ import type { UserCreate } from '../../types'
 import type { Role } from '../../../roles/types'
 import { MainContainer, FormContainer, InputContainer, ButtonContainer } from '../../../../../shared/components/Containers'
 import { TextInput, Select, Checkbox, Label } from '../../../../../shared/components/Inputs'
-import { BaseButton } from '../../../../../shared/components/Buttons'
+import { NavigationButton } from '../../../../../shared/components/Buttons'
 
 interface UsersCreateViewProps {
     userData: UserCreate
@@ -135,7 +135,7 @@ const UsersCreateView = ({
                 </InputContainer>
                 <ButtonContainer>
                     <p className='error'>{error}</p>
-                    <BaseButton type='submit'>Crear</BaseButton>
+                    <NavigationButton type='submit'>Crear</NavigationButton>
                 </ButtonContainer>
             </FormContainer>
         </MainContainer>

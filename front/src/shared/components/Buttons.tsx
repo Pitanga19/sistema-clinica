@@ -1,8 +1,10 @@
 import type { ReactNode, ButtonHTMLAttributes } from 'react';
 import {
     StyledButton,
-    StyledConfirmButton,
+    StyledInLineButton,
     StyledDeleteButton,
+    StyledNavigationButton,
+    StyledConfirmButton,
     StyledCancelButton,
     StyledNavBarButton,
 } from '../styles/Buttons.styles';
@@ -15,12 +17,20 @@ export const BaseButton = ({ children, ...rest }: Props) => {
     return <StyledButton {...rest}>{children}</StyledButton>;
 };
 
-export const ConfirmButton = ({ children, ...rest }: Props) => {
-    return <StyledConfirmButton {...rest}>{children}</StyledConfirmButton>;
+export const InLineButton = ({ children, ...rest }: Props) => {
+    return <StyledInLineButton {...rest}>{children}</StyledInLineButton>;
 };
 
 export const DeleteButton = ({ children, ...rest }: Props) => {
     return <StyledDeleteButton {...rest}>{children}</StyledDeleteButton>;
+};
+
+export const NavigationButton = ({ children, ...rest }: Props) => {
+    return <StyledNavigationButton {...rest}>{children}</StyledNavigationButton>;
+};
+
+export const ConfirmButton = ({ children, ...rest }: Props) => {
+    return <StyledConfirmButton {...rest}>{children}</StyledConfirmButton>;
 };
 
 export const CancelButton = ({ children, ...rest }: Props) => {
