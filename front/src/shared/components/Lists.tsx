@@ -2,6 +2,9 @@ import type { ReactNode } from "react"
 import {
     StyledList,
     StyledListItem,
+    StyledDetailItem,
+    StyledDetailTitle,
+    StyledDetailDescription,
 } from '../styles/Lists.styles'
 
 type ListProps = {
@@ -23,5 +26,29 @@ export const ListItem = ({ children, className, id }: ListProps) => {
         <StyledListItem className={className} id={id}>
             {children}
         </StyledListItem>
+    )
+}
+
+export const DetailItem = ({ children, className, id }: ListProps) => {
+    return (
+        <StyledDetailItem className={className} id={id}>
+            {children}
+        </StyledDetailItem>
+    )
+}
+
+export const DetailTitle = ({ children, className, id }: ListProps) => {
+    return (
+        <StyledDetailTitle className={className} id={id}>
+            {children}
+        </StyledDetailTitle>
+    )
+}
+
+export const DetailDescription = ({ children, className, id }: ListProps) => {
+    return (
+        <StyledDetailDescription className={className} id={id}>
+            {children}
+        </StyledDetailDescription>
     )
 }
