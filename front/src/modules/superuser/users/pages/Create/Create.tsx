@@ -2,20 +2,13 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { UserService } from '../../service'
 import { RoleService } from '../../../roles/service'
+import { userFormDataDefault } from '../../types'
 import type { UserFormData } from '../../types'
 import type { Role } from '../../../roles/types'
 import UserFormView from '../../components/UserForm.view'
 
 const UsersCreate = () => {
-    const [userData, setUserData] = useState<UserFormData>({
-        id: 0,
-        username: '',
-        password: '',
-        fullName: '',
-        isActive: true,
-        isSuperuser: false,
-        roleId: 0,
-    })
+    const [userData, setUserData] = useState<UserFormData>(userFormDataDefault)
     const [roles, setRoles] = useState<Role[]>([])
     const [error, setError] = useState<string | null>(null)
     const navigate = useNavigate()
