@@ -1,5 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEdit, faTrash, faAdd } from '@fortawesome/free-solid-svg-icons'
+import { MainContainer } from '../../../../../shared/components/Containers'
+import { BaseButton, InLineButton, DeleteButton } from '../../../../../shared/components/Buttons'
+import { List, ListItem } from '../../../../../shared/components/Lists'
 import type { Mode } from '../../types'
 
 interface ModesListViewProps {
@@ -31,33 +34,33 @@ const ModesListView = ({
         content = <p>No hay modes para mostrar</p>
     } else {
         content = (
-            <ul>
+            <List>
                 {modes.map((mode) => (
-                    <li key={mode.id}>
+                    <ListItem key={mode.id}>
                         {mode.name}
-                        <button onClick={() => onView(mode.id)}>
+                        <InLineButton onClick={() => onView(mode.id)}>
                             <FontAwesomeIcon icon={faEye} />
-                        </button>
-                        <button onClick={() => onEdit(mode.id)}>
+                        </InLineButton>
+                        <InLineButton onClick={() => onEdit(mode.id)}>
                             <FontAwesomeIcon icon={faEdit} />
-                        </button>
-                        <button onClick={() => onDelete(mode.id)}>
+                        </InLineButton>
+                        <DeleteButton onClick={() => onDelete(mode.id)}>
                             <FontAwesomeIcon icon={faTrash} />
-                        </button>
-                    </li>
+                        </DeleteButton>
+                    </ListItem>
                 ))}
-            </ul>
+            </List>
         )
     }
 
     return (
-        <div className='main_container'>
+        <MainContainer className='main_container'>
             <h1>Lista de Modos</h1>
-            <button onClick={() => onCreate()}>
+            <BaseButton onClick={() => onCreate()}>
                 Crear Modo <FontAwesomeIcon icon={faAdd} />
-            </button>
+            </BaseButton>
             {content}
-        </div>
+        </MainContainer>
     )
 }
 

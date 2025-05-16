@@ -1,3 +1,7 @@
+import { MainContainer, FormContainer, InputContainer, ButtonContainer } from "../../../../../shared/components/Containers"
+import { TextInput } from "../../../../../shared/components/Inputs"
+import { NavigationButton } from "../../../../../shared/components/Buttons"
+
 interface ModesCreateViewProps {
     name: string
     error: string | null
@@ -12,23 +16,25 @@ const ModesCreateView = ({
     onSubmit,
 }: ModesCreateViewProps) => {
     return (
-        <div className='main_container'>
+        <MainContainer>
             <h1>Crear Modo</h1>
-            <form onSubmit={onSubmit}>
-                <div>
-                    <label htmlFor='name'>Nombre</label>
-                    <input
+            <FormContainer onSubmit={onSubmit}>
+                <InputContainer>
+                    <TextInput
                         type='text'
                         id='name'
+                        placeholder="Nombre del Modo"
                         value={name}
                         onChange={(e) => onNameChange(e.target.value)}
                         required
                     />
-                </div>
+                </InputContainer>
                 {error && <p className='error'>{error}</p>}
-                <button type='submit'>Crear</button>
-            </form>
-        </div>
+                <ButtonContainer>
+                    <NavigationButton type='submit'>Crear</NavigationButton>
+                </ButtonContainer>
+            </FormContainer>
+        </MainContainer>
     )
 }
 
