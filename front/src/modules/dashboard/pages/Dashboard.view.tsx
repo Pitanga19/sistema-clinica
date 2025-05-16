@@ -1,3 +1,9 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { MainContainer } from '../../../shared/components/Containers'
+import { List, ListItem } from '../../../shared/components/Lists'
+import { InLineButton } from '../../../shared/components/Buttons'
+
 interface DashboardViewProps {
     goToRolesList: () => void
     goToUsersList: () => void
@@ -12,24 +18,35 @@ const DashboardView = ({
     goToEntitiesList,
 }: DashboardViewProps) => {
     return (
-        <div className='main_container'>
+        <MainContainer>
             <h1>Sistema Clínica</h1>
-            <p>Seleccione la tarea que desea realizar ...</p>
-            <ul>
-                <li>
-                    <button onClick={goToRolesList}>Gestión de roles</button>
-                </li>
-                <li>
-                    <button onClick={goToUsersList}>Gestión de usuarios</button>
-                </li>
-                <li>
-                    <button onClick={goToPersonsList}>Gestión de personas</button>
-                </li>
-                <li>
-                    <button onClick={goToEntitiesList}>Gestión de obras sociales</button>
-                </li>
-            </ul>
-        </div>
+            <List>
+                <ListItem>
+                    Gestión de roles
+                    <InLineButton onClick={goToRolesList}>
+                        <FontAwesomeIcon icon={faArrowRight} />
+                    </InLineButton>
+                </ListItem>
+                <ListItem>
+                    Gestión de usuarios
+                    <InLineButton onClick={goToUsersList}>
+                        <FontAwesomeIcon icon={faArrowRight} />
+                    </InLineButton>
+                </ListItem>
+                <ListItem>
+                    Gestión de personas
+                    <InLineButton onClick={goToPersonsList}>
+                        <FontAwesomeIcon icon={faArrowRight} />
+                    </InLineButton>
+                </ListItem>
+                <ListItem>
+                    Gestión de obras sociales
+                    <InLineButton onClick={goToEntitiesList}>
+                        <FontAwesomeIcon icon={faArrowRight} />
+                    </InLineButton>
+                </ListItem>
+            </List>
+        </MainContainer>
     )
 }
 
