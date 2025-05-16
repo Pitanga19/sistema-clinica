@@ -1,5 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEdit, faTrash, faAdd } from '@fortawesome/free-solid-svg-icons'
+import { MainContainer } from '../../../../../shared/components/Containers'
+import { BaseButton, InLineButton, DeleteButton } from '../../../../../shared/components/Buttons'
+import { List, ListItem } from '../../../../../shared/components/Lists'
 import type { Role } from '../../types'
 
 interface RolesListViewProps {
@@ -31,33 +34,33 @@ const RolesListView = ({
         content = <p>No hay roles para mostrar</p>
     } else {
         content = (
-            <ul>
+            <List>
                 {roles.map((role) => (
-                    <li key={role.id}>
+                    <ListItem key={role.id}>
                         {role.name}
-                        <button onClick={() => onView(role.id)}>
+                        <InLineButton onClick={() => onView(role.id)}>
                             <FontAwesomeIcon icon={faEye} />
-                        </button>
-                        <button onClick={() => onEdit(role.id)}>
+                        </InLineButton>
+                        <InLineButton onClick={() => onEdit(role.id)}>
                             <FontAwesomeIcon icon={faEdit} />
-                        </button>
-                        <button onClick={() => onDelete(role.id)}>
+                        </InLineButton>
+                        <DeleteButton onClick={() => onDelete(role.id)}>
                             <FontAwesomeIcon icon={faTrash} />
-                        </button>
-                    </li>
+                        </DeleteButton>
+                    </ListItem>
                 ))}
-            </ul>
+            </List>
         )
     }
 
     return (
-        <div className='main_container'>
+        <MainContainer>
             <h1>Lista de Roles</h1>
-            <button onClick={() => onCreate()}>
+            <BaseButton onClick={() => onCreate()}>
                 Crear Rol <FontAwesomeIcon icon={faAdd} />
-            </button>
+            </BaseButton>
             {content}
-        </div>
+        </MainContainer>
     )
 }
 
