@@ -9,3 +9,11 @@ export interface Mode extends ModeBase {
 export type ModeCreate = ModeBase
 
 export type ModeUpdate = Partial<ModeBase>
+
+export type ModeFormData = {
+    name: string
+}
+
+export const ModeFormDefaultData = {
+    name: '',
+}
