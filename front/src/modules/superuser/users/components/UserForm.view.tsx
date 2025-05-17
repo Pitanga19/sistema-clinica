@@ -1,12 +1,11 @@
 import { MainContainer, FormContainer, InputContainer, ButtonContainer } from '../../../../shared/components/Containers'
 import { TextInput, Select, Checkbox, Label } from '../../../../shared/components/Inputs'
 import { NavigationButton } from '../../../../shared/components/Buttons'
-import type { UserFormData } from '../types'
+import type { User, UserFormData } from '../types'
 import type { Role } from '../../roles/types'
-import type { UserBase } from '../types'
 
 interface UserFormViewProps {
-    currentUser: UserBase | null
+    currentUser: User | null
     data: UserFormData
     roles: Role[]
     loading: boolean

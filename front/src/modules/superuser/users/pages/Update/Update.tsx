@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { UserService } from '../../service'
 import { RoleService } from '../../../roles/service'
+import { getToSendUserData } from '../../utils'
 import { userFormDataDefault } from '../../types'
 import type { User, UserFormData } from '../../types'
 import type { Role } from '../../../roles/types'
 import UserFormView from '../../components/UserForm.view'
-import { getToSendUserData } from '../../utils'
 
 const UsersUpdate = () => {
     const { id } = useParams<{ id: string }>()
