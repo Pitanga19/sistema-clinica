@@ -1,45 +1,45 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ModeService } from '../../service'
-import type { Mode, ModeUpdate } from '../../types'
-import ModesUpdateView from './Update.view'
+import { ModeFormDefaultData } from '../../types'
+import type { Mode, ModeFormData } from '../../types'
+import ModeFormView from '../../components/ModeForm.view'
 
 const ModesUpdate = () => {
     const { id } = useParams<{ id: string }>()
     const [currentMode, setCurrentMode] = useState<Mode | null>(null)
-    const [updateData, setUpdateData] = useState<ModeUpdate | null>(null)
-    const [loading, setLoading] = useState<boolean>(true)
+    const [data, setData] = useState<ModeFormData>(ModeFormDefaultData)
     const [error, setError] = useState<string | null>(null)
-    const loadingMsg = 'Cargando modo ...'
+    const [loading, setLoading] = useState<boolean>(true)
     const navigate = useNavigate()
 
-    useEffect(() => {
-        const fetchMode = async () => {
-            try {
-                if (!id) {
-                    throw new Error('ID no proporcionado')
-                }
-                setCurrentMode(await ModeService.getById(Number(id)))
-            } catch (error) {
-                setError(`${error}`)
-            } finally {
-                setLoading(false)
+    const fetchMode = async () => {
+        try {
+            if (!id) {
+                setError('ID no proporcionado')
+                return
             }
+            setCurrentMode(await ModeService.getById(Number(id)))
+        } catch (error) {
+            setError(`${error}`)
+        } finally {
+            setLoading(false)
         }
+    }
 
-        fetchMode()
-    }, [])
+    const handleDataChange = (newData: Partial<ModeFormData>) => {
+        setData(prev => ({ ...prev, ...newData }))
+    }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setLoading(true)
         setError(null)
 
-
-        if (!id || !currentMode || !updateData) return
+        if (!id || !currentMode || !data) return
 
         try {
-            await ModeService.update(Number(id), updateData)
+            await ModeService.update(Number(id), data)
             navigate(`/modes/detail/${id}`)
         } catch (error) {
             setError(`${error}`)
@@ -48,14 +48,20 @@ const ModesUpdate = () => {
         }
     }
 
+    useEffect(() => {
+        const fetchData = async () => {
+            await fetchMode()
+        }
+        fetchData()
+    }, [])
+
     return (
-        <ModesUpdateView
+        <ModeFormView
             currentMode={currentMode}
-            updateData={updateData}
+            data={data}
             loading={loading}
-            loadingMsg={loadingMsg}
             error={error}
-            onUpdateDataChange={setUpdateData}
+            onDataChange={handleDataChange}
             onSubmit={handleSubmit}
         />
     )
