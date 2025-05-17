@@ -1,24 +1,25 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { RoleService } from '../../service'
-import type { RoleCreate } from '../../types'
-import RolesCreateView from './Create.view'
+import { RoleFormDefaultData } from '../../types'
+import type { RoleFormData } from '../../types'
+import RoleFormView from '../../components/RoleForm.view'
 
 const RolesCreate = () => {
-    const [name, setName] = useState<string>('')
+    const [data, setData] = useState<RoleFormData>(RoleFormDefaultData)
     const [error, setError] = useState<string | null>(null)
     const navigate = useNavigate()
+
+    const handleDataChange = (newData: Partial<RoleFormData>) => {
+        setData(prev => ({ ...prev, ...newData }))
+    }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setError(null)
 
-        const newRoleData: RoleCreate = {
-            name,
-        }
-
         try {
-            const newRole = await RoleService.create(newRoleData)
+            const newRole = await RoleService.create(data)
             navigate(`/roles/detail/${newRole.id}`)
         } catch (error) {
             setError(`${error}`)
@@ -26,7 +27,14 @@ const RolesCreate = () => {
     }
 
     return (
-        <RolesCreateView name={name} error={error} onNameChange={setName} onSubmit={handleSubmit} />
+        <RoleFormView
+            currentRole={null}
+            data={data}
+            loading={false}
+            error={error}
+            onDataChange={handleDataChange}
+            onSubmit={handleSubmit}
+        />
     )
 }
 

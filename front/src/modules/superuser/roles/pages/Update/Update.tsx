@@ -1,45 +1,45 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { RoleService } from '../../service'
-import type { Role, RoleUpdate } from '../../types'
-import RolesUpdateView from './Update.view'
+import { RoleFormDefaultData } from '../../types'
+import type { Role, RoleFormData } from '../../types'
+import RoleFormView from '../../components/RoleForm.view'
 
 const RolesUpdate = () => {
     const { id } = useParams<{ id: string }>()
     const [currentRole, setCurrentRole] = useState<Role | null>(null)
-    const [updateData, setUpdateData] = useState<RoleUpdate | null>(null)
-    const [loading, setLoading] = useState<boolean>(true)
+    const [data, setData] = useState<RoleFormData>(RoleFormDefaultData)
     const [error, setError] = useState<string | null>(null)
-    const loadingMsg = 'Cargando rol ...'
+    const [loading, setLoading] = useState<boolean>(true)
     const navigate = useNavigate()
 
-    useEffect(() => {
-        const fetchRole = async () => {
-            try {
-                if (!id) {
-                    throw new Error('ID no proporcionado')
-                }
-                setCurrentRole(await RoleService.getById(Number(id)))
-            } catch (error) {
-                setError(`${error}`)
-            } finally {
-                setLoading(false)
+    const fetchRole = async () => {
+        try {
+            if (!id) {
+                setError('ID no proporcionado')
+                return
             }
+            setCurrentRole(await RoleService.getById(Number(id)))
+        } catch (error) {
+            setError(`${error}`)
+        } finally {
+            setLoading(false)
         }
+    }
 
-        fetchRole()
-    }, [])
+    const handleDataChange = (newData: Partial<RoleFormData>) => {
+        setData(prev => ({ ...prev, ...newData }))
+    }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setLoading(true)
         setError(null)
 
-
-        if (!id || !currentRole || !updateData) return
+        if (!id || !currentRole || !data) return
 
         try {
-            await RoleService.update(Number(id), updateData)
+            await RoleService.update(Number(id), data)
             navigate(`/roles/detail/${id}`)
         } catch (error) {
             setError(`${error}`)
@@ -48,14 +48,20 @@ const RolesUpdate = () => {
         }
     }
 
+    useEffect(() => {
+        const fetchData = async () => {
+            await fetchRole()
+        }
+        fetchData()
+    }, [])
+
     return (
-        <RolesUpdateView
+        <RoleFormView
             currentRole={currentRole}
-            updateData={updateData}
+            data={data}
             loading={loading}
-            loadingMsg={loadingMsg}
             error={error}
-            onUpdateDataChange={setUpdateData}
+            onDataChange={handleDataChange}
             onSubmit={handleSubmit}
         />
     )
