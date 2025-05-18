@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { MainContainer } from '../../../../../shared/components/Containers'
+import { Title, Subtitle, Error } from '../../../../../shared/components/Typography'
 import { BaseButton } from '../../../../../shared/components/Buttons'
 import type { Mode } from "../../types"
 
@@ -23,12 +24,14 @@ const ModesDetailView = ({
 
     return (
         <MainContainer>
-            <h1>Detalles del Modo</h1>
-            <h2>{loading ? loadingMsg : mode.name}</h2>
-            <BaseButton onClick={() => onEdit(mode.id)}>
-                <FontAwesomeIcon icon={faEdit} />
-            </BaseButton>
-            {error && <p className='error'>{error}</p>}
+            <Title>Detalles del Modo</Title>
+            <Subtitle>
+                {loading ? loadingMsg : mode.name}
+                <BaseButton onClick={() => onEdit(mode.id)}>
+                    <FontAwesomeIcon icon={faEdit} />
+                </BaseButton>
+            </Subtitle>
+            <Error>{error}</Error>
         </MainContainer>
     )
 }

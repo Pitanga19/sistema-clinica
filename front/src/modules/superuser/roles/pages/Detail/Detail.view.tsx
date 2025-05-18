@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { MainContainer } from '../../../../../shared/components/Containers'
+import { Title, Subtitle, Error } from '../../../../../shared/components/Typography'
 import { BaseButton } from '../../../../../shared/components/Buttons'
 import type { Role } from "../../types"
 
@@ -23,12 +24,14 @@ const RolesDetailView = ({
 
     return (
         <MainContainer className='main_container'>
-            <h1>Detalles del Rol</h1>
-            <h2>{loading ? loadingMsg : role.name}</h2>
-            <BaseButton onClick={() => onEdit(role.id)}>
-                <FontAwesomeIcon icon={faEdit} />
-            </BaseButton>
-            {error && <p className='error'>{error}</p>}
+            <Title>Detalles del Rol</Title>
+            <Subtitle>
+                {loading ? loadingMsg : role.name}
+                <BaseButton onClick={() => onEdit(role.id)}>
+                    <FontAwesomeIcon icon={faEdit} />
+                </BaseButton>
+            </Subtitle>
+            <Error>{error}</Error>
         </MainContainer>
     )
 }

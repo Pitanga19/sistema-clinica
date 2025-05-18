@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { booleanToString } from '../../../../../shared/utils/functions'
 import { MainContainer } from '../../../../../shared/components/Containers'
+import { Title, Subtitle, Error } from '../../../../../shared/components/Typography'
 import { List, DetailItem, DetailTitle, DetailDescription } from '../../../../../shared/components/Lists'
 import { BaseButton } from '../../../../../shared/components/Buttons'
 import type { Role } from '../../../roles/types'
@@ -28,11 +29,13 @@ const UsersDetailView = ({
 
     return (
         <MainContainer>
-            <h1>Detalle de Usuario</h1>
-            <h2>{loading ? loadingMsg : user.fullName}</h2>
-            <BaseButton onClick={() => onEdit(user.id)}>
-                <FontAwesomeIcon icon={faEdit} />
-            </BaseButton>
+            <Title>Detalle de Usuario</Title>
+            <Subtitle>
+                {loading ? loadingMsg : user.fullName}
+                <BaseButton onClick={() => onEdit(user.id)}>
+                    <FontAwesomeIcon icon={faEdit} />
+                </BaseButton>
+            </Subtitle>
             <List className='user_detail'>
                 <DetailItem>
                     <DetailTitle>Legajo</DetailTitle>
@@ -64,7 +67,7 @@ const UsersDetailView = ({
                     <DetailDescription>{roles.find((role) => role.id === user.roleId)?.name}</DetailDescription>
                 </DetailItem>
             </List>
-            {error && <p className='error'>{error}</p>}
+            <Error>{error}</Error>
         </MainContainer>
     )
 }

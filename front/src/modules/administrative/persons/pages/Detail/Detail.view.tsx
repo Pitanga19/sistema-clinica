@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { handleOptionalProp } from '../../../../../shared/utils/functions'
 import { MainContainer } from '../../../../../shared/components/Containers'
+import { Title, Subtitle, Error } from '../../../../../shared/components/Typography'
 import {
     List,
     DetailItem,
@@ -30,11 +31,13 @@ const PersonsDetailView = ({
 
     return (
         <MainContainer>
-            <h1>Detalle de Persona</h1>
-            <h2>{loading ? loadingMsg : `${person.firstName} ${person.lastName}`}</h2>
-            <BaseButton onClick={() => onEdit(person.id)}>
-                <FontAwesomeIcon icon={faEdit} />
-            </BaseButton>
+            <Title>Detalle de Persona</Title>
+            <Subtitle>
+                {loading ? loadingMsg : `${person.firstName} ${person.lastName}`}
+                <BaseButton onClick={() => onEdit(person.id)}>
+                    <FontAwesomeIcon icon={faEdit} />
+                </BaseButton>
+            </Subtitle>
             <List>
                 <DetailItem>
                     <DetailTitle>DNI</DetailTitle>
@@ -71,7 +74,7 @@ const PersonsDetailView = ({
                     <DetailDescription>{person.address}</DetailDescription>
                 </DetailItem>
             </List>
-            {error && <p className='error'>{error}</p>}
+            <Error>{error}</Error>
         </MainContainer>
     )
 }

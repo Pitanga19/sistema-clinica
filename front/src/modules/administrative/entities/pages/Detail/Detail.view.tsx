@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { MainContainer } from '../../../../../shared/components/Containers'
+import { Title, Subtitle, Error } from '../../../../../shared/components/Typography'
 import { BaseButton, InLineButton } from '../../../../../shared/components/Buttons'
 import { List, ListItem, DetailItem, DetailTitle, DetailDescription } from '../../../../../shared/components/Lists'
 import type { Entity } from "../../types"
@@ -14,6 +15,7 @@ interface EntitiesDetailViewProps {
     error: string | null
     onEdit: (entityId: number) => void
     onGoToPlan: (planId: number) => void
+    onGoToNewPlan: () => void
 }
 
 const EntitiesDetailView = ({
@@ -24,6 +26,7 @@ const EntitiesDetailView = ({
     error,
     onEdit,
     onGoToPlan,
+    onGoToNewPlan,
 }: EntitiesDetailViewProps) => {
     if (!entity) return
 
@@ -38,16 +41,24 @@ const EntitiesDetailView = ({
 
     return (
         <MainContainer>
-            <h1>Detalles de la Obra Social</h1>
-            <h2>{loading ? loadingMsg : entity.name}</h2>
-            <BaseButton onClick={() => onEdit(entity.id)}>
-                <FontAwesomeIcon icon={faEdit} />
-            </BaseButton>
+            <Title>Detalles de la Obra Social</Title>
+            <Subtitle>
+                {loading ? loadingMsg : entity.name}
+                <BaseButton onClick={() => onEdit(entity.id)}>
+                    <FontAwesomeIcon icon={faEdit} />
+                </BaseButton>
+            </Subtitle>
             <List>
                 <DetailItem>
                     <DetailTitle>Planes</DetailTitle>
                     <DetailDescription>
                         <List>
+                            <ListItem>
+                                Nuevo plan
+                                <InLineButton>
+                                    <FontAwesomeIcon onClick={() => onGoToNewPlan()} icon={faArrowRight} />
+                                </InLineButton>
+                            </ListItem>
                             {plansList}
                         </List>
                     </DetailDescription>
@@ -66,7 +77,7 @@ const EntitiesDetailView = ({
                     </DetailDescription>
                 </DetailItem>
             </List>
-            {error && <p className='error'>{error}</p>}
+            <Error>{error}</Error>
         </MainContainer>
     )
 }

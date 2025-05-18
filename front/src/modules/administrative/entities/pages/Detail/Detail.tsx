@@ -19,6 +19,8 @@ const EntitiesDetail = () => {
 
     const handleGoToPlan = (planId: number) => navigate(`/plans/detail/${planId}`)
 
+    const handleGoToNewPlan = () => navigate(`/plans/create`)
+
     const fetchEntity = async () => {
         try {
             if (!id) {
@@ -61,6 +63,7 @@ const EntitiesDetail = () => {
         error={error}
         onEdit={handleEdit}
         onGoToPlan={handleGoToPlan}
+        onGoToNewPlan={handleGoToNewPlan}
     />
 }
 
