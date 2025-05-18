@@ -1,6 +1,6 @@
 import { userDefaultData, type UserFormData } from './types'
 
-export const getToSendUserData = (data: UserFormData): Partial<UserFormData> => {
+export const handleUserUpdateData = (data: UserFormData): Partial<UserFormData> => {
     const defaultData = userDefaultData
     const toSendData: Partial<UserFormData> = {
         id: undefined,

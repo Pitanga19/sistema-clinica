@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { handleUpdateData } from '../../../../../shared/utils/functions'
 import { ModeService } from '../../service'
 import { modeDefaultData } from '../../types'
 import type { Mode, ModeFormData } from '../../types'
@@ -38,8 +39,10 @@ const ModesUpdate = () => {
 
         if (!id || !currentMode || !data) return
 
+        const updateData = handleUpdateData(data, modeDefaultData)
+
         try {
-            await ModeService.update(Number(id), data)
+            await ModeService.update(Number(id), updateData)
             navigate(`/modes/detail/${id}`)
         } catch (error) {
             setError(`${error}`)

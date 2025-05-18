@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { handleUserUpdateData } from '../../utils'
 import { UserService } from '../../service'
 import { RoleService } from '../../../roles/service'
-import { getToSendUserData } from '../../utils'
 import { userDefaultData } from '../../types'
 import type { User, UserFormData } from '../../types'
 import type { Role } from '../../../roles/types'
@@ -11,7 +11,7 @@ import UserFormView from '../../components/UserForm.view'
 const UsersUpdate = () => {
     const { id } = useParams<{ id: string }>()
     const [currentUser, setCurrentUser] = useState<User | null>(null)
-    const [updateData, setUpdateData] = useState<UserFormData>(userDefaultData)
+    const [data, setData] = useState<UserFormData>(userDefaultData)
     const [roles, setRoles] = useState<Role[]>([])
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
@@ -26,8 +26,8 @@ const UsersUpdate = () => {
         try {
             const currentUser = await UserService.getById(Number(id))
             setCurrentUser(currentUser)
-            setUpdateData({
-                ...updateData,
+            setData({
+                ...data,
                 isActive: currentUser.isActive,
                 isSuperuser: currentUser.isSuperuser,
             })
@@ -48,7 +48,7 @@ const UsersUpdate = () => {
     }
 
     const handleDataChange = (newData: Partial<UserFormData>) => {
-        setUpdateData((prev) => ({ ...prev, ...newData }))
+        setData((prev) => ({ ...prev, ...newData }))
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -56,12 +56,12 @@ const UsersUpdate = () => {
         setLoading(true)
         setError(null)
 
-        if (!id || !currentUser || !updateData) return
+        if (!id || !currentUser || !data) return
 
-        const toSendData = getToSendUserData(updateData)
+        const updateData = handleUserUpdateData(data)
 
         try {
-            await UserService.update(Number(id), toSendData)
+            await UserService.update(Number(id), updateData)
             navigate(`/users/detail/${id}`)
         } catch (error) {
             setError(`${error}`)
@@ -78,7 +78,7 @@ const UsersUpdate = () => {
     return (
         <UserFormView
             currentUser={currentUser}
-            data={updateData}
+            data={data}
             roles={roles}
             loading={loading}
             error={error}

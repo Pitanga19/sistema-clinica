@@ -35,12 +35,12 @@ const EntitiesUpdate = () => {
         e.preventDefault()
         setLoading(true)
         setError(null)
-        
-        
+
         if (!id || !currentEntity || !data) return
-        
+
+        const updateData = handleUpdateData(data, entityDefaultData)
+
         try {
-            const updateData = handleUpdateData(data, entityDefaultData)
             await EntityService.update(Number(id), updateData)
             navigate(`/entities/detail/${id}`)
         } catch (error) {

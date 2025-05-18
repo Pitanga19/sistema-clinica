@@ -41,8 +41,9 @@ const PersonsUpdate = () => {
 
         if (!id || !currentPerson || !data) return
 
+        const updateData = handleUpdateData(data, personDefaultData)
+
         try {
-            const updateData = handleUpdateData(data, personDefaultData)
             await PersonService.update(Number(id), updateData)
             navigate(`/persons/detail/${id}`)
         } catch (error) {

@@ -4,6 +4,7 @@ import { RoleService } from '../../service'
 import { roleDefaultData } from '../../types'
 import type { Role, RoleFormData } from '../../types'
 import RoleFormView from '../../components/RoleForm.view'
+import { handleUpdateData } from '../../../../../shared/utils/functions'
 
 const RolesUpdate = () => {
     const { id } = useParams<{ id: string }>()
@@ -38,8 +39,10 @@ const RolesUpdate = () => {
 
         if (!id || !currentRole || !data) return
 
+        const updateData = handleUpdateData(data, roleDefaultData)
+
         try {
-            await RoleService.update(Number(id), data)
+            await RoleService.update(Number(id), updateData)
             navigate(`/roles/detail/${id}`)
         } catch (error) {
             setError(`${error}`)
