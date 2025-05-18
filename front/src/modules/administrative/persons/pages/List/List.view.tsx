@@ -56,10 +56,10 @@ const PersonsListView = ({
 
     return (
         <MainContainer>
+            <Title>Lista de Personas</Title>
             <BaseButton onClick={() => onCreate()}>
                 Crear Persona <FontAwesomeIcon icon={faAdd} />
             </BaseButton>
-            <Title>Lista de Personas</Title>
             {content}
         </MainContainer>
     )
