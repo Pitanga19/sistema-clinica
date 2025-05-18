@@ -18,9 +18,9 @@ async def create_patient(data: PatientCreate, db: AsyncSession=Depends(get_db)) 
 async def get_by_id(id: int, db: AsyncSession=Depends(get_db)) -> PatientRead | None:
     return await crud.get_by_id(id, db)
 
-@router.get('/by_patient_id/{patient_id}', response_model=PatientRead, status_code=200)
-async def get_by_patient_id(patient_id: int, db: AsyncSession=Depends(get_db)) -> PatientRead | None:
-    return await crud.get_by_patient_id(patient_id, db)
+@router.get('/by_person_id/{person_id}', response_model=PatientRead, status_code=200)
+async def get_by_person_id(person_id: int, db: AsyncSession=Depends(get_db)) -> PatientRead | None:
+    return await crud.get_by_person_id(person_id, db)
 
 @router.get('/by_plan_id/{plan_id}', response_model=List[PatientRead], status_code=200)
 async def get_by_plan_id(plan_id: int, db: AsyncSession=Depends(get_db)) -> List[PatientRead]:

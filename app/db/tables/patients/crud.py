@@ -14,7 +14,7 @@ async def create(data: PatientCreate, db: AsyncSession) -> Patient:
     
     patient = Patient(
         entity_code=data.entity_code,
-        entity_id=data.entity_id,
+        plan_id=data.plan_id,
         person_id=data.person_id,
     )
     
