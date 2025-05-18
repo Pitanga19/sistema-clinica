@@ -1,5 +1,6 @@
 import { MainContainer, FormContainer, InputContainer, ButtonContainer } from '../../../../shared/components/Containers'
-import { TextInput, Select } from '../../../../shared/components/Inputs'
+import { Title, Subtitle, Error } from '../../../../shared/components/Typography'
+import { TextInput, Select, Option } from '../../../../shared/components/Inputs'
 import { NavigationButton } from '../../../../shared/components/Buttons'
 import type { Plan, PlanFormData } from '../types'
 import type { Entity } from '../../entities/types'
@@ -31,8 +32,8 @@ const PlanFormView = ({
 
     return (
         <MainContainer>
-            <h1>{title}</h1>
-            <h2>{loading ? loadingMsg : subtitle}</h2>
+            <Title>{title}</Title>
+            <Subtitle>{loading ? loadingMsg : subtitle}</Subtitle>
 
             <FormContainer onSubmit={onSubmit}>
                 <InputContainer>
@@ -52,15 +53,15 @@ const PlanFormView = ({
                         onChange={(e) =>
                             onDataChange({ entityId: parseInt(e.target.value, 10) })}
                     >
-                        <option value=''>Seleccione una Obra Social</option>
+                        <Option value=''>Seleccione una Obra Social</Option>
                         {entities.map((entity) => (
-                            <option key={entity.id} value={entity.id}>
+                            <Option key={entity.id} value={entity.id}>
                                 {entity.name}
-                            </option>
+                            </Option>
                         ))}
                     </Select>
                 </InputContainer>
-                {error && <p className='error'>{error}</p>}
+                <Error>{error}</Error>
                 <ButtonContainer>
                     <NavigationButton type='submit'>{buttonText}</NavigationButton>
                 </ButtonContainer>

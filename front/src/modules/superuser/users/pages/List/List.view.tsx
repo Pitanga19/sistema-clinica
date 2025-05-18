@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEdit, faTrash, faAdd } from '@fortawesome/free-solid-svg-icons'
 import { MainContainer } from '../../../../../shared/components/Containers'
+import { Title, Text, Error } from '../../../../../shared/components/Typography'
 import { BaseButton, InLineButton, DeleteButton } from '../../../../../shared/components/Buttons'
 import { List, ListItem } from '../../../../../shared/components/Lists'
 import type { User } from '../../types'
@@ -27,11 +28,11 @@ const UsersListView = ({
     let content
 
     if (loading) {
-        content = <p>Cargando users ...</p>
+        content = <Text>Cargando users ...</Text>
     } else if (error) {
-        content = <p className='error'>{error}</p>
+        content = <Error>{error}</Error>
     } else if (users.length === 0) {
-        content = <p>No hay users para mostrar</p>
+        content = <Text>No hay users para mostrar</Text>
     } else {
         content = (
             <List>
@@ -55,7 +56,7 @@ const UsersListView = ({
 
     return (
         <MainContainer>
-            <h1>Lista de Usuarios</h1>
+            <Title>Lista de Usuarios</Title>
             <BaseButton onClick={() => onCreate()}>
                 Crear Usuario <FontAwesomeIcon icon={faAdd} />
             </BaseButton>

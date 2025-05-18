@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEdit, faTrash, faAdd } from '@fortawesome/free-solid-svg-icons'
 import { MainContainer } from '../../../../../shared/components/Containers'
+import { Title, Text, Error } from '../../../../../shared/components/Typography'
 import { BaseButton, InLineButton, DeleteButton } from '../../../../../shared/components/Buttons'
 import { List, ListItem } from '../../../../../shared/components/Lists'
 import type { Mode } from '../../types'
@@ -27,11 +28,11 @@ const ModesListView = ({
     let content
 
     if (loading) {
-        content = <p>Cargando modes ...</p>
+        content = <Text>Cargando modes ...</Text>
     } else if (error) {
-        content = <p className='error'>{error}</p>
+        content = <Error>{error}</Error>
     } else if (modes.length === 0) {
-        content = <p>No hay modes para mostrar</p>
+        content = <Text>No hay modes para mostrar</Text>
     } else {
         content = (
             <List>
@@ -55,7 +56,7 @@ const ModesListView = ({
 
     return (
         <MainContainer className='main_container'>
-            <h1>Lista de Modos</h1>
+            <Title>Lista de Modos</Title>
             <BaseButton onClick={() => onCreate()}>
                 Crear Modo <FontAwesomeIcon icon={faAdd} />
             </BaseButton>

@@ -1,5 +1,6 @@
 import { MainContainer, FormContainer, InputContainer, ButtonContainer } from '../../../../shared/components/Containers'
-import { TextInput, Select, Checkbox, Label } from '../../../../shared/components/Inputs'
+import { Title, Subtitle, Error } from '../../../../shared/components/Typography'
+import { TextInput, Select, Option, Checkbox, Label } from '../../../../shared/components/Inputs'
 import { NavigationButton } from '../../../../shared/components/Buttons'
 import type { User, UserFormData } from '../types'
 import type { Role } from '../../roles/types'
@@ -31,8 +32,8 @@ const UserFormView = ({
 
     return (
         <MainContainer>
-            <h1>{title}</h1>
-            <h2>{loading ? loadingMsg : subtitle}</h2>
+            <Title>{title}</Title>
+            <Subtitle>{loading ? loadingMsg : subtitle}</Subtitle>
 
             <FormContainer onSubmit={onSubmit}>
                 <InputContainer>
@@ -102,16 +103,16 @@ const UserFormView = ({
                         onChange={(e) =>
                             onDataChange({ roleId: parseInt(e.target.value, 10) })}
                     >
-                        <option value=''>Seleccione un Rol</option>
+                        <Option value=''>Seleccione un Rol</Option>
                         {roles.map((role) => (
-                            <option key={role.id} value={role.id}>
+                            <Option key={role.id} value={role.id}>
                                 {role.name}
-                            </option>
+                            </Option>
                         ))}
                     </Select>
                 </InputContainer>
+                <Error>{error}</Error>
                 <ButtonContainer>
-                    <p className='error'>{error}</p>
                     <NavigationButton type='submit'>{buttonText}</NavigationButton>
                 </ButtonContainer>
             </FormContainer>

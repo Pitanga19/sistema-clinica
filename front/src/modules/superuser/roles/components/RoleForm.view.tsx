@@ -1,4 +1,5 @@
 import { MainContainer, FormContainer, InputContainer, ButtonContainer } from '../../../../shared/components/Containers'
+import { Title, Subtitle, Error } from '../../../../shared/components/Typography'
 import { TextInput } from '../../../../shared/components/Inputs'
 import { NavigationButton } from '../../../../shared/components/Buttons'
 import type { Role, RoleFormData } from '../types'
@@ -28,8 +29,8 @@ const RoleFormView = ({
 
     return (
         <MainContainer>
-            <h1>{title}</h1>
-            <h2>{loading ? loadingMsg : subtitle}</h2>
+            <Title>{title}</Title>
+            <Subtitle>{loading ? loadingMsg : subtitle}</Subtitle>
 
             <FormContainer onSubmit={onSubmit}>
                 <InputContainer>
@@ -42,7 +43,7 @@ const RoleFormView = ({
                         required={isCreateMode}
                     />
                 </InputContainer>
-                {error && <p className='error'>{error}</p>}
+                <Error>{error}</Error>
                 <ButtonContainer>
                     <NavigationButton type='submit'>{buttonText}</NavigationButton>
                 </ButtonContainer>

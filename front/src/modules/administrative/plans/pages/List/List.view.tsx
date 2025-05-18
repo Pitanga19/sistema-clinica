@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEdit, faTrash, faAdd } from '@fortawesome/free-solid-svg-icons'
 import { MainContainer } from '../../../../../shared/components/Containers'
+import { Title, Text, Error } from '../../../../../shared/components/Typography'
 import { BaseButton, InLineButton, DeleteButton } from '../../../../../shared/components/Buttons'
 import { List, ListItem } from '../../../../../shared/components/Lists'
 import type { Plan } from '../../types'
@@ -27,11 +28,11 @@ const PlansListView = ({
     let content
 
     if (loading) {
-        content = <p>Cargando planes ...</p>
+        content = <Text>Cargando planes ...</Text>
     } else if (error) {
-        content = <p className='error'>{error}</p>
+        content = <Error>{error}</Error>
     } else if (plans.length === 0) {
-        content = <p>No hay planes para mostrar</p>
+        content = <Text>No hay planes para mostrar</Text>
     } else {
         content = (
             <List>
@@ -55,7 +56,7 @@ const PlansListView = ({
 
     return (
         <MainContainer>
-            <h1>Lista de Planes</h1>
+            <Title>Lista de Planes</Title>
             <BaseButton onClick={() => onCreate()}>
                 Crear Plan <FontAwesomeIcon icon={faAdd} />
             </BaseButton>

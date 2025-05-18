@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEdit, faTrash, faAdd } from '@fortawesome/free-solid-svg-icons'
 import { MainContainer } from '../../../../../shared/components/Containers'
+import { Title, Text, Error } from '../../../../../shared/components/Typography'
 import { BaseButton, InLineButton, DeleteButton } from '../../../../../shared/components/Buttons'
 import { List, ListItem } from '../../../../../shared/components/Lists'
 import type { Person } from '../../types'
@@ -27,11 +28,11 @@ const PersonsListView = ({
     let content
 
     if (loading) {
-        content = <p>Cargando personas ...</p>
+        content = <Text>Cargando personas ...</Text>
     } else if (error) {
-        content = <p className='error'>{error}</p>
+        content = <Error>{error}</Error>
     } else if (persons.length === 0) {
-        content = <p>No hay personas para mostrar</p>
+        content = <Text>No hay personas para mostrar</Text>
     } else {
         content = (
             <List>
@@ -58,7 +59,7 @@ const PersonsListView = ({
             <BaseButton onClick={() => onCreate()}>
                 Crear Persona <FontAwesomeIcon icon={faAdd} />
             </BaseButton>
-            <h1>Lista de Personas</h1>
+            <Title>Lista de Personas</Title>
             {content}
         </MainContainer>
     )
