@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { handleModifiedData } from '../../../../../shared/utils/functions'
+import { handleUpdateData } from '../../../../../shared/utils/functions'
 import { PersonService } from '../../service'
 import { personDefaultData } from '../../types'
 import type { Person, PersonFormData } from '../../types'
@@ -42,7 +42,7 @@ const PersonsUpdate = () => {
         if (!id || !currentPerson || !data) return
 
         try {
-            const updateData = handleModifiedData(data, personDefaultData)
+            const updateData = handleUpdateData(data, personDefaultData)
             await PersonService.update(Number(id), updateData)
             navigate(`/persons/detail/${id}`)
         } catch (error) {
