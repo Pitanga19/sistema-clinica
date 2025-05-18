@@ -28,7 +28,7 @@ const PersonFormView = ({
     const isCreateMode = !currentPerson
     const loadingMsg = 'Cargando formulario ...'
     const title = isCreateMode ? 'Crear Persona' : 'Editar Persona'
-    const fullName = currentPerson?.firstName + ' ' + currentPerson?.lastName
+    const fullName = `${data.firstName} ${data.lastName}`
     const subtitle = isCreateMode ? 'Nueva Persona' : fullName
     const buttonText = isCreateMode ? 'Crear' : 'Guardar'
 
