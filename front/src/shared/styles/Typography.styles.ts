@@ -14,6 +14,10 @@ export const StyledSubtitle = styled.h2`
     gap: 0.5rem;
 `
 
-export const StyledError = styled.p`
+export const StyledText = styled.p`
+    font-size: 1rem;
+`
+
+export const StyledError = styled(StyledText)`
     color: red;
 `

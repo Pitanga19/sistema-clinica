@@ -1,5 +1,5 @@
 import type { ReactNode } from "react"
-import { StyledTitle, StyledSubtitle, StyledError } from "../styles/Typography.styles"
+import { StyledTitle, StyledSubtitle, StyledText, StyledError } from "../styles/Typography.styles"
 
 type TypographyProps = {
     children: ReactNode
@@ -20,6 +20,14 @@ export const Subtitle = ({ children, className, id }: TypographyProps) => {
         <StyledSubtitle className={className} id={id}>
             {children}
         </StyledSubtitle>
+    )
+}
+
+export const Text = ({ children, className, id }: TypographyProps) => {
+    return (
+        <StyledText className={className} id={id}>
+            {children}
+        </StyledText>
     )
 }
 
