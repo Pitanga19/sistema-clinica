@@ -32,7 +32,7 @@ const PersonsList = () => {
 
     const handleDelete = async (personId: number) => {
         try {
-            if (!confirm('Confirma que desea eliminar este usuario?')) return
+            if (!confirm('Confirma que desea eliminar esta persona?')) return
             if (!confirm('Está seguro?')) return
             if (!confirm('Muy seguro?')) return
             await PersonService.delete(personId)

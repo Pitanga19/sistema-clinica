@@ -32,7 +32,7 @@ const PlansList = () => {
 
     const handleDelete = async (planId: number) => {
         try {
-            if (!confirm('Confirma que desea eliminar este rol?')) return
+            if (!confirm('Confirma que desea eliminar este plan?')) return
             if (!confirm('Está seguro?')) return
             if (!confirm('Muy seguro?')) return
             await PlanService.delete(planId)
