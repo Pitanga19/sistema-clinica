@@ -1,26 +1,28 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { PlanService } from '../../service'
 import { EntityService } from '../../../entities/service'
-import PlansCreateView from './Create.view'
-import type { PlanCreate } from '../../types'
+import { PlanFormDefaultData } from '../../types'
+import type { PlanFormData } from '../../types'
 import type { Entity } from '../../../entities/types'
+import PlanFormView from '../../components/PlanForm.view'
 
 const PlansCreate = () => {
-    const [planData, setPlanData] = useState<PlanCreate>({
-        name: '',
-        entityId: 0,
-    })
-    const [entities, setEntites] = useState<Entity[]>([])
+    const [data, setData] = useState<PlanFormData>(PlanFormDefaultData)
+    const [entities, setEntities] = useState<Entity[]>([])
     const [error, setError] = useState<string | null>(null)
     const navigate = useNavigate()
 
     const fetchEntities = async () => {
         try {
-            setEntites(await EntityService.getAll())
+            setEntities(await EntityService.getAll())
         } catch (error) {
             setError(`${error}`)
         }
+    }
+
+    const handleDataChange = (newData: Partial<PlanFormData>) => {
+        setData(prev => ({ ...prev, ...newData }))
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -28,7 +30,7 @@ const PlansCreate = () => {
         setError(null)
 
         try {
-            const newPlan = await PlanService.create(planData)
+            const newPlan = await PlanService.create(data)
             navigate(`/plans/detail/${newPlan.id}`)
         } catch (error) {
             setError(`${error}`)
@@ -36,18 +38,17 @@ const PlansCreate = () => {
     }
 
     useEffect(() => {
-        const fetchData = async () => {
-            await fetchEntities()
-        }
-        fetchData()
-    }, [])
+        fetchEntities()
+    })
 
     return (
-        <PlansCreateView
-            planData={planData}
+        <PlanFormView
+            currentPlan={null}
+            data={data}
             entities={entities}
+            loading={false}
             error={error}
-            onPlanDataChange={setPlanData}
+            onDataChange={handleDataChange}
             onSubmit={handleSubmit}
         />
     )

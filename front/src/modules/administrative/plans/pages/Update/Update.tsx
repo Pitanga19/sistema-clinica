@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { PlanService } from '../../service'
-import type { Plan, PlanUpdate } from '../../types'
-import PlansUpdateView from './Update.view'
-import type { Entity } from '../../../entities/types'
 import { EntityService } from '../../../entities/service'
+import { PlanFormDefaultData } from '../../types'
+import type { Plan, PlanFormData } from '../../types'
+import type { Entity } from '../../../entities/types'
+import PlanFormView from '../../components/PlanForm.view'
 
 const PlansUpdate = () => {
     const { id } = useParams<{ id: string }>()
     const [currentPlan, setCurrentPlan] = useState<Plan | null>(null)
-    const [updateData, setUpdateData] = useState<PlanUpdate | null>(null)
+    const [updateData, setUpdateData] = useState<PlanFormData>(PlanFormDefaultData)
     const [entities, setEntites] = useState<Entity[]>([])
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
-    const loadingMsg = 'Cargando obra social ...'
     const navigate = useNavigate()
 
     const fetchPlan = async () => {
@@ -35,6 +35,10 @@ const PlansUpdate = () => {
         } catch (error) {
             setError(`${error}`)
         }
+    }
+
+    const handleDataChange = (newData: Partial<PlanFormData>) => {
+        setUpdateData(prev => ({ ...prev, ...newData }))
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -64,14 +68,13 @@ const PlansUpdate = () => {
     }, [])
 
     return (
-        <PlansUpdateView
+        <PlanFormView
             currentPlan={currentPlan}
-            updateData={updateData}
+            data={updateData}
             entities={entities}
             loading={loading}
-            loadingMsg={loadingMsg}
             error={error}
-            onUpdateDataChange={setUpdateData}
+            onDataChange={handleDataChange}
             onSubmit={handleSubmit}
         />
     )
