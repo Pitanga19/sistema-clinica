@@ -3,6 +3,7 @@ import {
     StyledTextInput,
     StyledTextArea,
     StyledSelect,
+    StyledOption,
     StyledCheckbox,
     StyledLabel
 } from '../styles/Inputs.styles'
@@ -22,6 +23,10 @@ export const TextArea = (props: TextareaHTMLAttributes<HTMLTextAreaElement>) => 
 
 export const Select = (props: InputHTMLAttributes<HTMLSelectElement>) => {
     return <StyledSelect {...props} />
+}
+
+export const Option = (props: InputHTMLAttributes<HTMLOptionElement>) => {
+    return <StyledOption {...props} />
 }
 
 export const Checkbox = (props: InputHTMLAttributes<HTMLInputElement>) => {

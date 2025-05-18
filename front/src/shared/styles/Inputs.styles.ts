@@ -36,6 +36,11 @@ export const StyledSelect = styled.select`
     }
 `
 
+export const StyledOption = styled.option`
+    background-color: ${({ theme }) => theme.background};
+    color: ${({ theme }) => theme.text};
+`
+
 export const StyledCheckbox = styled.input.attrs({ type: 'checkbox' })`
     margin-right: 0.5rem;
     cursor: pointer;
