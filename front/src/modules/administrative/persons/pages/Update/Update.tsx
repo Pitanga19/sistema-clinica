@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import PersonsUpdateView from './Update.view'
+import { handleModifiedData } from '../../../../../shared/utils/functions'
 import { PersonService } from '../../service'
-import type { Person, PersonUpdate } from '../../types'
+import { personDefaultData } from '../../types'
+import type { Person, PersonFormData } from '../../types'
+import PersonFormView from '../../components/PersonForm.view'
 
 const PersonsUpdate = () => {
     const { id } = useParams<{ id: string }>()
     const [currentPerson, setCurrentPerson] = useState<Person | null>(null)
-    const [updateData, setUpdateData] = useState<PersonUpdate | null>(null)
+    const [data, setData] = useState<PersonFormData>(personDefaultData)
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
-    const loadingMsg = 'Cargando ...'
     const navigate = useNavigate()
 
     const fetchPerson = async () => {
@@ -29,14 +30,19 @@ const PersonsUpdate = () => {
         }
     }
 
+    const handleDataChange = (newData: Partial<PersonFormData>) => {
+        setData((prevData) => ({ ...prevData, ...newData }))
+    }
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setLoading(true)
         setError(null)
 
-        if (!id || !currentPerson || !updateData) return
+        if (!id || !currentPerson || !data) return
 
         try {
+            const updateData = handleModifiedData(data, personDefaultData)
             await PersonService.update(Number(id), updateData)
             navigate(`/persons/detail/${id}`)
         } catch (error) {
@@ -51,13 +57,12 @@ const PersonsUpdate = () => {
     }, [])
 
     return (
-        <PersonsUpdateView
+        <PersonFormView
             currentPerson={currentPerson}
-            updateData={updateData}
+            data={data}
             loading={loading}
-            loadingMsg={loadingMsg}
             error={error}
-            onUpdateDataChange={setUpdateData}
+            onDataChange={handleDataChange}
             onSubmit={handleSubmit}
         />
     )
