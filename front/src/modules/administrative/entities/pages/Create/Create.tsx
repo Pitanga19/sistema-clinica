@@ -2,12 +2,16 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { EntityService } from '../../service'
 import type { EntityCreate } from '../../types'
-import EntitiesCreateView from './Create.view'
+import EntityFormView from '../../components/EntityForm.view'
 
 const EntitiesCreate = () => {
     const [name, setName] = useState<string>('')
     const [error, setError] = useState<string | null>(null)
     const navigate = useNavigate()
+
+    const handleDataChange = (data: Partial<EntityCreate>) => {
+        setName(data.name || '')
+    }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -26,7 +30,14 @@ const EntitiesCreate = () => {
     }
 
     return (
-        <EntitiesCreateView name={name} error={error} onNameChange={setName} onSubmit={handleSubmit} />
+        <EntityFormView
+            currentEntity={null}
+            data={{ name }}
+            loading={false}
+            error={error}
+            onDataChange={handleDataChange}
+            onSubmit={handleSubmit}
+        />
     )
 }
 

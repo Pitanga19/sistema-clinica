@@ -1,44 +1,46 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { handleUpdateData } from '../../../../../shared/utils/functions'
 import { EntityService } from '../../service'
-import type { Entity, EntityUpdate } from '../../types'
-import EntitiesUpdateView from './Update.view'
+import { entityDefaultData } from '../../types'
+import type { Entity, EntityFormData } from '../../types'
+import EntityFormView from '../../components/EntityForm.view'
 
 const EntitiesUpdate = () => {
     const { id } = useParams<{ id: string }>()
     const [currentEntity, setCurrentEntity] = useState<Entity | null>(null)
-    const [updateData, setUpdateData] = useState<EntityUpdate | null>(null)
+    const [data, setData] = useState<EntityFormData>(entityDefaultData)
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
-    const loadingMsg = 'Cargando obra social ...'
     const navigate = useNavigate()
 
-    useEffect(() => {
-        const fetchEntity = async () => {
-            try {
-                if (!id) {
-                    throw new Error('ID no proporcionado')
-                }
-                setCurrentEntity(await EntityService.getById(Number(id)))
-            } catch (error) {
-                setError(`${error}`)
-            } finally {
-                setLoading(false)
+    const fetchEntity = async () => {
+        try {
+            if (!id) {
+                throw new Error('ID no proporcionado')
             }
+            setCurrentEntity(await EntityService.getById(Number(id)))
+        } catch (error) {
+            setError(`${error}`)
+        } finally {
+            setLoading(false)
         }
+    }
 
-        fetchEntity()
-    }, [])
+    const handleDataChange = (newData: Partial<EntityFormData>) => {
+        setData((prevData) => ({ ...prevData, ...newData }))
+    }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setLoading(true)
         setError(null)
-
-
-        if (!id || !currentEntity || !updateData) return
-
+        
+        
+        if (!id || !currentEntity || !data) return
+        
         try {
+            const updateData = handleUpdateData(data, entityDefaultData)
             await EntityService.update(Number(id), updateData)
             navigate(`/entities/detail/${id}`)
         } catch (error) {
@@ -48,14 +50,17 @@ const EntitiesUpdate = () => {
         }
     }
 
+    useEffect(() => {
+        fetchEntity()
+    }, [])
+    
     return (
-        <EntitiesUpdateView
+        <EntityFormView
             currentEntity={currentEntity}
-            updateData={updateData}
+            data={data}
             loading={loading}
-            loadingMsg={loadingMsg}
             error={error}
-            onUpdateDataChange={setUpdateData}
+            onDataChange={handleDataChange}
             onSubmit={handleSubmit}
         />
     )
