@@ -14,6 +14,6 @@ export type ModeFormData = {
     name: string
 }
 
-export const ModeFormDefaultData = {
+export const modeDefaultData = {
     name: '',
 }

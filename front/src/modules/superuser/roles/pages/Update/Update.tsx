@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { RoleService } from '../../service'
-import { RoleFormDefaultData } from '../../types'
+import { roleDefaultData } from '../../types'
 import type { Role, RoleFormData } from '../../types'
 import RoleFormView from '../../components/RoleForm.view'
 
 const RolesUpdate = () => {
     const { id } = useParams<{ id: string }>()
     const [currentRole, setCurrentRole] = useState<Role | null>(null)
-    const [data, setData] = useState<RoleFormData>(RoleFormDefaultData)
+    const [data, setData] = useState<RoleFormData>(roleDefaultData)
     const [error, setError] = useState<string | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
     const navigate = useNavigate()
@@ -28,7 +28,7 @@ const RolesUpdate = () => {
     }
 
     const handleDataChange = (newData: Partial<RoleFormData>) => {
-        setData(prev => ({ ...prev, ...newData }))
+        setData((prev) => ({ ...prev, ...newData }))
     }
 
     const handleSubmit = async (e: React.FormEvent) => {

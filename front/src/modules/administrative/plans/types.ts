@@ -16,7 +16,7 @@ export type PlanFormData = {
     entityId: number
 }
 
-export const PlanFormDefaultData = {
+export const planDefaultData = {
     name: '',
     entityId: 0,
 }

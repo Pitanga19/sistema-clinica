@@ -1,17 +1,17 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { RoleService } from '../../service'
-import { RoleFormDefaultData } from '../../types'
+import { roleDefaultData } from '../../types'
 import type { RoleFormData } from '../../types'
 import RoleFormView from '../../components/RoleForm.view'
 
 const RolesCreate = () => {
-    const [data, setData] = useState<RoleFormData>(RoleFormDefaultData)
+    const [data, setData] = useState<RoleFormData>(roleDefaultData)
     const [error, setError] = useState<string | null>(null)
     const navigate = useNavigate()
 
     const handleDataChange = (newData: Partial<RoleFormData>) => {
-        setData(prev => ({ ...prev, ...newData }))
+        setData((prev) => ({ ...prev, ...newData }))
     }
 
     const handleSubmit = async (e: React.FormEvent) => {

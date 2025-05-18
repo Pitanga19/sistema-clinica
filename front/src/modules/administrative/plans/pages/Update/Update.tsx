@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { PlanService } from '../../service'
 import { EntityService } from '../../../entities/service'
-import { PlanFormDefaultData } from '../../types'
+import { planDefaultData } from '../../types'
 import type { Plan, PlanFormData } from '../../types'
 import type { Entity } from '../../../entities/types'
 import PlanFormView from '../../components/PlanForm.view'
@@ -10,7 +10,7 @@ import PlanFormView from '../../components/PlanForm.view'
 const PlansUpdate = () => {
     const { id } = useParams<{ id: string }>()
     const [currentPlan, setCurrentPlan] = useState<Plan | null>(null)
-    const [updateData, setUpdateData] = useState<PlanFormData>(PlanFormDefaultData)
+    const [updateData, setUpdateData] = useState<PlanFormData>(planDefaultData)
     const [entities, setEntites] = useState<Entity[]>([])
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
@@ -38,14 +38,13 @@ const PlansUpdate = () => {
     }
 
     const handleDataChange = (newData: Partial<PlanFormData>) => {
-        setUpdateData(prev => ({ ...prev, ...newData }))
+        setUpdateData((prev) => ({ ...prev, ...newData }))
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setLoading(true)
         setError(null)
-
 
         if (!id || !currentPlan || !updateData) return
 

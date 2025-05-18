@@ -14,6 +14,6 @@ export type RoleFormData = {
     name: string
 }
 
-export const RoleFormDefaultData = {
+export const roleDefaultData = {
     name: '',
 }

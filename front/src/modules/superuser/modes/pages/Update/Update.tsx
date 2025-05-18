@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ModeService } from '../../service'
-import { ModeFormDefaultData } from '../../types'
+import { modeDefaultData } from '../../types'
 import type { Mode, ModeFormData } from '../../types'
 import ModeFormView from '../../components/ModeForm.view'
 
 const ModesUpdate = () => {
     const { id } = useParams<{ id: string }>()
     const [currentMode, setCurrentMode] = useState<Mode | null>(null)
-    const [data, setData] = useState<ModeFormData>(ModeFormDefaultData)
+    const [data, setData] = useState<ModeFormData>(modeDefaultData)
     const [error, setError] = useState<string | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
     const navigate = useNavigate()
@@ -28,7 +28,7 @@ const ModesUpdate = () => {
     }
 
     const handleDataChange = (newData: Partial<ModeFormData>) => {
-        setData(prev => ({ ...prev, ...newData }))
+        setData((prev) => ({ ...prev, ...newData }))
     }
 
     const handleSubmit = async (e: React.FormEvent) => {

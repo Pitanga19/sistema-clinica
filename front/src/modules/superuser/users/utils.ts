@@ -1,7 +1,7 @@
-import { userFormDataDefault, type UserFormData } from "./types";
+import { userDefaultData, type UserFormData } from './types'
 
 export const getToSendUserData = (data: UserFormData): Partial<UserFormData> => {
-    const defaultData = userFormDataDefault
+    const defaultData = userDefaultData
     const toSendData: Partial<UserFormData> = {
         id: undefined,
         username: undefined,
@@ -17,7 +17,7 @@ export const getToSendUserData = (data: UserFormData): Partial<UserFormData> => 
     if (data.password !== defaultData.password) toSendData.password = data.password
     if (data.fullName !== defaultData.fullName) toSendData.fullName = data.fullName
     if (data.roleId !== defaultData.roleId) toSendData.roleId = data.roleId
-    
+
     toSendData.isActive = data.isActive
     toSendData.isSuperuser = data.isSuperuser
 

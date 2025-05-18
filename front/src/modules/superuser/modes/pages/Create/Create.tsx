@@ -1,17 +1,17 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ModeService } from '../../service'
-import { ModeFormDefaultData } from '../../types'
+import { modeDefaultData } from '../../types'
 import type { ModeFormData } from '../../types'
 import ModeFormView from '../../components/ModeForm.view'
 
 const ModesCreate = () => {
-    const [data, setData] = useState<ModeFormData>(ModeFormDefaultData)
+    const [data, setData] = useState<ModeFormData>(modeDefaultData)
     const [error, setError] = useState<string | null>(null)
     const navigate = useNavigate()
 
     const handleDataChange = (newData: Partial<ModeFormData>) => {
-        setData(prev => ({ ...prev, ...newData }))
+        setData((prev) => ({ ...prev, ...newData }))
     }
 
     const handleSubmit = async (e: React.FormEvent) => {

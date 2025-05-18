@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { PlanService } from '../../service'
 import { EntityService } from '../../../entities/service'
-import { PlanFormDefaultData } from '../../types'
+import { planDefaultData } from '../../types'
 import type { PlanFormData } from '../../types'
 import type { Entity } from '../../../entities/types'
 import PlanFormView from '../../components/PlanForm.view'
 
 const PlansCreate = () => {
-    const [data, setData] = useState<PlanFormData>(PlanFormDefaultData)
+    const [data, setData] = useState<PlanFormData>(planDefaultData)
     const [entities, setEntities] = useState<Entity[]>([])
     const [error, setError] = useState<string | null>(null)
     const navigate = useNavigate()
@@ -22,7 +22,7 @@ const PlansCreate = () => {
     }
 
     const handleDataChange = (newData: Partial<PlanFormData>) => {
-        setData(prev => ({ ...prev, ...newData }))
+        setData((prev) => ({ ...prev, ...newData }))
     }
 
     const handleSubmit = async (e: React.FormEvent) => {

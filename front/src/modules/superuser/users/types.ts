@@ -25,12 +25,12 @@ export interface UserFormData {
     roleId: number
 }
 
-export const userFormDataDefault: UserFormData = {
-        id: 0,
-        username: '',
-        password: '',
-        fullName: '',
-        isActive: true,
-        isSuperuser: false,
-        roleId: 0,
-    }
+export const userDefaultData: UserFormData = {
+    id: 0,
+    username: '',
+    password: '',
+    fullName: '',
+    isActive: true,
+    isSuperuser: false,
+    roleId: 0,
+}
