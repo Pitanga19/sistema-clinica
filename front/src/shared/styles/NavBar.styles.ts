@@ -7,4 +7,4 @@ export const StyledNavBar = styled.nav`
     align-items: center;
     background-color: ${({ theme }) => theme.buttonBackground};
     color: ${({ theme }) => theme.buttonTextColor};
-    `
+`
