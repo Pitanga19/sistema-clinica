@@ -33,3 +33,11 @@ class People(PersonBase):
     class Config:
         orm_mode = True
         from_attributes = True
+
+class PeopleFilter(BaseModel):
+    id: Optional[Annotated[int, Field(gt=0, lt=100000000)]] = None
+    first_name: Optional[Annotated[str, Field(min_length=1)]] = None
+    last_name: Optional[Annotated[str, Field(min_length=1)]] = None
+    is_patient: Optional[bool] = None
+    entity_id: Optional[Annotated[int, Field(gt=0)]] = None
+    plan_id: Optional[Annotated[int, Field(gt=0)]] = None

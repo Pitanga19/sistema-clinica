@@ -2,9 +2,8 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
 from app.db.session import get_db
-from app.modules.people.schemas import People
 from app.modules.people import service
-from app.modules.people.schemas import People
+from app.modules.people.schemas import People, PeopleFilter
 from app.db.tables.persons.schemas import PersonCreate, PersonUpdate
 from app.db.tables.patients.schemas import PatientCreate, PatientUpdate
 
@@ -25,25 +24,12 @@ async def create_non_patient_endpoint(person_data: PersonCreate, db: AsyncSessio
 async def create_patient_from_person_endpoint(person_id: int, patient_data: PatientCreate, db: AsyncSession=Depends(get_db)) -> People:
     return await service.create_patient_from_person(person_id, patient_data, db)
 
-@router.get('/patients/{person_id}', response_model=People, status_code=200)
-async def get_patient_endpoint(person_id: int, db: AsyncSession=Depends(get_db)) -> People:
-    return await service.get_patient_by_person_id(person_id, db)
-
-@router.get('/non_patients/{person_id}', response_model=People, status_code=200)
-async def get_non_patient_endpoint(person_id: int, db: AsyncSession=Depends(get_db)) -> People:
-    return await service.get_non_patient_by_person_id(person_id, db)
-
-@router.get('/patients', response_model=List[People], status_code=200)
-async def get_patients_endpoint(db: AsyncSession=Depends(get_db)) -> List[People]:
-    return await service.get_all_patients(db)
-
-@router.get('/non_patients', response_model=List[People], status_code=200)
-async def get_non_patients_endpoint(db: AsyncSession=Depends(get_db)) -> List[People]:
-    return await service.get_all_non_patients(db)
-
 @router.get('/', response_model=List[People], status_code=200)
-async def get_people_endpoint(db: AsyncSession=Depends(get_db)) -> List[People]:
-    return await service.get_all(db)
+async def get_people_endpoint(
+    filter: PeopleFilter = Depends(),
+    db: AsyncSession = Depends(get_db)
+) -> List[People]:
+    return await service.get_patient_filtered(filter, db)
 
 @router.patch('/patients/{person_id}', response_model=People, status_code=200)
 async def update_patient_endpoint(
