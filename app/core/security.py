@@ -4,7 +4,7 @@ import pytz
 from jose import JWTError, jwt
 from app.core.config import settings
 from app.core.exceptions import InvalidTokenError
-from app.auth.schemas import TokenData
+from app.modules.auth.schemas import TokenData
 
 # Contexto para hash de contraseñas
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

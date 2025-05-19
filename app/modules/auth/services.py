@@ -2,7 +2,7 @@ from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.security import verify_password, create_access_token, verify_token
 from app.core.exceptions import InactiveUserError, IncorrectPasswordError
-from app.auth.schemas import Token, TokenData, PasswordUpdate
+from app.modules.auth.schemas import Token, TokenData, PasswordUpdate
 from app.db.tables.users import crud as user_crud
 from app.db.tables.users.schemas import UserUpdate
 

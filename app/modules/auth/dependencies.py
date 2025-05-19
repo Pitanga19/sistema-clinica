@@ -1,7 +1,7 @@
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from app.core.security import verify_token
-from app.auth.schemas import TokenData
+from app.modules.auth.schemas import TokenData
 
 # Esquema del header de autorización
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='/auth/login')
