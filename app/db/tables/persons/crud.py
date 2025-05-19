@@ -19,6 +19,7 @@ async def create(data: PersonCreate, db: AsyncSession) -> Person:
         phone_2=data.phone_2,
         email=data.email,
         address=data.address,
+        is_patient=data.is_patient
     )
     
     db.add(person)
@@ -32,6 +33,10 @@ async def get_by_id(id: int, db: AsyncSession) -> Person | None:
 
 async def get_by_last_name(last_name: str, db: AsyncSession) -> List[Person]:
     stmt = select(Person).where(Person.last_name == last_name)
+    return await utils.get_many(stmt, db)
+
+async def get_patients(db: AsyncSession) -> List[Person]:
+    stmt = select(Person).where(Person.is_patient == True)
     return await utils.get_many(stmt, db)
 
 async def get_all(db: AsyncSession) -> List[Person]:
@@ -58,6 +63,8 @@ async def update(id: int, data: PersonUpdate, db: AsyncSession) -> Person | None
         person.email = data.email
     if data.address:
         person.address = data.address
+    if data.is_patient is not None:
+        person.is_patient = data.is_patient
     
     return await utils.commit_and_refresh(person, db)
 

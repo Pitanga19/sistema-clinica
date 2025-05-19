@@ -9,6 +9,7 @@ class PersonBase(BaseModel):
     phone_2: Annotated[Optional[str], Field(min_length=10, max_length=15)] = None
     email: Annotated[Optional[str], Field(min_length=3, max_length=120)] = None
     address: Annotated[str, Field(..., min_length=3, max_length=120)]
+    is_patient: Annotated[bool, Field(default=False)]
     
     model_config = {
         'from_attributes': True,
@@ -28,3 +29,5 @@ class PersonUpdate(BaseModel):
     phone_2: Annotated[Optional[str], Field(min_length=10, max_length=15)] = None
     email: Annotated[Optional[str], Field(min_length=3, max_length=120)] = None
     address: Annotated[Optional[str], Field(min_length=3, max_length=120)] = None
+    is_patient: Optional[bool] = None
+    

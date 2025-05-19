@@ -1,4 +1,4 @@
-from sqlalchemy import String
+from sqlalchemy import String, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base_class import Base
 
@@ -13,6 +13,7 @@ class Person(Base):
     phone_2: Mapped[str] = mapped_column(String, nullable=True)
     email: Mapped[str] = mapped_column(String, nullable=True)
     address: Mapped[str] = mapped_column(String, nullable=False)
+    is_patient: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     
     # Relaciones
     patient = relationship('Patient', back_populates='person', uselist=False, cascade='all, delete-orphan', passive_deletes=True)

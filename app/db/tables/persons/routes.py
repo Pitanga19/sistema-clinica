@@ -22,6 +22,10 @@ async def get_by_id(id: int, db: AsyncSession=Depends(get_db)) -> PersonRead | N
 async def get_by_last_name(last_name: str, db: AsyncSession=Depends(get_db)) -> List[PersonRead]:
     return await crud.get_by_last_name(last_name, db)
 
+@router.get('/patients', response_model=List[PersonRead], status_code=200)
+async def get_patients(db: AsyncSession=Depends(get_db)) -> List[PersonRead]:
+    return await crud.get_patients(db)
+
 @router.get('/', response_model=List[PersonRead], status_code=200)
 async def get_all(db: AsyncSession=Depends(get_db)) -> List[PersonRead]:
     return await crud.get_all(db)
