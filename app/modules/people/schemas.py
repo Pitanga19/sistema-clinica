@@ -1,17 +1,15 @@
 from pydantic import BaseModel, Field
 from typing import Annotated, Optional
+from app.db.tables.entities.schemas import EntityBase
 from app.db.tables.persons.schemas import PersonBase
 
-
-class EntityOut(BaseModel):
-    name: Annotated[str, Field(..., min_length=1)]
-
+class EntityOut(EntityBase):
     class Config:
         orm_mode = True
         from_attributes = True
 
-
 class PlanOut(BaseModel):
+    id: Annotated[int, Field(..., gt=0)]
     name: Annotated[str, Field(..., min_length=1)]
     entity: EntityOut
 
