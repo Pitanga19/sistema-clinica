@@ -1,7 +1,7 @@
 import importlib
 from pathlib import Path
 
-def collect_routers() -> list:
+def collect_db_routers() -> list:
     routers = []
     base_path = Path(__file__).resolve().parent.parent / 'tables'  # Va desde utils → db → tables
     
