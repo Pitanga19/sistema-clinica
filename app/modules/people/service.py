@@ -11,7 +11,7 @@ from app.db.tables.patients.schemas import PatientCreate, PatientUpdate
 from app.db.tables.patients.model import Patient
 from app.db.tables.patients import crud as patients_crud
 from app.db.tables.plans.model import Plan
-from app.modules.people.schemas import PatientComplete
+from app.modules.people.schemas import People
 
 async def create_patient(person_data: PersonCreate, patient_data: PatientCreate, db: AsyncSession) -> Person:
     if (person_data.id != patient_data.person_id):
@@ -22,7 +22,7 @@ async def create_patient(person_data: PersonCreate, patient_data: PatientCreate,
     
     return await get_patient_by_person_id(person_data.id, db)
 
-async def create_non_patient(person_data: PersonCreate, db: AsyncSession) -> PatientComplete:
+async def create_non_patient(person_data: PersonCreate, db: AsyncSession) -> People:
     return await person_crud.create(person_data, db)
 
 async def get_patient_by_person_id(person_id: int, db: AsyncSession) -> Person | None:
@@ -56,6 +56,16 @@ async def get_all_patients(db: AsyncSession) -> List[Person]:
 async def get_all_non_patients(db: AsyncSession) -> List[Person]:
     stmt = (select(Person)
         .where(Person.is_patient == False)
+    )
+    return await utils.get_many(stmt, db)
+
+async def get_all(db: AsyncSession) -> List[Person]:
+    stmt = (select(Person)
+        .options(
+            joinedload(Person.patient)
+            .joinedload(Patient.plan)
+            .joinedload(Plan.entity)
+        )
     )
     return await utils.get_many(stmt, db)
 

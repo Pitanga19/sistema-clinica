@@ -29,8 +29,8 @@ class PatientOut(BaseModel):
         orm_mode = True
         from_attributes = True
 
-class PatientComplete(PersonBase):
-    patient: PatientOut
+class People(PersonBase):
+    patient: Optional[PatientOut]
     
     class Config:
         orm_mode = True
