@@ -18,6 +18,13 @@ async def create_patient(data: PatientCreate, db: AsyncSession=Depends(get_db)) 
 async def get_by_id(id: int, db: AsyncSession=Depends(get_db)) -> PatientRead | None:
     return await crud.get_by_id(id, db)
 
+@router.get('/by_clinical_history_number/{clinical_history_number}', response_model=PatientRead, status_code=200)
+async def get_by_clinical_history_number(
+    clinical_history_number: int,
+    db: AsyncSession=Depends(get_db)
+) -> PatientRead | None:
+    return await crud.get_by_clinical_history_number(clinical_history_number, db)
+
 @router.get('/by_person_id/{person_id}', response_model=PatientRead, status_code=200)
 async def get_by_person_id(person_id: int, db: AsyncSession=Depends(get_db)) -> PatientRead | None:
     return await crud.get_by_person_id(person_id, db)

@@ -7,7 +7,8 @@ class Patient(Base):
     __table_args__ = {'extend_existing': True}
     
     id: Mapped[int] = mapped_column(primary_key=True)
-    entity_code: Mapped[str] = mapped_column(String)
+    clinical_history_number: Mapped[int] = mapped_column(Integer, index=True, unique=True, nullable=False)
+    entity_code: Mapped[str] = mapped_column(String, nullable=False)
     plan_id: Mapped[int] = mapped_column(Integer,ForeignKey('plans.id', name='plan_id'), index=True, nullable=False)
     person_id: Mapped[int] = mapped_column(Integer,ForeignKey('persons.id', name='patient_person_id', ondelete='CASCADE'), unique=True, nullable=False)
     
