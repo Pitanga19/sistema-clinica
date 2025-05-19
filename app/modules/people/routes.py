@@ -21,6 +21,10 @@ async def create_patient_endpoint(person_data: PersonCreate, patient_data: Patie
 async def create_non_patient_endpoint(person_data: PersonCreate, db: AsyncSession=Depends(get_db)) -> People:
     return await service.create_non_patient(person_data, db)
 
+@router.post('/patients/{person_id}', response_model=People, status_code=201)
+async def create_patient_from_person_endpoint(person_id: int, patient_data: PatientCreate, db: AsyncSession=Depends(get_db)) -> People:
+    return await service.create_patient_from_person(person_id, patient_data, db)
+
 @router.get('/patients/{person_id}', response_model=People, status_code=200)
 async def get_patient_endpoint(person_id: int, db: AsyncSession=Depends(get_db)) -> People:
     return await service.get_patient_by_person_id(person_id, db)
