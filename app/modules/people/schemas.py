@@ -1,11 +1,11 @@
 from pydantic import BaseModel, Field
 from typing import Annotated, Optional
-from app.db.tables.entities.schemas import EntityBase
+from app.db.tables.entities.schemas import EntityRead
 from app.db.tables.persons.schemas import PersonBase, PersonUpdate
 from app.db.tables.patients.schemas import PatientUpdate
 
 
-class EntityOut(EntityBase):
+class EntityOut(EntityRead):
     class Config:
         orm_mode = True
         from_attributes = True
