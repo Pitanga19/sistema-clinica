@@ -36,12 +36,6 @@ const DashboardView = ({
                     </InLineButton>
                 </ListItem>
                 <ListItem>
-                    Gestión de personas
-                    <InLineButton onClick={goToPersonsList}>
-                        <FontAwesomeIcon icon={faArrowRight} />
-                    </InLineButton>
-                </ListItem>
-                <ListItem>
                     Gestión de obras sociales
                     <InLineButton onClick={goToEntitiesList}>
                         <FontAwesomeIcon icon={faArrowRight} />
@@ -50,6 +44,12 @@ const DashboardView = ({
                 <ListItem>
                     Gestión de planes
                     <InLineButton onClick={goToPlansList}>
+                        <FontAwesomeIcon icon={faArrowRight} />
+                    </InLineButton>
+                </ListItem>
+                <ListItem>
+                    Gestión de personas
+                    <InLineButton onClick={goToPersonsList}>
                         <FontAwesomeIcon icon={faArrowRight} />
                     </InLineButton>
                 </ListItem>

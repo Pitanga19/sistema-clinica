@@ -15,12 +15,12 @@ const Dashboard = () => {
     const navigateToRolesList = () => navigate('/roles')
 
     const navigateToUsersList = () => navigate('/users')
-
-    const navigateToPersonsList = () => navigate('/persons')
-
+    
     const navigateToEntitiesList = () => navigate('/entities')
-
+    
     const navigateToPlansList = () => navigate('/plans')
+    
+    const navigateToPersonsList = () => navigate('/people')
 
     return (
         <DashboardView
