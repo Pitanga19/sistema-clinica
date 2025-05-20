@@ -1,7 +1,9 @@
 from pydantic import BaseModel, Field
 from typing import Annotated, Optional
 from app.db.tables.entities.schemas import EntityBase
-from app.db.tables.persons.schemas import PersonBase
+from app.db.tables.persons.schemas import PersonBase, PersonUpdate
+from app.db.tables.patients.schemas import PatientUpdate
+
 
 class EntityOut(EntityBase):
     class Config:
@@ -34,8 +36,11 @@ class People(PersonBase):
         orm_mode = True
         from_attributes = True
 
+class PeopleUpdate(PersonUpdate, PatientUpdate):
+    pass
+
 class PeopleFilter(BaseModel):
-    id: Optional[Annotated[int, Field(gt=0, lt=100000000)]] = None
+    dni: Optional[Annotated[str, Field(min_length=1)]] = None
     first_name: Optional[Annotated[str, Field(min_length=1)]] = None
     last_name: Optional[Annotated[str, Field(min_length=1)]] = None
     is_patient: Optional[bool] = None
