@@ -21,4 +21,3 @@ class PatientUpdate(BaseModel):
     clinical_history_number: Annotated[int, Field(..., min_length=3, max_length=120)]
     entity_code: Annotated[Optional[str], Field(min_length=3, max_length=120)] = None
     plan_id: Annotated[Optional[int], Field(gt=0)] = None
-    person_id: Annotated[Optional[int], Field(gt=1000000, lt=99999999)] = None
