@@ -7,6 +7,7 @@ class Person(Base):
     __table_args__ = {'extend_existing': True}
     
     id: Mapped[int] = mapped_column(primary_key=True)
+    dni: Mapped[str] = mapped_column(String, index=True, unique=True, nullable=False)
     first_name: Mapped[str] = mapped_column(String, nullable=False)
     last_name: Mapped[str] = mapped_column(String, index=True, nullable=False)
     phone_1: Mapped[str] = mapped_column(String, nullable=False)

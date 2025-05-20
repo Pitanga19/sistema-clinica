@@ -7,12 +7,12 @@ from app.db.tables.persons.schemas import *
 
 async def create(data: PersonCreate, db: AsyncSession) -> Person:
     should_exist = False
-    search_fields = [utils.SearchField(field='id', value=data.id)]
-    stmt = select(Person).where(Person.id == data.id)
+    search_fields = [utils.SearchField(field='dni', value=data.dni)]
+    stmt = select(Person).where(Person.dni == data.dni)
     await utils.get_validated(stmt, should_exist, search_fields, db)
     
     person = Person(
-        id=data.id,
+        dni=data.dni,
         first_name=data.first_name,
         last_name=data.last_name,
         phone_1=data.phone_1,
@@ -31,6 +31,12 @@ async def get_by_id(id: int, db: AsyncSession) -> Person | None:
     search_fields = [utils.SearchField(field='id', value=id)]
     return await utils.get_validated(stmt, should_exist, search_fields, db)
 
+async def get_by_dni(dni: str, db: AsyncSession) -> Person | None:
+    stmt = select(Person).where(Person.dni == dni)
+    should_exist = True
+    search_fields = [utils.SearchField(field='dni', value=dni)]
+    return await utils.get_validated(stmt, should_exist, search_fields, db)
+
 async def get_by_last_name(last_name: str, db: AsyncSession) -> List[Person]:
     stmt = select(Person).where(Person.last_name == last_name)
     return await utils.get_many(stmt, db)
@@ -45,12 +51,12 @@ async def get_all(db: AsyncSession) -> List[Person]:
 async def update(id: int, data: PersonUpdate, db: AsyncSession) -> Person | None:
     person = await get_by_id(id, db)
     
-    if data.id:
+    if data.dni:
         should_exist = False
-        search_fields = [('id', data.id)]
-        stmt = select(Person).where(Person.id == data.id)
+        search_fields = [('dni', data.dni)]
+        stmt = select(Person).where(Person.dni == data.dni)
         await utils.get_validated(stmt, should_exist, search_fields, db)
-        person.id = data.id
+        person.dni = data.dni
     if data.first_name:
         person.first_name = data.first_name
     if data.last_name:
