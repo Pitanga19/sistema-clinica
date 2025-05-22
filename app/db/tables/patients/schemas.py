@@ -5,7 +5,7 @@ class PatientBase(BaseModel):
     clinical_history_number: Annotated[int, Field(..., gt=0)]
     entity_code: Annotated[str, Field(..., min_length=3, max_length=120)]
     plan_id: Annotated[int, Field(..., gt=0)]
-    person_id: Annotated[int, Field(..., gt=1000000, lt=99999999)]
+    person_id: Annotated[int, Field(..., gt=0)]
     
     model_config = {
         'from_attributes': True,
