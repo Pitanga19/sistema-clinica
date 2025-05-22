@@ -7,33 +7,32 @@ from app.db.tables.patients.schemas import PatientUpdate
 
 class EntityOut(EntityRead):
     class Config:
-        orm_mode = True
         from_attributes = True
 
 class PlanOut(BaseModel):
     id: Annotated[int, Field(..., gt=0)]
     name: Annotated[str, Field(..., min_length=1)]
+    entity_id: Annotated[int, Field(..., gt=0)]
     entity: EntityOut
 
     class Config:
-        orm_mode = True
         from_attributes = True
 
 class PatientOut(BaseModel):
     id: Annotated[int, Field(..., gt=0)]
     clinical_history_number: Annotated[int, Field(..., gt=0)]
     entity_code: Annotated[str, Field(..., min_length=3, max_length=120)]
+    plan_id: Annotated[int, Field(..., gt=0)]
     plan: PlanOut
     
     class Config:
-        orm_mode = True
         from_attributes = True
 
 class People(PersonBase):
+    id: Optional[Annotated[int, Field(gt=0)]] = None
     patient: Optional[PatientOut]
     
     class Config:
-        orm_mode = True
         from_attributes = True
 
 class PeopleUpdate(PersonUpdate, PatientUpdate):
