@@ -72,3 +72,11 @@ export const StyledLabel = styled.label`
     align-items: start;
     font-size: 1rem;
 `
+
+export const StyledTableFilterTextInput = styled(StyledTextInput)`
+    width: 100%;
+`
+
+export const StyledTableFilterSelect = styled(StyledSelect)`
+    width: 100%;
+`

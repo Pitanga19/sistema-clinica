@@ -1,5 +1,11 @@
 import styled from 'styled-components'
 
+export const StyledConditionalContainer = styled.div<{ $show: boolean }>`
+    display: ${({ $show }) => ($show ? "flex" : "none")};
+    flex-direction: column;
+    gap: 1rem;
+`
+
 export const StyledBaseContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -41,4 +47,14 @@ export const StyledButtonContainer = styled(StyledBaseContainer)`
     max-width: 30rem;
     padding: 1rem 0 0;
     gap: 0;
+`
+
+export const StyledTableFilterFormContainer = styled(StyledBaseContainer)`
+    flex-direction: row;
+    align-items: center;
+`
+
+export const StyledTableFilterInputContainer = styled(StyledBaseContainer)`
+    flex-direction: row;
+    width: 8rem;
 `

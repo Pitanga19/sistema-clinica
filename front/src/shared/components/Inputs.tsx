@@ -5,7 +5,9 @@ import {
     StyledSelect,
     StyledOption,
     StyledCheckbox,
-    StyledLabel
+    StyledLabel,
+    StyledTableFilterTextInput,
+    StyledTableFilterSelect,
 } from '../styles/Inputs.styles'
 
 type LabelProps = {
@@ -35,4 +37,12 @@ export const Checkbox = (props: InputHTMLAttributes<HTMLInputElement>) => {
 
 export const Label = ({ htmlFor, children }: LabelProps) => {
     return <StyledLabel htmlFor={htmlFor}>{children}</StyledLabel>
+}
+
+export const TableFilterTextInput = (props: InputHTMLAttributes<HTMLInputElement>) => {
+    return <StyledTableFilterTextInput {...props} />
+}
+
+export const TableFilterSelect = (props: InputHTMLAttributes<HTMLSelectElement>) => {
+    return <StyledTableFilterSelect {...props} />
 }

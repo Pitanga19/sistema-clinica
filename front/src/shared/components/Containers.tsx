@@ -1,12 +1,22 @@
 import {
+    StyledConditionalContainer,
     StyledBaseContainer,
     StyledMainContainer,
     StyledCardContainer,
     StyledFormContainer,
     StyledInputContainer,
     StyledButtonContainer,
+    StyledTableFilterFormContainer,
+    StyledTableFilterInputContainer,
 } from "../styles/Containers.styles"
 import type { ReactNode, FormHTMLAttributes, HTMLAttributes } from "react"
+
+interface ConditionalContainerProps {
+    children: ReactNode
+    show: boolean
+    className?: string
+    id?: string
+}
 
 type ContainerProps = HTMLAttributes<HTMLDivElement> & {
     children: ReactNode
@@ -18,6 +28,23 @@ type FormProps = FormHTMLAttributes<HTMLFormElement> & {
     children: ReactNode
     className?: string
     id?: string
+}
+
+export const ConditionalContainer = ({
+    children,
+    show,
+    className,
+    id,
+}: ConditionalContainerProps) => {
+    return (
+        <StyledConditionalContainer
+            $show={show}
+            className={className}
+            id={id}
+        >
+            {children}
+        </StyledConditionalContainer>
+    )
 }
 
 export const BaseContainer = ({ children, className, id }: ContainerProps) => {
@@ -75,5 +102,35 @@ export const ButtonContainer = ({ children, className, id }: ContainerProps) => 
         <StyledButtonContainer className={className} id={id}>
             {children}
         </StyledButtonContainer>
+    )
+}
+
+export const TableFilterFormContainer = ({
+    children,
+    className,
+    id,
+    ...rest
+}: FormProps) => {
+    return (
+        <StyledTableFilterFormContainer
+            as="form"
+            className={className}
+            id={id}
+            {...rest}
+        >
+            {children}
+        </StyledTableFilterFormContainer>
+    )
+}
+
+export const TableFilterInputContainer = ({
+    children,
+    className,
+    id,
+}: ContainerProps) => {
+    return (
+        <StyledTableFilterInputContainer className={className} id={id}>
+            {children}
+        </StyledTableFilterInputContainer>
     )
 }
