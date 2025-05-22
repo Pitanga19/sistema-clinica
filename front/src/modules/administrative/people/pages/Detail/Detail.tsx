@@ -1,25 +1,27 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import PersonsDetailView from './Detail.view'
-import { PersonService } from '../../service'
-import type { Person } from '../../types'
+import PeopleDetailView from './Detail.view'
+import { PeopleService } from '../../service'
+import type { People } from '../../types'
 
-const PersonsDetail = () => {
+const PeopleDetail = () => {
     const { id } = useParams<{ id: string }>()
-    const [person, setPerson] = useState<Person | null>(null)
+    const [people, setPeople] = useState<People | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
     const loadingMsg = 'Cargando persona ...'
     const navigate = useNavigate()
 
-    const fetchPerson = async () => {
+    const fetchPeople = async () => {
         if (!id) {
             setError('ID no proporcionado')
             setLoading(false)
             return
         }
         try {
-            setPerson(await PersonService.getById(Number(id)))
+            const fetchedPeople = await PeopleService.getByPersonId(Number(id))
+            console.log('fetchedPeople', fetchedPeople)
+            setPeople(fetchedPeople)
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Error desconocido'
             setError(errorMessage)
@@ -28,15 +30,17 @@ const PersonsDetail = () => {
         }
     }
 
-    const handleEdit = (personId: number) => navigate(`/persons/update/${personId}`)
+    const handleEdit = (peopleId: number) => {
+        navigate(`/people/update/${peopleId}`)
+    }
 
     useEffect(() => {
-        fetchPerson()
+        fetchPeople()
     }, [])
 
     return (
-        <PersonsDetailView
-            person={person}
+        <PeopleDetailView
+            people={people}
             loading={loading}
             loadingMsg={loadingMsg}
             error={error}
@@ -45,4 +49,4 @@ const PersonsDetail = () => {
     )
 }
 
-export default PersonsDetail
+export default PeopleDetail
