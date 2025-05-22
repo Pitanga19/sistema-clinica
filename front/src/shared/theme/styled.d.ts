@@ -7,5 +7,6 @@ declare module 'styled-components' {
         buttonBackground: string
         buttonHoverBackground: string
         buttonTextColor: string
+        tableBorderColor: string
     }
 }
