@@ -25,21 +25,21 @@ async def get_by_person_id_endpoint(
     return await service.get_by_person_id(person_id, db)
 
 @router.get('/', response_model=List[People], status_code=200)
-async def get_people_endpoint(
+async def get_filtered_endpoint(
     filter: PeopleFilter = Depends(),
     db: AsyncSession = Depends(get_db)
 ) -> List[People]:
     return await service.get_filtered(filter, db)
 
-@router.patch('/patients/{person_id}', response_model=People, status_code=200)
-async def update_patient_endpoint(
+@router.patch('/{person_id}', response_model=People, status_code=200)
+async def update_endpoint(
     person_id: int,
     data: PeopleUpdate,
     db: AsyncSession=Depends(get_db)
 ) -> People:
     return await service.update_patient(person_id, data, db)
 
-@router.delete('/remove_patient/{person_id}', status_code=204)
+@router.delete('/remove-patient/{person_id}', status_code=204)
 async def remove_patient_endpoint(
     person_id: int,
     db: AsyncSession=Depends(get_db)
