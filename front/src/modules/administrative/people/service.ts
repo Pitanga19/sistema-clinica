@@ -23,7 +23,7 @@ export class PeopleService {
     }
 
     static removePatient = async (personId: number): Promise<People> => {
-        const res = await api.patch(`/people/${personId}/remove-patient`)
+        const res = await api.patch(`/people/remove-patient/${personId}`)
         return res.data
     }
 
