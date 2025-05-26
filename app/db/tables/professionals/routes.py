@@ -14,11 +14,11 @@ router = APIRouter(
 async def create_professional(data: ProfessionalCreate, db: AsyncSession=Depends(get_db)) -> ProfessionalRead:
     return await crud.create(data, db)
 
-@router.get('/by_id/{id}', response_model=ProfessionalRead, status_code=200)
+@router.get('/by-id/{id}', response_model=ProfessionalRead, status_code=200)
 async def get_by_id(id: int, db: AsyncSession=Depends(get_db)) -> ProfessionalRead | None:
     return await crud.get_by_id(id, db)
 
-@router.get('/by_user_id/{user_id}', response_model=ProfessionalRead, status_code=200)
+@router.get('/by-user-id/{user_id}', response_model=ProfessionalRead, status_code=200)
 async def get_by_user_id(user_id: int, db: AsyncSession=Depends(get_db)) -> ProfessionalRead | None:
     return await crud.get_by_user_id(user_id, db)
 

@@ -39,7 +39,7 @@ async def update_patient_endpoint(
 ) -> People:
     return await service.update_patient(person_id, data, db)
 
-@router.delete('/remove_patient/{person_id}', status_code=204)
+@router.delete('/remove-patient/{person_id}', status_code=204)
 async def remove_patient_endpoint(
     person_id: int,
     db: AsyncSession=Depends(get_db)

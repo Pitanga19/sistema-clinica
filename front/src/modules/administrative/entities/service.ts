@@ -8,12 +8,12 @@ export class EntityService {
     }
 
     static getById = async (id: number): Promise<Entity> => {
-        const res = await api.get(`/entities/by_id/${id}`)
+        const res = await api.get(`/entities/by-id/${id}`)
         return res.data
     }
 
     static getByName = async (name: string): Promise<Entity> => {
-        const res = await api.get(`/entities/by_name/${name}`)
+        const res = await api.get(`/entities/by-name/${name}`)
         return res.data
     }
 

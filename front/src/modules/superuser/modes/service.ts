@@ -8,17 +8,17 @@ export class ModeService {
     }
 
     static getById = async (id: number): Promise<Mode> => {
-        const res = await api.get(`/modes/by_id/${id}`)
+        const res = await api.get(`/modes/by-id/${id}`)
         return res.data
     }
 
     static getByName = async (name: string): Promise<Mode> => {
-        const res = await api.get(`/modes/by_name/${name}`)
+        const res = await api.get(`/modes/by-name/${name}`)
         return res.data
     }
 
     static getByAssignmentId = async (assignmentId: number): Promise<Mode[]> => {
-        const res = await api.get(`/modes/by_assignment/${assignmentId}`)
+        const res = await api.get(`/modes/by-assignment/${assignmentId}`)
         return res.data
     }
 

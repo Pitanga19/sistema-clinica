@@ -14,11 +14,11 @@ router = APIRouter(
 async def create_plan(data: PlanCreate, db: AsyncSession=Depends(get_db)) -> PlanRead:
     return await crud.create(data, db)
 
-@router.get('/by_id/{id}', response_model=PlanRead, status_code=200)
+@router.get('/by-id/{id}', response_model=PlanRead, status_code=200)
 async def get_by_id(id: int, db: AsyncSession=Depends(get_db)) -> PlanRead | None:
     return await crud.get_by_id(id, db)
 
-@router.get('/by_entity_id/{entity_id}', response_model=List[PlanRead], status_code=200)
+@router.get('/by-entity-id/{entity_id}', response_model=List[PlanRead], status_code=200)
 async def get_by_entity_id(entity_id: int, db: AsyncSession=Depends(get_db)) -> List[PlanRead]:
     return await crud.get_by_entity_id(entity_id, db)
 

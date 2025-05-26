@@ -14,15 +14,15 @@ router = APIRouter(
 async def create_person(data: PersonCreate, db: AsyncSession=Depends(get_db)) -> PersonRead:
     return await crud.create(data, db)
 
-@router.get('/by_id/{id}', response_model=PersonRead, status_code=200)
+@router.get('/by-id/{id}', response_model=PersonRead, status_code=200)
 async def get_by_id(id: int, db: AsyncSession=Depends(get_db)) -> PersonRead | None:
     return await crud.get_by_id(id, db)
 
-@router.get('/by_dni/{dni}', response_model=PersonRead, status_code=200)
+@router.get('/by-dni/{dni}', response_model=PersonRead, status_code=200)
 async def get_by_dni(dni: str, db: AsyncSession=Depends(get_db)) -> PersonRead | None:
     return await crud.get_by_dni(dni, db)
 
-@router.get('/by_last_name/{last_name}', response_model=List[PersonRead], status_code=200)
+@router.get('/by-last-name/{last_name}', response_model=List[PersonRead], status_code=200)
 async def get_by_last_name(last_name: str, db: AsyncSession=Depends(get_db)) -> List[PersonRead]:
     return await crud.get_by_last_name(last_name, db)
 

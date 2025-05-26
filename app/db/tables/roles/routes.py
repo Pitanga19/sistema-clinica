@@ -14,15 +14,15 @@ router = APIRouter(
 async def create_role(data: RoleCreate, db: AsyncSession=Depends(get_db)) -> RoleRead:
     return await crud.create(data, db)
 
-@router.get('/by_id/{id}', response_model=RoleRead, status_code=200)
+@router.get('/by-id/{id}', response_model=RoleRead, status_code=200)
 async def get_by_id(id: int, db: AsyncSession=Depends(get_db)) -> RoleRead | None:
     return await crud.get_by_id(id, db)
 
-@router.get('/by_name/{name}', response_model=RoleRead, status_code=200)
+@router.get('/by-name/{name}', response_model=RoleRead, status_code=200)
 async def get_by_name(name: str, db: AsyncSession=Depends(get_db)) -> RoleRead | None:
     return await crud.get_by_name(name, db)
 
-@router.get('/by_assignment_id/{assignment_id}', response_model=List[RoleRead], status_code=200)
+@router.get('/by-assignment-id/{assignment_id}', response_model=List[RoleRead], status_code=200)
 async def get_by_assignment_id(assignment_id: int, db: AsyncSession=Depends(get_db)) -> List[RoleRead]:
     return await crud.get_by_assignment_id(assignment_id, db)
 

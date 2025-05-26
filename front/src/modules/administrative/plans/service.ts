@@ -8,12 +8,12 @@ export class PlanService {
     }
 
     static getById = async (id: number): Promise<Plan> => {
-        const res = await api.get(`/plans/by_id/${id}`)
+        const res = await api.get(`/plans/by-id/${id}`)
         return res.data
     }
 
     static getByEntityId = async (entityId: number): Promise<Plan[]> => {
-        const res = await api.get(`/plans/by_entity_id/${entityId}`)
+        const res = await api.get(`/plans/by-entity-id/${entityId}`)
         return res.data
     }
 

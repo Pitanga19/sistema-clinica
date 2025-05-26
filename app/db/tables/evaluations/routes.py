@@ -14,19 +14,19 @@ router = APIRouter(
 async def create_evaluation(data: EvaluationCreate, db: AsyncSession=Depends(get_db)) -> EvaluationRead:
     return await crud.create(data, db)
 
-@router.get('/by_id/{id}', response_model=EvaluationRead, status_code=200)
+@router.get('/by-id/{id}', response_model=EvaluationRead, status_code=200)
 async def get_by_id(id: int, db: AsyncSession=Depends(get_db)) -> EvaluationRead | None:
     return await crud.get_by_id(id, db)
 
-@router.get('/by_patient_id/{patient_id}', response_model=List[EvaluationRead], status_code=200)
+@router.get('/by-patient-id/{patient_id}', response_model=List[EvaluationRead], status_code=200)
 async def get_by_patient_id(patient_id: int, db: AsyncSession=Depends(get_db)) -> List[EvaluationRead]:
     return await crud.get_by_patient_id(patient_id, db)
 
-@router.get('/by_professional_id/{professional_id}', response_model=List[EvaluationRead], status_code=200)
+@router.get('/by-professional-id/{professional_id}', response_model=List[EvaluationRead], status_code=200)
 async def get_by_professional_id(professional_id: int, db: AsyncSession=Depends(get_db)) -> List[EvaluationRead]:
     return await crud.get_by_professional_id(professional_id, db)
 
-@router.get('/by_mode_id/{mode_id}', response_model=List[EvaluationRead], status_code=200)
+@router.get('/by-mode-id/{mode_id}', response_model=List[EvaluationRead], status_code=200)
 async def get_by_mode_id(mode_id: int, db: AsyncSession=Depends(get_db)) -> List[EvaluationRead]:
     return await crud.get_by_mode_id(mode_id, db)
 

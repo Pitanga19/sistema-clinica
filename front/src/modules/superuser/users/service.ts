@@ -8,17 +8,17 @@ export class UserService {
     }
 
     static getById = async (id: number): Promise<User> => {
-        const res = await api.get(`/users/by_id/${id}`)
+        const res = await api.get(`/users/by-id/${id}`)
         return res.data
     }
 
     static getByUsername = async (username: string): Promise<User> => {
-        const res = await api.get(`/users/by_username/${username}`)
+        const res = await api.get(`/users/by-username/${username}`)
         return res.data
     }
 
     static getByRoleId = async (roleId: number): Promise<User[]> => {
-        const res = await api.get(`/users/by_role_id/${roleId}`)
+        const res = await api.get(`/users/by-role-id/${roleId}`)
         return res.data
     }
 

@@ -8,17 +8,17 @@ export class RoleService {
     }
 
     static getById = async (id: number): Promise<Role> => {
-        const res = await api.get(`/roles/by_id/${id}`)
+        const res = await api.get(`/roles/by-id/${id}`)
         return res.data
     }
 
     static getByName = async (name: string): Promise<Role> => {
-        const res = await api.get(`/roles/by_name/${name}`)
+        const res = await api.get(`/roles/by-name/${name}`)
         return res.data
     }
 
     static getByAssignmentId = async (assignmentId: number): Promise<Role[]> => {
-        const res = await api.get(`/roles/by_assignment/${assignmentId}`)
+        const res = await api.get(`/roles/by-assignment/${assignmentId}`)
         return res.data
     }
 
