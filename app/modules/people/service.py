@@ -17,9 +17,9 @@ def full_patient_load():
     return joinedload(Person.patient).joinedload(Patient.plan).joinedload(Plan.entity)
 
 async def create(data: People, db: AsyncSession) -> Person:
-    if data.person_id:
+    if data.id:
         make_patient = PersonUpdate(is_patient=True)
-        person = await persons_crud.update(data.person_id, make_patient, db)
+        person = await persons_crud.update(data.id, make_patient, db)
     else:
         person_data = PersonCreate(
             dni=data.dni,
