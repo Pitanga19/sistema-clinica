@@ -20,7 +20,7 @@ async def get_by_id(id: int, db: AsyncSession=Depends(get_db)) -> EvaluationRead
     return await crud.get_by_id(id, db)
 
 @router.get('/by-mode/{mode}', response_model=List[EvaluationRead], status_code=200)
-async def get_by_mode_id(mode: ModeEnum, db: AsyncSession=Depends(get_db)) -> List[EvaluationRead]:
+async def get_by_mode(mode: ModeEnum, db: AsyncSession=Depends(get_db)) -> List[EvaluationRead]:
     return await crud.get_by_mode(mode, db)
 
 @router.get('/by-patient-id/{patient_id}', response_model=List[EvaluationRead], status_code=200)
