@@ -3,6 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
 from app.db.session import get_db
 from app.db.tables.evaluations.schemas import EvaluationRead, EvaluationCreate, EvaluationUpdate
+from app.db.tables.evaluations.enums import ModeEnum
 from app.db.tables.evaluations import crud
 
 router = APIRouter(
@@ -18,6 +19,10 @@ async def create_evaluation(data: EvaluationCreate, db: AsyncSession=Depends(get
 async def get_by_id(id: int, db: AsyncSession=Depends(get_db)) -> EvaluationRead | None:
     return await crud.get_by_id(id, db)
 
+@router.get('/by-mode/{mode}', response_model=List[EvaluationRead], status_code=200)
+async def get_by_mode_id(mode: ModeEnum, db: AsyncSession=Depends(get_db)) -> List[EvaluationRead]:
+    return await crud.get_by_mode(mode, db)
+
 @router.get('/by-patient-id/{patient_id}', response_model=List[EvaluationRead], status_code=200)
 async def get_by_patient_id(patient_id: int, db: AsyncSession=Depends(get_db)) -> List[EvaluationRead]:
     return await crud.get_by_patient_id(patient_id, db)
@@ -25,10 +30,6 @@ async def get_by_patient_id(patient_id: int, db: AsyncSession=Depends(get_db)) -
 @router.get('/by-professional-id/{professional_id}', response_model=List[EvaluationRead], status_code=200)
 async def get_by_professional_id(professional_id: int, db: AsyncSession=Depends(get_db)) -> List[EvaluationRead]:
     return await crud.get_by_professional_id(professional_id, db)
-
-@router.get('/by-mode-id/{mode_id}', response_model=List[EvaluationRead], status_code=200)
-async def get_by_mode_id(mode_id: int, db: AsyncSession=Depends(get_db)) -> List[EvaluationRead]:
-    return await crud.get_by_mode_id(mode_id, db)
 
 @router.get('/', response_model=List[EvaluationRead], status_code=200)
 async def get_all(db: AsyncSession=Depends(get_db)) -> List[EvaluationRead]:

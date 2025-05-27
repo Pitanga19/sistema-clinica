@@ -1,13 +1,14 @@
 from pydantic import BaseModel, Field, field_validator
 from typing import Annotated, Optional
 from datetime import datetime
+from app.db.tables.evaluations.enums import ModeEnum
 
 class EvaluationBase(BaseModel):
     report: Annotated[str, Field(..., min_length=3, max_length=1200)]
     closed_at: Annotated[Optional[datetime], Field()] = None
+    mode: ModeEnum
     patient_id: Annotated[int, Field(..., gt=0)]
     professional_id: Annotated[int, Field(..., gt=0)]
-    mode_id: Annotated[int, Field(..., gt=0)]
     
     @field_validator("closed_at", mode="before")
     @classmethod
@@ -41,6 +42,6 @@ class EvaluationRead(EvaluationBase):
 class EvaluationUpdate(BaseModel):
     report: Annotated[Optional[str], Field(min_length=3, max_length=1200)] = None
     closed_at: Annotated[Optional[datetime], Field()] = None
+    mode: Optional[ModeEnum] = None
     patient_id: Annotated[Optional[int], Field(gt=0)] = None
     professional_id: Annotated[Optional[int], Field(gt=0)] = None
-    mode_id: Annotated[Optional[int], Field(gt=0)] = None
