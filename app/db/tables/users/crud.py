@@ -23,6 +23,7 @@ async def create(data: UserCreate, db: AsyncSession) -> User:
         username=data.username,
         hashed_password=hash_password(data.password),
         full_name=data.full_name,
+        is_professional=data.is_professional,
         is_active=data.is_active,
         is_superuser=data.is_superuser,
         role_id=data.role_id,
@@ -61,6 +62,8 @@ async def update(id: int, data: UserUpdate, db: AsyncSession) -> User | None:
         user.hashed_password = hash_password(data.password)
     if data.full_name:
         user.full_name = data.full_name
+    if data.is_professional is not None:
+        user.is_professional = data.is_professional
     if data.is_active is not None:
         user.is_active = data.is_active
     if data.is_superuser is not None:
