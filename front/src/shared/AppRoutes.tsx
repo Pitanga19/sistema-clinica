@@ -4,6 +4,7 @@ import authRoutes from '../modules/auth/routes'
 import dashboardRoutes from '../modules/dashboard/routes'
 import superuserRoutes from '../modules/superuser/routes'
 import administrativeRoutes from '../modules/administrative/routes'
+import professionalRoutes from '../modules/professional/routes'
 
 const AppRoutes = () => {
     const location = useLocation()
@@ -11,7 +12,8 @@ const AppRoutes = () => {
         ...authRoutes,
         ...dashboardRoutes,
         ...superuserRoutes,
-        ...administrativeRoutes
+        ...administrativeRoutes,
+        ...professionalRoutes,
     ])
 
     const hideNavBarPaths = ['/login']
