@@ -10,7 +10,7 @@ async def create(data: UserCreate, db: AsyncSession) -> User:
     # Verificar si ya existe ...
     should_exist = False
     fields = [
-        ('id', data.id),            # por ID
+        ('file', data.file),        # por legajo
         ('username', data.username) # por username
     ]
     
@@ -19,7 +19,7 @@ async def create(data: UserCreate, db: AsyncSession) -> User:
         await utils.get_validated(stmt, should_exist, search_fields=[utils.SearchField(field=field, value=value)], db=db)
     
     user = User(
-        id=data.id,
+        file=data.file,
         username=data.username,
         hashed_password=hash_password(data.password),
         full_name=data.full_name,
@@ -38,6 +38,12 @@ async def get_by_id(id: int, db: AsyncSession) -> User | None:
     search_fields = [utils.SearchField(field='id', value=id)]
     return await utils.get_validated(stmt, should_exist, search_fields, db)
 
+async def get_by_file(file: str, db: AsyncSession) -> User | None:
+    stmt = select(User).where(User.file == file)
+    should_exist = True
+    search_fields = [utils.SearchField(field='file', value=file)]
+    return await utils.get_validated(stmt, should_exist, search_fields, db)
+
 async def get_by_username(username: str, db: AsyncSession) -> User | None:
     stmt = select(User).where(User.username == username)
     should_exist = True
@@ -54,8 +60,8 @@ async def get_all(db: AsyncSession) -> List[User]:
 async def update(id: int, data: UserUpdate, db: AsyncSession) -> User | None:
     user = await get_by_id(id, db)
     
-    if data.id:
-        user.id = data.id
+    if data.file:
+        user.file = data.file
     if data.username:
         user.username = data.username
     if data.password:
