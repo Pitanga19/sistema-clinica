@@ -20,9 +20,9 @@ class StaffUpdate(UserUpdate, ProfessionalUpdate):
     pass
 
 class StaffFilter(BaseModel):
-    id: Optional[Annotated[int, Field(gt=0, lt=10000)]] = None
-    username: Optional[Annotated[str, Field(min_length=3, max_length=30)]] = None
-    full_name: Optional[Annotated[str, Field(min_length=3, max_length=120)]] = None
+    id: Optional[Annotated[int, Field(gt=0)]] = None
+    username: Optional[Annotated[str, Field(min_length=1)]] = None
+    full_name: Optional[Annotated[str, Field(min_length=1)]] = None
     is_professional: Optional[bool] = None
     is_active: Optional[bool] = None
     is_superuser: Optional[bool] = None
