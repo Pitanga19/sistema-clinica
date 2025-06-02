@@ -7,7 +7,7 @@ from app.core.exceptions import InvalidTokenError
 from app.modules.auth.schemas import TokenData
 
 # Contexto para hash de contraseñas
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 
 # Función para hashear contraseña
 def hash_password(password: str) -> str:
@@ -25,7 +25,7 @@ def create_access_token(
     to_encode = data.copy()
     tz = pytz.timezone(settings.JWT_TIMEZONE)
     expire = datetime.now(tz) + expires_delta
-    to_encode.update({"exp": expire})
+    to_encode.update({'exp': expire})
     encoded_jwt = jwt.encode(
         to_encode,
         settings.JWT_SECRET,
@@ -43,4 +43,4 @@ def verify_token(token: str) -> TokenData:
         )
         return TokenData(**payload)
     except JWTError:
-        raise InvalidTokenError("Token inválido o expirado")
+        raise InvalidTokenError('Token inválido o expirado')

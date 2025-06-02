@@ -10,17 +10,17 @@ class EvaluationBase(BaseModel):
     patient_id: Annotated[int, Field(..., gt=0)]
     professional_id: Annotated[int, Field(..., gt=0)]
     
-    @field_validator("closed_at", mode="before")
+    @field_validator('closed_at', mode='before')
     @classmethod
     def parse_closed_at(cls, value):
-        if value in (None, ""):
+        if value in (None, ''):
             return None
         if isinstance(value, datetime):
             return value
         try:
-            return datetime.strptime(value, "%d/%m/%y %H:%M")
+            return datetime.strptime(value, '%d/%m/%y %H:%M')
         except ValueError:
-            raise ValueError("closed_at debe tener formato DD/MM/AA HH:MM")
+            raise ValueError('closed_at debe tener formato DD/MM/AA HH:MM')
     
     model_config = {
         'from_attributes': True,
@@ -35,7 +35,7 @@ class EvaluationRead(EvaluationBase):
     def model_dump(self, **kwargs):
         data = super().model_dump(**kwargs)
         if self.closed_at:
-            data["closed_at"] = self.closed_at.strftime("%d/%m/%y %H:%M")
+            data['closed_at'] = self.closed_at.strftime('%d/%m/%y %H:%M')
         return data
 
 

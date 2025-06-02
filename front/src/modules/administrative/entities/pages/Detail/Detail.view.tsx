@@ -4,7 +4,7 @@ import { MainContainer } from '../../../../../shared/components/Containers'
 import { Title, Subtitle, Error } from '../../../../../shared/components/Typography'
 import { BaseButton, InLineButton } from '../../../../../shared/components/Buttons'
 import { List, ListItem, DetailItem, DetailTitle, DetailDescription } from '../../../../../shared/components/Lists'
-import type { Entity } from "../../types"
+import type { Entity } from '../../types'
 import type { Plan } from '../../../plans/types'
 
 interface EntitiesDetailViewProps {

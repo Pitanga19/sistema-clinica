@@ -1,5 +1,5 @@
-import type { People } from "../../administrative/people/types"
-import type { Mode } from "../../superuser/modes/types"
+import type { People } from '../../administrative/people/types'
+import type { Mode } from '../../superuser/modes/types'
 
 export interface EvaluationBase {
     report: string
@@ -33,5 +33,5 @@ export const evaluationDefaultData = {
     closedAt: null,
     patientId: 0,
     professional_Id: 0,
-    modeId: 0
+    modeId: 0,
 }

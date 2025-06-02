@@ -19,7 +19,7 @@ const NavBarView = ({ onToggleTheme, currentTheme, onBack, showBackButton, onHom
                     <FontAwesomeIcon icon={faArrowLeft} />
                 </NavBarButton>
             )}
-            <NavBarButton title="Inicio" onClick={onHome}>
+            <NavBarButton title='Inicio' onClick={onHome}>
                 <FontAwesomeIcon icon={faHome} /> Sistema Clínica
             </NavBarButton>
             <NavBarButton onClick={onToggleTheme}>

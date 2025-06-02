@@ -3,7 +3,7 @@ from typing import Annotated
 
 class Token(BaseModel):
     access_token: str
-    token_type: str = Field(default="bearer")
+    token_type: str = Field(default='bearer')
 
 class TokenData(BaseModel):
     id: Annotated[int, Field(...)]

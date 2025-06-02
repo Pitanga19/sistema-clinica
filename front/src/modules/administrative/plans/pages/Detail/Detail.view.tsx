@@ -3,8 +3,14 @@ import { faEdit, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { MainContainer } from '../../../../../shared/components/Containers'
 import { Title, Subtitle, Error } from '../../../../../shared/components/Typography'
 import { BaseButton, InLineButton } from '../../../../../shared/components/Buttons'
-import { List, ListItem, DetailItem, DetailTitle, DetailDescription } from '../../../../../shared/components/Lists'
-import type { Plan } from "../../types"
+import {
+    List,
+    ListItem,
+    DetailItem,
+    DetailTitle,
+    DetailDescription,
+} from '../../../../../shared/components/Lists'
+import type { Plan } from '../../types'
 import type { Entity } from '../../../entities/types'
 
 interface PlansDetailViewProps {

@@ -3,7 +3,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { MainContainer } from '../../../../../shared/components/Containers'
 import { Title, Subtitle, Error } from '../../../../../shared/components/Typography'
 import { BaseButton } from '../../../../../shared/components/Buttons'
-import type { Role } from "../../types"
+import type { Role } from '../../types'
 
 interface RolesDetailViewProps {
     role: Role | null
@@ -13,13 +13,7 @@ interface RolesDetailViewProps {
     onEdit: (roleId: number) => void
 }
 
-const RolesDetailView = ({
-    role,
-    loading,
-    loadingMsg,
-    error,
-    onEdit,
-}: RolesDetailViewProps) => {
+const RolesDetailView = ({ role, loading, loadingMsg, error, onEdit }: RolesDetailViewProps) => {
     if (!role) return
 
     return (

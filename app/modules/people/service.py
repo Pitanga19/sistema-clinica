@@ -111,7 +111,7 @@ async def remove_patient(person_id: int, db: AsyncSession) -> None:
     person = await get_by_person_id(person_id, db)
     
     if not person.is_patient:
-        raise ValidationError("Person is not a patient")
+        raise ValidationError('Person is not a patient')
     
     await patients_crud.delete(person.patient.id, db)
 

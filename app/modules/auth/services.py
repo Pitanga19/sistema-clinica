@@ -10,10 +10,10 @@ async def get_token(form_data: OAuth2PasswordBearer, db: AsyncSession) -> Token:
     user = await user_crud.get_by_username(form_data.username, db)
     
     if not user.is_active:
-        raise InactiveUserError("Usuario inactivo")
+        raise InactiveUserError('Usuario inactivo')
     
     if not verify_password(form_data.password, user.hashed_password):
-        raise IncorrectPasswordError("Contraseña incorrecta")
+        raise IncorrectPasswordError('Contraseña incorrecta')
     
     token_data = TokenData(
         id=user.id,
@@ -24,7 +24,7 @@ async def get_token(form_data: OAuth2PasswordBearer, db: AsyncSession) -> Token:
     )
     access_token = create_access_token(data=token_data.model_dump())
     
-    return Token(access_token=access_token, token_type="bearer")
+    return Token(access_token=access_token, token_type='bearer')
 
 async def update_password(
     req: PasswordUpdate,
@@ -32,12 +32,12 @@ async def update_password(
     db: AsyncSession,
 ) -> Token:
     if not req.new_password == req.confirm_password:
-        raise IncorrectPasswordError("Las contraseñas no coinciden")
+        raise IncorrectPasswordError('Las contraseñas no coinciden')
     
     user = await user_crud.get_by_id(user_data.id, db)
     
     if not verify_password(req.current_password, user.hashed_password):
-        raise IncorrectPasswordError("Contraseña actual incorrecta")
+        raise IncorrectPasswordError('Contraseña actual incorrecta')
     
     id = user_data.id
     update_data = UserUpdate(password = req.new_password)
@@ -52,4 +52,4 @@ async def update_password(
     )
     access_token = create_access_token(data=new_token_data.model_dump())
     
-    return Token(access_token=access_token, token_type="bearer")
+    return Token(access_token=access_token, token_type='bearer')

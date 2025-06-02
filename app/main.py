@@ -9,10 +9,10 @@ app = FastAPI(title=sett.PROJECT_NAME, version=sett.PROJECT_VERSION)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=['*'],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=['*'],
+    allow_headers=['*'],
 )
 
 register_custom_errors(app)

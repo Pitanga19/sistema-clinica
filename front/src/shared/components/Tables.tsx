@@ -1,4 +1,4 @@
-import type { ReactNode } from "react"
+import type { ReactNode } from 'react'
 import {
     StyledTable,
     StyledTableRow,
@@ -6,7 +6,7 @@ import {
     StyledTableHeaderCell,
     StyledTableBody,
     StyledTableCell,
-} from '../styles/Tables.styles';
+} from '../styles/Tables.styles'
 
 type TableProps = {
     children: ReactNode

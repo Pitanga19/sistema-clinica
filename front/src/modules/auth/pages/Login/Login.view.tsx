@@ -1,4 +1,10 @@
-import { MainContainer, CardContainer, FormContainer, InputContainer, ButtonContainer } from '../../../../shared/components/Containers'
+import {
+    MainContainer,
+    CardContainer,
+    FormContainer,
+    InputContainer,
+    ButtonContainer,
+} from '../../../../shared/components/Containers'
 import { TextInput } from '../../../../shared/components/Inputs'
 import { BaseButton } from '../../../../shared/components/Buttons'
 
@@ -26,8 +32,8 @@ const LoginView = ({
                 <FormContainer onSubmit={onSubmit}>
                     <InputContainer>
                         <TextInput
-                            type="text"
-                            id="username"
+                            type='text'
+                            id='username'
                             placeholder='Usuario'
                             value={username}
                             onChange={(e) => onUsernameChange(e.target.value)}
@@ -36,8 +42,8 @@ const LoginView = ({
                     </InputContainer>
                     <InputContainer>
                         <TextInput
-                            type="password"
-                            id="password"
+                            type='password'
+                            id='password'
                             placeholder='Contraseña'
                             value={password}
                             onChange={(e) => onPasswordChange(e.target.value)}
@@ -45,8 +51,8 @@ const LoginView = ({
                         />
                     </InputContainer>
                     <ButtonContainer>
-                        {error && <p className="error">{error}</p>}
-                        <BaseButton type="submit">Acceder</BaseButton>
+                        {error && <p className='error'>{error}</p>}
+                        <BaseButton type='submit'>Acceder</BaseButton>
                     </ButtonContainer>
                 </FormContainer>
             </CardContainer>

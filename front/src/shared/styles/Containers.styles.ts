@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const StyledConditionalContainer = styled.div<{ $show: boolean }>`
-    display: ${({ $show }) => ($show ? "flex" : "none")};
+    display: ${({ $show }) => ($show ? 'flex' : 'none')};
     flex-direction: column;
     gap: 1rem;
 `
@@ -23,7 +23,7 @@ export const StyledMainContainer = styled(StyledBaseContainer)`
 export const StyledCardContainer = styled(StyledBaseContainer)`
     align-items: center;
     background-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
     padding: 2rem 4rem;
     margin: auto;
 `

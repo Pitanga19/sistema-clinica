@@ -12,6 +12,6 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> TokenData:
     if not user.is_active:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Usuario inactivo"
+            detail='Usuario inactivo'
         )
     return user

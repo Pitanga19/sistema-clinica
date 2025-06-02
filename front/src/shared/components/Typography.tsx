@@ -1,5 +1,5 @@
-import type { ReactNode } from "react"
-import { StyledTitle, StyledSubtitle, StyledText, StyledError } from "../styles/Typography.styles"
+import type { ReactNode } from 'react'
+import { StyledTitle, StyledSubtitle, StyledText, StyledError } from '../styles/Typography.styles'
 
 type TypographyProps = {
     children: ReactNode

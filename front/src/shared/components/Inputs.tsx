@@ -1,4 +1,4 @@
-import type { ReactNode, InputHTMLAttributes, TextareaHTMLAttributes } from "react"
+import type { ReactNode, InputHTMLAttributes, TextareaHTMLAttributes } from 'react'
 import {
     StyledTextInput,
     StyledTextArea,
@@ -32,7 +32,7 @@ export const Option = (props: InputHTMLAttributes<HTMLOptionElement>) => {
 }
 
 export const Checkbox = (props: InputHTMLAttributes<HTMLInputElement>) => {
-    return <StyledCheckbox type="checkbox" {...props} />
+    return <StyledCheckbox type='checkbox' {...props} />
 }
 
 export const Label = ({ htmlFor, children }: LabelProps) => {

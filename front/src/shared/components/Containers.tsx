@@ -8,8 +8,8 @@ import {
     StyledButtonContainer,
     StyledTableFilterFormContainer,
     StyledTableFilterInputContainer,
-} from "../styles/Containers.styles"
-import type { ReactNode, FormHTMLAttributes, HTMLAttributes } from "react"
+} from '../styles/Containers.styles'
+import type { ReactNode, FormHTMLAttributes, HTMLAttributes } from 'react'
 
 interface ConditionalContainerProps {
     children: ReactNode
@@ -37,11 +37,7 @@ export const ConditionalContainer = ({
     id,
 }: ConditionalContainerProps) => {
     return (
-        <StyledConditionalContainer
-            $show={show}
-            className={className}
-            id={id}
-        >
+        <StyledConditionalContainer $show={show} className={className} id={id}>
             {children}
         </StyledConditionalContainer>
     )
@@ -71,19 +67,9 @@ export const CardContainer = ({ children, className, id }: ContainerProps) => {
     )
 }
 
-export const FormContainer = ({
-    children,
-    className,
-    id,
-    ...rest
-}: FormProps) => {
+export const FormContainer = ({ children, className, id, ...rest }: FormProps) => {
     return (
-        <StyledFormContainer
-            as="form"
-            className={className}
-            id={id}
-            {...rest}
-        >
+        <StyledFormContainer as='form' className={className} id={id} {...rest}>
             {children}
         </StyledFormContainer>
     )
@@ -105,29 +91,15 @@ export const ButtonContainer = ({ children, className, id }: ContainerProps) => 
     )
 }
 
-export const TableFilterFormContainer = ({
-    children,
-    className,
-    id,
-    ...rest
-}: FormProps) => {
+export const TableFilterFormContainer = ({ children, className, id, ...rest }: FormProps) => {
     return (
-        <StyledTableFilterFormContainer
-            as="form"
-            className={className}
-            id={id}
-            {...rest}
-        >
+        <StyledTableFilterFormContainer as='form' className={className} id={id} {...rest}>
             {children}
         </StyledTableFilterFormContainer>
     )
 }
 
-export const TableFilterInputContainer = ({
-    children,
-    className,
-    id,
-}: ContainerProps) => {
+export const TableFilterInputContainer = ({ children, className, id }: ContainerProps) => {
     return (
         <StyledTableFilterInputContainer className={className} id={id}>
             {children}
