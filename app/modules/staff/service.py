@@ -27,6 +27,7 @@ async def create(data: StaffCreate, db: AsyncSession) -> Staff:
             is_active=data.is_active,
             is_superuser=data.is_superuser,
             role_id=data.role_id,
+            password=data.password,
         )
         user = await users_crud.create(user_data, db)
     
@@ -43,22 +44,21 @@ async def create(data: StaffCreate, db: AsyncSession) -> Staff:
 
 
 async def get_by_user_id(user_id: int, db: AsyncSession) -> Staff | None:
-    user = await users_crud.get_by_id(user_id, db)
-    
-    if user.is_professional:
-        stmt = (
-            select(User)
-            .options(full_staff_load())
-            .where(User.id == user_id)
-        )
-        should_exist = True
-        search_fields = [utils.SearchField(field='user_id', value=user_id)]
-        return await utils.get_validated(stmt, should_exist, search_fields, db)
-    
-    return user
+    stmt = (
+        select(User)
+        .options(full_staff_load())
+        .where(User.id == user_id)
+    )
+    should_exist = True
+    search_fields = [utils.SearchField(field='user_id', value=user_id)]
+    return await utils.get_validated(stmt, should_exist, search_fields, db)
 
 async def get_filtered(filter: StaffFilter, db: AsyncSession) -> List[Staff]:
-    stmt = select(User)
+    stmt = (
+        select(User)
+        .outerjoin(User.professional)
+        .options(full_staff_load())
+    )
     
     filters = []
     
