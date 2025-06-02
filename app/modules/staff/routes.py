@@ -14,7 +14,7 @@ router = APIRouter(
 async def create_endpoint(data: StaffCreate, db: AsyncSession = Depends(get_db)) -> Staff:
     return await service.create(data, db)
 
-@router.get('by-user-id/{user_id}', response_model=Staff, status_code=200)
+@router.get('/by-user-id/{user_id}', response_model=Staff, status_code=200)
 async def get_by_user_id_endpoint(user_id: int, db: AsyncSession = Depends(get_db)) -> Staff | None:
     return await service.get_by_user_id(user_id, db)
 
@@ -33,7 +33,7 @@ async def update_staff_endpoint(
 ) -> Staff:
     return await service.update(user_id, data, db)
 
-@router.delete('remove-professional/{user_id}', status_code=204)
+@router.delete('/remove-professional/{user_id}', status_code=204)
 async def remove_professional_endpoint(
     user_id: int,
     db: AsyncSession = Depends(get_db)
