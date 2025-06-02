@@ -9,3 +9,4 @@ from app.db.tables.entities.model import Entity
 from app.db.tables.plans.model import Plan
 from app.db.tables.persons.model import Person
 from app.db.tables.patients.model import Patient
+from app.db.tables.evaluations.model import Evaluation
