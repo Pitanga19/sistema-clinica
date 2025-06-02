@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 from typing import Optional, Annotated
-from app.db.tables.professionals.schemas import ProfessionalRead, ProfessionalUpdate
-from app.db.tables.users.schemas import UserRead, UserUpdate
+from app.db.tables.professionals.schemas import ProfessionalRead, ProfessionalCreate, ProfessionalUpdate
+from app.db.tables.users.schemas import UserRead, UserCreate, UserUpdate
 
 class ProfessionalOut(ProfessionalRead):
     pass
@@ -12,8 +12,9 @@ class Staff(UserRead):
     class Config:
         from_attributes = True
 
-class StaffCreate(Staff):
-    pass
+class StaffCreate(UserCreate):
+    id: Annotated[Optional[int], Field(gt=0)] = None
+    professional: Optional[ProfessionalCreate] = None
 
 class StaffUpdate(UserUpdate, ProfessionalUpdate):
     pass
