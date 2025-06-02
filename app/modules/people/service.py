@@ -45,19 +45,14 @@ async def create(data: People, db: AsyncSession) -> Person:
     return await get_by_person_id(person.id, db)
 
 async def get_by_person_id(person_id: int, db: AsyncSession) -> Person | None:
-    person = await persons_crud.get_by_id(person_id, db)
-    
-    if person.is_patient:
-        stmt = (
-            select(Person)
-            .options(full_patient_load())
-            .where(Person.id == person_id)
-        )
-        should_exist = True
-        search_fields = [utils.SearchField(field='person_id', value=person_id)]
-        return await utils.get_validated(stmt, should_exist, search_fields, db)
-    
-    return person
+    stmt = (
+        select(Person)
+        .options(full_patient_load())
+        .where(Person.id == person_id)
+    )
+    should_exist = True
+    search_fields = [utils.SearchField(field='person_id', value=person_id)]
+    return await utils.get_validated(stmt, should_exist, search_fields, db)
 
 async def get_filtered(filter: PeopleFilter, db: AsyncSession) -> List[Person]:
     stmt = (
@@ -65,11 +60,7 @@ async def get_filtered(filter: PeopleFilter, db: AsyncSession) -> List[Person]:
         .outerjoin(Person.patient)
         .outerjoin(Patient.plan)
         .outerjoin(Plan.entity)
-        .options(
-            joinedload(Person.patient)
-            .joinedload(Patient.plan)
-            .joinedload(Plan.entity)
-        )
+        .options(full_patient_load())
     )
     
     filters = []
