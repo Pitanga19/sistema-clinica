@@ -27,5 +27,5 @@ export class PeopleService {
         return res.data
     }
 
-    static delete = (personId: number) =>api.delete<void>(`/people/${personId}`)
+    static delete = (personId: number) => api.delete<void>(`/people/${personId}`)
 }

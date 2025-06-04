@@ -10,7 +10,7 @@ interface PlanOut {
     entity: Partial<EntityOut>
 }
 
-interface patientOut {
+interface PatientOut {
     id: number
     clinicalHistoryNumber: string
     entityCode: string
@@ -27,7 +27,7 @@ export interface PeopleBase {
     email: string | null
     address: string
     isPatient:boolean
-    patient: Partial<patientOut> | null
+    patient: Partial<PatientOut>
 }
 
 export type People = PeopleBase & {
@@ -47,7 +47,7 @@ export type PeopleFormData = {
     email: string | null
     address: string
     isPatient:boolean
-    patient: patientOut
+    patient: PatientOut
 }
 
 export const peopleDefaultData = {
