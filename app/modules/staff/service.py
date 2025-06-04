@@ -12,7 +12,7 @@ from app.db.tables.professionals import crud as professionals_crud
 from app.db.tables.professionals.schemas import ProfessionalCreate
 
 def full_staff_load():
-    return joinedload(User.professional)
+    return [joinedload(User.role), joinedload(User.professional)]
 
 async def create(data: StaffCreate, db: AsyncSession) -> Staff:
     if data.id:
@@ -46,7 +46,7 @@ async def create(data: StaffCreate, db: AsyncSession) -> Staff:
 async def get_by_user_id(user_id: int, db: AsyncSession) -> Staff | None:
     stmt = (
         select(User)
-        .options(full_staff_load())
+        .options(*full_staff_load())
         .where(User.id == user_id)
     )
     should_exist = True
@@ -57,13 +57,13 @@ async def get_filtered(filter: StaffFilter, db: AsyncSession) -> List[Staff]:
     stmt = (
         select(User)
         .outerjoin(User.professional)
-        .options(full_staff_load())
+        .options(*full_staff_load())
     )
     
     filters = []
     
-    if filter.id:
-        filters.append(User.id == filter.id)
+    if filter.file:
+        filters.append(User.file == filter.file)
     if filter.username:
         filters.append(User.username.ilike(f'%{filter.username}%'))
     if filter.full_name:
@@ -72,8 +72,6 @@ async def get_filtered(filter: StaffFilter, db: AsyncSession) -> List[Staff]:
         filters.append(User.is_professional == filter.is_professional)
     if filter.is_active is not None:
         filters.append(User.is_active == filter.is_active)
-    if filter.is_superuser is not None:
-        filters.append(User.is_superuser == filter.is_superuser)
     if filter.role_id:
         filters.append(User.role_id == filter.role_id)
     if filters:
