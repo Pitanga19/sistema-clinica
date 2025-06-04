@@ -14,7 +14,7 @@ const Dashboard = () => {
 
     const navigateToRolesList = () => navigate('/roles')
 
-    const navigateToUsersList = () => navigate('/users')
+    const navigateToUsersList = () => navigate('/staff')
     
     const navigateToEntitiesList = () => navigate('/entities')
     
