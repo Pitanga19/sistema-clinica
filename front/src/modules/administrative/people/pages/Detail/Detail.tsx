@@ -20,7 +20,6 @@ const PeopleDetail = () => {
         }
         try {
             const fetchedPeople = await PeopleService.getByPersonId(Number(id))
-            console.log('fetchedPeople', fetchedPeople)
             setPeople(fetchedPeople)
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Error desconocido'

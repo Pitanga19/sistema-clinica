@@ -38,7 +38,6 @@ const PeopleCreate = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setError(null)
-        console.log('data', data)
 
         try {
             const newPeople = await PeopleService.create(data)
