@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { UserService } from '../../service'
+import { StaffService } from '../../service'
 import { RoleService } from '../../../roles/service'
-import { userDefaultData } from '../../types'
-import type { UserFormData } from '../../types'
+import { staffDefaultData } from '../../types'
+import type { StaffFormData } from '../../types'
 import type { Role } from '../../../roles/types'
-import UserFormView from '../../components/UserForm.view'
+import StaffFormView from '../../components/StaffForm.view'
 
-const UsersCreate = () => {
-    const [userData, setUserData] = useState<UserFormData>(userDefaultData)
+const StaffCreate = () => {
+    const [data, setData] = useState<StaffFormData>(staffDefaultData)
     const [roles, setRoles] = useState<Role[]>([])
     const [error, setError] = useState<string | null>(null)
     const navigate = useNavigate()
@@ -18,8 +18,8 @@ const UsersCreate = () => {
         setError(null)
 
         try {
-            const newUser = await UserService.create(userData)
-            navigate(`/users/detail/${newUser.id}`)
+            const newStaff = await StaffService.create(data)
+            navigate(`/staff/detail/${newStaff.id}`)
         } catch (error) {
             setError(`${error}`)
         }
@@ -33,21 +33,18 @@ const UsersCreate = () => {
         }
     }
 
-    const handleDataChange = (newData: Partial<UserFormData>) => {
-        setUserData((prev) => ({ ...prev, ...newData }))
+    const handleDataChange = (newData: Partial<StaffFormData>) => {
+        setData((prev) => ({ ...prev, ...newData }))
     }
 
     useEffect(() => {
-        const fetchData = async () => {
-            await fetchRoles()
-        }
-        fetchData()
-    })
+        fetchRoles()
+    }, [])
 
     return (
-        <UserFormView
-            currentUser={null}
-            data={userData}
+        <StaffFormView
+            currentStaff={null}
+            data={data}
             roles={roles}
             loading={false}
             error={error}
@@ -57,4 +54,4 @@ const UsersCreate = () => {
     )
 }
 
-export default UsersCreate
+export default StaffCreate

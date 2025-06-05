@@ -1,28 +1,25 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import UsersDetailView from './Detail.view'
-import { UserService } from '../../service'
-import type { User } from '../../types'
-import type { Role } from '../../../roles/types'
-import { RoleService } from '../../../roles/service'
+import { StaffService } from '../../service'
+import type { Staff } from '../../types'
+import StaffDetailView from './Detail.view'
 
-const UsersDetail = () => {
+const StaffDetail = () => {
     const { id } = useParams<{ id: string }>()
-    const [user, setUser] = useState<User | null>(null)
-    const [roles, setRoles] = useState<Role[]>([])
+    const [staff, setStaff] = useState<Staff | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
     const loadingMsg = 'Cargando usuario ...'
     const navigate = useNavigate()
 
-    const fetchUser = async () => {
+    const fetchStaff = async () => {
         if (!id) {
             setError('ID no proporcionado')
             setLoading(false)
             return
         }
         try {
-            setUser(await UserService.getById(Number(id)))
+            setStaff(await StaffService.getByUserId(Number(id)))
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Error desconocido'
             setError(errorMessage)
@@ -31,25 +28,15 @@ const UsersDetail = () => {
         }
     }
 
-    const fetchRoles = async () => {
-        try {
-            setRoles(await RoleService.getAll())
-        } catch (error) {
-            setError(`${error}`)
-        }
-    }
-
-    const handleEdit = (userId: number) => navigate(`/users/update/${userId}`)
+    const handleEdit = (staffId: number) => navigate(`/staff/update/${staffId}`)
 
     useEffect(() => {
-        fetchUser()
-        fetchRoles()
+        fetchStaff()
     }, [])
 
     return (
-        <UsersDetailView
-            user={user}
-            roles={roles}
+        <StaffDetailView
+            staff={staff}
             loading={loading}
             loadingMsg={loadingMsg}
             error={error}
@@ -58,4 +45,4 @@ const UsersDetail = () => {
     )
 }
 
-export default UsersDetail
+export default StaffDetail

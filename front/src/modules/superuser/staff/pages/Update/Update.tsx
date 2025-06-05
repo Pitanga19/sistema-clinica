@@ -1,35 +1,35 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { handleUserUpdateData } from '../../utils'
-import { UserService } from '../../service'
+import { handleStaffUpdateData } from '../../utils'
+import { StaffService } from '../../service'
 import { RoleService } from '../../../roles/service'
-import { userDefaultData } from '../../types'
-import type { User, UserFormData } from '../../types'
+import { staffDefaultData } from '../../types'
+import type { Staff, StaffFormData } from '../../types'
 import type { Role } from '../../../roles/types'
-import UserFormView from '../../components/UserForm.view'
+import StaffFormView from '../../components/StaffForm.view'
 
-const UsersUpdate = () => {
+const StaffUpdate = () => {
     const { id } = useParams<{ id: string }>()
-    const [currentUser, setCurrentUser] = useState<User | null>(null)
-    const [data, setData] = useState<UserFormData>(userDefaultData)
+    const [currentStaff, setCurrentStaff] = useState<Staff | null>(null)
+    const [data, setData] = useState<StaffFormData>(staffDefaultData)
     const [roles, setRoles] = useState<Role[]>([])
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
     const navigate = useNavigate()
 
-    const fetchUser = async () => {
+    const fetchStaff = async () => {
         if (!id) {
             setError('ID no proporcionado')
             setLoading(false)
             return
         }
         try {
-            const currentUser = await UserService.getById(Number(id))
-            setCurrentUser(currentUser)
+            const currentStaff = await StaffService.getByUserId(Number(id))
+            setCurrentStaff(currentStaff)
             setData({
                 ...data,
-                isActive: currentUser.isActive,
-                isSuperuser: currentUser.isSuperuser,
+                isActive: currentStaff.isActive,
+                isSuperuser: currentStaff.isSuperuser,
             })
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Error desconocido'
@@ -47,7 +47,7 @@ const UsersUpdate = () => {
         }
     }
 
-    const handleDataChange = (newData: Partial<UserFormData>) => {
+    const handleDataChange = (newData: Partial<StaffFormData>) => {
         setData((prev) => ({ ...prev, ...newData }))
     }
 
@@ -56,13 +56,13 @@ const UsersUpdate = () => {
         setLoading(true)
         setError(null)
 
-        if (!id || !currentUser || !data) return
+        if (!id || !currentStaff || !data) return
 
-        const updateData = handleUserUpdateData(data)
+        const updateData = handleStaffUpdateData(data)
 
         try {
-            await UserService.update(Number(id), updateData)
-            navigate(`/users/detail/${id}`)
+            await StaffService.update(Number(id), updateData)
+            navigate(`/staff/detail/${id}`)
         } catch (error) {
             setError(`${error}`)
         } finally {
@@ -71,13 +71,13 @@ const UsersUpdate = () => {
     }
 
     useEffect(() => {
-        fetchUser()
+        fetchStaff()
         fetchRoles()
     }, [])
 
     return (
-        <UserFormView
-            currentUser={currentUser}
+        <StaffFormView
+            currentStaff={currentStaff}
             data={data}
             roles={roles}
             loading={loading}
@@ -88,4 +88,4 @@ const UsersUpdate = () => {
     )
 }
 
-export default UsersUpdate
+export default StaffUpdate
