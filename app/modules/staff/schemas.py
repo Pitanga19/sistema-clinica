@@ -2,13 +2,18 @@ from pydantic import BaseModel, Field
 from typing import Optional, Annotated
 from app.db.tables.users.schemas import UserRead, UserCreate, UserUpdate
 from app.db.tables.roles.schemas import RoleRead
-from app.db.tables.professionals.schemas import ProfessionalRead, ProfessionalCreate, ProfessionalUpdate
+from app.db.tables.professionals.schemas import ProfessionalRead, ProfessionalUpdate
 
 class RoleOut(RoleRead):
     pass
 
 class ProfessionalOut(ProfessionalRead):
     pass
+
+class ProfessionalCreateData(BaseModel):
+    signature: Annotated[str, Field(..., min_length=3, max_length=120)]
+    national_registration: Annotated[Optional[int], Field(gt=99999, lt=1000000)] = None
+    provincial_registration: Annotated[Optional[int], Field(gt=99999, lt=1000000)] = None
 
 class Staff(UserRead):
     role: Optional[RoleOut] = None
@@ -19,7 +24,7 @@ class Staff(UserRead):
 
 class StaffCreate(UserCreate):
     id: Annotated[Optional[int], Field(gt=0)] = None
-    professional: Optional[ProfessionalCreate] = None
+    professional: Optional[ProfessionalCreateData] = None
 
 class StaffUpdate(UserUpdate, ProfessionalUpdate):
     pass
