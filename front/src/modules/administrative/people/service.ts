@@ -3,7 +3,7 @@ import type { People, PeopleCreate, PeopleFilter, PeopleUpdate } from './types'
 
 export class PeopleService {
     static create = async (data: PeopleCreate): Promise<People> => {
-        const res = await api.post('/people', data)
+        const res = await api.post('/people/', data)
         return res.data
     }
 
@@ -13,7 +13,7 @@ export class PeopleService {
     }
 
     static getFiltered = async (filters: PeopleFilter): Promise<People[]> => {
-        const res = await api.get('/people', { params: filters })
+        const res = await api.get('/people/', { params: filters })
         return res.data
     }
 

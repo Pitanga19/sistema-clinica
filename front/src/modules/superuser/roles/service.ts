@@ -3,7 +3,7 @@ import type { Role, RoleCreate, RoleUpdate } from './types'
 
 export class RoleService {
     static create = async (data: RoleCreate): Promise<Role> => {
-        const res = await api.post('/roles', data)
+        const res = await api.post('/roles/', data)
         return res.data
     }
 
@@ -23,7 +23,7 @@ export class RoleService {
     }
 
     static getAll = async (): Promise<Role[]> => {
-        const res = await api.get('/roles')
+        const res = await api.get('/roles/')
         return res.data
     }
 

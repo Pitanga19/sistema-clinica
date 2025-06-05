@@ -3,7 +3,7 @@ import type { Evaluation, EvaluationCreate, EvaluationUpdate } from './types'
 
 export class EvaluationService {
     static create = async (data: EvaluationCreate): Promise<Evaluation> => {
-        const res = await api.post('/evaluations', data)
+        const res = await api.post('/evaluations/', data)
         return res.data
     }
 
@@ -28,7 +28,7 @@ export class EvaluationService {
     }
 
     static getAll = async (): Promise<Evaluation[]> => {
-        const res = await api.get(`/evaluations`)
+        const res = await api.get(`/evaluations/`)
         return res.data
     }
 

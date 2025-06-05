@@ -3,7 +3,7 @@ import type { Entity, EntityCreate, EntityUpdate } from './types'
 
 export class EntityService {
     static create = async (data: EntityCreate): Promise<Entity> => {
-        const res = await api.post('/entities', data)
+        const res = await api.post('/entities/', data)
         return res.data
     }
 
@@ -18,7 +18,7 @@ export class EntityService {
     }
 
     static getAll = async (): Promise<Entity[]> => {
-        const res = await api.get('/entities')
+        const res = await api.get('/entities/')
         return res.data
     }
 

@@ -3,7 +3,7 @@ import type { Plan, PlanCreate, PlanUpdate } from './types'
 
 export class PlanService {
     static create = async (data: PlanCreate): Promise<Plan> => {
-        const res = await api.post('/plans', data)
+        const res = await api.post('/plans/', data)
         return res.data
     }
 
@@ -18,7 +18,7 @@ export class PlanService {
     }
 
     static getAll = async (): Promise<Plan[]> => {
-        const res = await api.get('/plans')
+        const res = await api.get('/plans/')
         return res.data
     }
 
