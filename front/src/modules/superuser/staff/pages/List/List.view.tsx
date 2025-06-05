@@ -69,8 +69,8 @@ const StaffListView = ({
                     <TableRow>
                         <TableHeaderCell>Legajo</TableHeaderCell>
                         <TableHeaderCell>Usuario</TableHeaderCell>
-                        <TableHeaderCell>Rol</TableHeaderCell>
                         <TableHeaderCell>Nombre Completo</TableHeaderCell>
+                        <TableHeaderCell>Rol</TableHeaderCell>
                         <TableHeaderCell>Es Activo</TableHeaderCell>
                         <TableHeaderCell>Es Superusuario</TableHeaderCell>
                         <TableHeaderCell>Es Profesional</TableHeaderCell>
@@ -85,8 +85,8 @@ const StaffListView = ({
                         <TableRow key={s.id}>
                             <TableCell>{s.file}</TableCell>
                             <TableCell>{s.username}</TableCell>
-                            <TableCell>{s.role?.name ?? ''}</TableCell>
                             <TableCell>{s.fullName}</TableCell>
+                            <TableCell>{s.role?.name ?? ''}</TableCell>
                             <TableCell>{booleanToString(s.isActive)}</TableCell>
                             <TableCell>{booleanToString(s.isSuperuser)}</TableCell>
                             <TableCell>{booleanToString(s.isProfessional)}</TableCell>
@@ -203,7 +203,7 @@ const StaffListView = ({
                     >
                         <Option value=''>Todos</Option>
                         <Option value='true'>Es profesional</Option>
-                        <Option value='false'>No es profesional</Option>
+                        <Option value='false'>Es administrativo</Option>
                     </TableFilterSelect>
                 </TableFilterInputContainer>
                 <TableFilterInputContainer>
