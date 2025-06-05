@@ -1,4 +1,5 @@
 import { useLocation, useRoutes } from 'react-router-dom'
+import { PageContainer } from './components/Containers'
 import NavBar from './components/NavBar/NavBar'
 import authRoutes from '../modules/auth/routes'
 import dashboardRoutes from '../modules/dashboard/routes'
@@ -23,7 +24,9 @@ const AppRoutes = () => {
     return (
         <>
             {showNavBar && <NavBar />}
-            {routes}
+            <PageContainer withNavBar={showNavBar}>
+                {routes}
+            </PageContainer>
         </>
     )
 }

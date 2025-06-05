@@ -6,6 +6,11 @@ export const StyledConditionalContainer = styled.div<{ $show: boolean }>`
     gap: 1rem;
 `
 
+export const StyledPageContainer = styled.div<{ $withNavBar: boolean }>`
+    padding-top: ${({ $withNavBar }) => ($withNavBar ? '2rem' : '0')};
+    min-height: 100vh;
+`
+
 export const StyledBaseContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -14,8 +19,15 @@ export const StyledBaseContainer = styled.div`
 `
 
 export const StyledMainContainer = styled(StyledBaseContainer)`
-    min-height: 100vh;
-    padding: 2rem;
+    height: 100%;
+    padding: 1rem;
+    background-color: ${({ theme }) => theme.background};
+    color: ${({ theme }) => theme.text};
+`
+
+export const StyledLoginContainer = styled(StyledBaseContainer)`
+    height: 100vh;
+    padding: 1rem;
     background-color: ${({ theme }) => theme.background};
     color: ${({ theme }) => theme.text};
 `

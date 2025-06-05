@@ -1,7 +1,9 @@
 import {
     StyledConditionalContainer,
+    StyledPageContainer,
     StyledBaseContainer,
     StyledMainContainer,
+    StyledLoginContainer,
     StyledCardContainer,
     StyledFormContainer,
     StyledInputContainer,
@@ -22,6 +24,7 @@ type ContainerProps = HTMLAttributes<HTMLDivElement> & {
     children: ReactNode
     className?: string
     id?: string
+    withNavBar?: boolean
 }
 
 type FormProps = FormHTMLAttributes<HTMLFormElement> & {
@@ -43,6 +46,17 @@ export const ConditionalContainer = ({
     )
 }
 
+export const PageContainer = ({ children, className, id, withNavBar=false }: ContainerProps) => {
+    return (
+        <StyledPageContainer
+        className={className}
+        id={id}
+        $withNavBar={withNavBar}>
+            {children}
+        </StyledPageContainer>
+    )
+}
+
 export const BaseContainer = ({ children, className, id }: ContainerProps) => {
     return (
         <StyledBaseContainer className={className} id={id}>
@@ -56,6 +70,14 @@ export const MainContainer = ({ children, className, id }: ContainerProps) => {
         <StyledMainContainer className={className} id={id}>
             {children}
         </StyledMainContainer>
+    )
+}
+
+export const LoginContainer = ({ children, className, id }: ContainerProps) => {
+    return (
+        <StyledLoginContainer className={className} id={id}>
+            {children}
+        </StyledLoginContainer>
     )
 }
 

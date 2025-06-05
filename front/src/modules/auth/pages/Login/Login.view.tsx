@@ -1,5 +1,5 @@
 import {
-    MainContainer,
+    LoginContainer,
     CardContainer,
     FormContainer,
     InputContainer,
@@ -26,7 +26,7 @@ const LoginView = ({
     onSubmit,
 }: LoginViewProps) => {
     return (
-        <MainContainer>
+        <LoginContainer>
             <CardContainer>
                 <h2>Iniciar sesión</h2>
                 <FormContainer onSubmit={onSubmit}>
@@ -56,7 +56,7 @@ const LoginView = ({
                     </ButtonContainer>
                 </FormContainer>
             </CardContainer>
-        </MainContainer>
+        </LoginContainer>
     )
 }
 
